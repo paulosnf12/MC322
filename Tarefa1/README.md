@@ -8,23 +8,13 @@ Este projeto simula um jogo narrativo de RPG, com heróis enfrentando monstros e
 
 ### 🔹 Classe Abstrata: `Personagem`
 
-Classe base para todos os personagens do jogo.
-
 ### 🔹 Classe Abstrata: `Heroi`
-
-Deriva de `Personagem`. Define comportamentos e atributos básicos de um herói.
 
 ### 🔹 Classes Concretas de Heróis
 
-Implementações específicas de heróis com características únicas.
-
 ### 🔹 Classe Abstrata: `Monstro`
 
-Também herda de `Personagem`. Define as bases para monstros no jogo.
-
 ### 🔹 Classe Concreta de Monstro
-
-Implementação específica de um monstro com suas habilidades e atributos.
 
 ---
 
@@ -40,4 +30,5 @@ Simula a execução do jogo:
   - Caso contrário, o desafio é **falho**.
 
 ---
+
 
