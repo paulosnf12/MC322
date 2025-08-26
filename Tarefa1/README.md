@@ -1,18 +1,21 @@
-## Getting Started
+# Tarefa 1 MC322 - RPG - Jogo Narrativo
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Classes
 
-## Folder Structure
+## Classe Abstrata Personagem
 
-The workspace contains two folders by default, where:
+## Classe Abstrata Heroi
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Classes Concretas de Herois
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Classe Abstrata Monstro
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Classe Concreta de Monstro
 
-## Dependency Management
+## Classe Main (Cenário de Sobrevivência)
+  -Criação dos Personagens:
+  -Apresentação do Desafio:
+  -Simulação dos Turnos em Loop:
+  -Conclusão do Desafio:
+    -Herói sobreviver 3 turnos --> vitória
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
