@@ -22,13 +22,13 @@ Este projeto simula um jogo narrativo de RPG, com heróis enfrentando monstros e
 
 Simula a execução do jogo:
 
-- **Criação dos Personagens:** Heróis e monstros são instanciados com atributos definidos.
-- **Apresentação do Desafio:** O objetivo é sobrevivência durante um número de turnos.
-- **Simulação dos Turnos em Loop:** A cada turno, ações são executadas entre heróis e monstros.
+- **Criação dos Personagens:** 
+- **Apresentação do Desafio:** 
+- **Simulação dos Turnos em Loop:** 
 - **Conclusão do Desafio:**
   - Se o herói sobreviver por **3 turnos**, ocorre **vitória**.
-  - Caso contrário, o desafio é **falho**.
 
 ---
+
 
 
