@@ -3,7 +3,7 @@ public class Elfo extends Heroi {
 
     // atributos
 
-    private Arcos arcos; // terá um tipo de arco
+    private Arcos arcos; // terá um tipo de arco da classe Arco
     private String tipoDeArco; // string para indicar tipo de arco (nome)
     private int danoAtual;
 

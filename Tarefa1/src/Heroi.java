@@ -3,9 +3,12 @@ public abstract class Heroi extends Personagem {
     // atributos
 
     // todos os heróis terão nível/experiencia (pode ter mais alguma coisa)
+    // ADICIONAR: Herois e monstros devem ter atributos e descricoes de ações 
+    // (ataques, habilidades) que os tornem unicos entre si.
 
     private int nivel;
     private int experiencia;
+    
 
     // construtor
 
