@@ -1,19 +1,28 @@
 public class Elfo extends Heroi {
 
-    private Arcos arcos;
-    private String tipoDeArco;
+
+    // atributos
+
+    private Arcos arcos; // terá um tipo de arco
+    private String tipoDeArco; // string para indicar tipo de arco (nome)
     private int danoAtual;
+
+    // construtor
 
     public Elfo(String nome, int pontosDeVida, int forca, int nivel, int experiencia, Arcos arcos) {
         super(nome, pontosDeVida, forca, nivel, experiencia);
-        this.arcos = arcos;
-        atualizarArco();
+        this.arcos = arcos; // exemplo arcoBeta no inicio (ou quando for atualizar)
+        atualizarArco(); // metodo atualizar arco se subir de experiencia (não sei se precisa ser no construtor)
     }
+
+
+    // métodos
+
 
     // Atualiza o arco conforme o nível/experiência
     public void atualizarArco() {
-        int experiencia = getExperiencia(); // supondo que você tenha um getter em Heroi
-        if (experiencia < 100) {
+        int experiencia = getExperiencia(); // vai verificar experiência do elfo
+        if (experiencia < 100) { 
             tipoDeArco = "Beta";
             danoAtual = arcos.getDanoBeta();
         } else if (experiencia < 200) {
@@ -28,7 +37,7 @@ public class Elfo extends Heroi {
     @Override
     public void ganharExperiencia(int exp) {
         super.ganharExperiencia(exp);
-        atualizarArco();
+        atualizarArco(); // chama atualizar arco a cada vez que ele (elfo) ganhar experiencia
     }
 
     @Override

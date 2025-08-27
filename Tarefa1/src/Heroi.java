@@ -2,6 +2,8 @@ public abstract class Heroi extends Personagem {
 
     // atributos
 
+    // todos os heróis terão nível/experiencia (pode ter mais alguma coisa)
+
     private int nivel;
     private int experiencia;
 
@@ -25,14 +27,20 @@ public abstract class Heroi extends Personagem {
         }
     }
 
+
+    // **novo** 
+    public int getExperiencia(){ // retorna experiencia do herói (público)
+        return experiencia;
+    }
+
+
     @Override
-    public String exibirStatus() {
+    public String exibirStatus() { // exibe status atual do herói
         return super.exibirStatus() + ", Nível = " + nivel + ", Experiência = " + experiencia;
     }
 
     // método abstrato
 
-    public abstract void usarHabilidadeEspecial(Personagem alvo);
-
+    public abstract void usarHabilidadeEspecial(Personagem alvo); // exclusiva do herói --> será especificada/utilizada em cada herói especifico
 }
     

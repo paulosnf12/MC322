@@ -3,12 +3,16 @@ public class Arcos {
     // atributos
 
     // ao aumentar o nível de xp, você aumenta a força do arco
+
+    // tipos de arco (indicados pelo dano): Beta, Alpha e Sigma
+
     private int danoBeta;
     private int danoAlpha;
     private int danoSigma;
 
     // construtor
 
+    // coloca os danos nos respectivos arcos
     public Arcos(int danoBeta, int danoAlpha, int danoSigma){
         this.danoBeta = danoBeta;
         this.danoAlpha = danoAlpha;
@@ -16,6 +20,8 @@ public class Arcos {
     }
 
     // metodos
+
+    // getters para retornar os danos dos arcos
 
     public int getDanoBeta(){
         return danoBeta;

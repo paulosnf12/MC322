@@ -1,4 +1,4 @@
-public abstract class Personagem {
+public abstract class Personagem { // serve tanto para herói quanto monstro
     // atributos
 
     private String nome;
