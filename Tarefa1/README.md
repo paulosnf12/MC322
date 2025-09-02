@@ -1,10 +1,10 @@
-# 🛡️ Tarefa 1 - MC322: RPG - Jogo Narrativo
+# Tarefa 1 - MC322: RPG - Jogo Narrativo
 
 Este projeto simula um jogo narrativo de RPG, com heróis enfrentando monstros em um cenário de sobrevivência.
 
 ---
 
-## 📦 Estrutura de Classes
+## Estrutura de Classes
 
 ### 🔹 Classe Abstrata: `Personagem`
 
@@ -18,7 +18,7 @@ Este projeto simula um jogo narrativo de RPG, com heróis enfrentando monstros e
 
 ---
 
-## 🎮 Classe Principal (`Main`) - Cenário de Sobrevivência
+## Classe Principal (`Main`) - Cenário de Sobrevivência
 
 Simula a execução do jogo:
 
@@ -30,5 +30,18 @@ Simula a execução do jogo:
 
 ---
 
+Implementar:
 
+*atributo único para cada herói
 
+--
+
+-fazer pelo menos 2 classes de monstros 
+
+--
+
+fazer a main
+	
+
+ 1 turno --> é um loop que executa 3 vezes
+		cada turno
