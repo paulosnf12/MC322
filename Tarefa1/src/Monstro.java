@@ -2,7 +2,7 @@ public abstract class Monstro extends Personagem {
 
     // atributos
 
-    private int xpConcedido;
+    protected  int xpConcedido;
 
     // construtor
 
@@ -18,6 +18,4 @@ public abstract class Monstro extends Personagem {
     public String exibirStatus() {
         return super.exibirStatus() + ", XP Concedido = " + xpConcedido;
     }
-
-    
 }

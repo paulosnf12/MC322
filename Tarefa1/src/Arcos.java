@@ -12,7 +12,8 @@ public class Arcos {
 
     // construtor
 
-    // coloca os danos nos respectivos arcos
+    // personaliza os danos nos respectivos arcos (manual)
+
     public Arcos(int danoBeta, int danoAlpha, int danoSigma){
         this.danoBeta = danoBeta;
         this.danoAlpha = danoAlpha;

@@ -6,8 +6,8 @@ public abstract class Heroi extends Personagem {
     // ADICIONAR: Herois e monstros devem ter atributos e descricoes de ações 
     // (ataques, habilidades) que os tornem unicos entre si.
 
-    private int nivel;
-    private int experiencia;
+    protected  int nivel; 
+    protected  int experiencia;
     
 
     // construtor
@@ -35,7 +35,6 @@ public abstract class Heroi extends Personagem {
     public int getExperiencia(){ // retorna experiencia do herói (público)
         return experiencia;
     }
-
 
     @Override
     public String exibirStatus() { // exibe status atual do herói

@@ -1,9 +1,9 @@
 public abstract class Personagem { // serve tanto para herói quanto monstro
     // atributos
 
-    private String nome;
-    private int pontosDeVida;
-    private int forca;
+    protected  String nome;
+    protected  int pontosDeVida;
+    protected  int forca;
 
     // construtor
 
@@ -26,6 +26,14 @@ public abstract class Personagem { // serve tanto para herói quanto monstro
     public void receberDano(int dano){
         int vida = getpontosdevida() - dano;
         setpontosdevida(vida);
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public int getForca(){
+        return forca;
     }
 
     public String exibirStatus(){
