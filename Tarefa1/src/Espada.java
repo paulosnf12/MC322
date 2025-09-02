@@ -2,33 +2,33 @@ public class Espada {
 
     // atributos
     
-    // tipos de espada: Ferro, Prata, Ouro
+    // tipos de espada: Madeira, Ferro, Diamante
 
+    private int danoMadeira;
     private int danoFerro;
-    private int danoPrata;
-    private int danoOuro;
+    private int danoDiamante;
 
     // construtor
     
     // personaliza os danos das espadas
-    public Espada(int danoFerro, int danoPrata, int danoOuro) {
+    public Espada(int danoMadeira, int danoFerro, int danoDiamante) {
+        this.danoMadeira = danoMadeira;
         this.danoFerro = danoFerro;
-        this.danoPrata = danoPrata;
-        this.danoOuro = danoOuro;
+        this.danoDiamante = danoDiamante;
     }
 
     // métodos
 
     // getters para retornar os danos das espadas
+    public int getDanoMadeira() {
+        return danoMadeira;
+    }
+
     public int getDanoFerro() {
         return danoFerro;
     }
 
-    public int getDanoPrata() {
-        return danoPrata;
-    }
-
-    public int getDanoOuro() {
-        return danoOuro;
+    public int getDanoDiamante() {
+        return danoDiamante;
     }
 }

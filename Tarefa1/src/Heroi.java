@@ -8,12 +8,14 @@ public abstract class Heroi extends Personagem {
 
     protected  int nivel; 
     protected  int experiencia;
+
+    protected int agilidade; // influencia na chance de acerto
     
 
     // construtor
 
-    public Heroi(String nome, int pontosDeVida, int forca, int nivel, int experiencia) {
-        super(nome, pontosDeVida, forca);
+    public Heroi(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia) {
+        super(nome, pontosDeVida, forca, agilidade);
         this.nivel = nivel;
         this.experiencia = experiencia;
     }

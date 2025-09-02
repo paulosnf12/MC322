@@ -6,8 +6,8 @@ public class Paladino extends Heroi {
     private int danoEspada; // dano atual da espada
 
     // construtor
-    public Paladino(String nome, int pontosDeVida, int forca, int nivel, int experiencia, Espada espada) {
-        super(nome, pontosDeVida, forca, nivel, experiencia);
+    public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Espada espada) {
+        super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
         this.espada = espada;
         atualizarEspada();
     }
@@ -17,14 +17,14 @@ public class Paladino extends Heroi {
         int experiencia = getExperiencia();
 
         if (experiencia < 100) {
+            tipoDeEspada = "Madeira";
+            danoEspada = espada.getDanoMadeira();
+        } else if (experiencia < 200) {
             tipoDeEspada = "Ferro";
             danoEspada = espada.getDanoFerro();
-        } else if (experiencia < 200) {
-            tipoDeEspada = "Prata";
-            danoEspada = espada.getDanoPrata();
         } else {
-            tipoDeEspada = "Ouro";
-            danoEspada = espada.getDanoOuro();
+            tipoDeEspada = "Diamante";
+            danoEspada = espada.getDanoDiamante();
         }
     }
 

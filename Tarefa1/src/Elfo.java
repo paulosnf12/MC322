@@ -11,8 +11,8 @@ public class Elfo extends Heroi {
 
 
     // construtor
-    public Elfo(String nome, int pontosDeVida, int forca, int nivel, int experiencia, Arcos arcos) {
-        super(nome, pontosDeVida, forca, nivel, experiencia);
+    public Elfo(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Arcos arcos) {
+        super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
         this.arcos = arcos; // exemplo arcoBeta no inicio (ou quando for atualizar)
         atualizarArco(); // metodo atualizar arco se subir de experiencia (não sei se precisa ser no construtor)
     }

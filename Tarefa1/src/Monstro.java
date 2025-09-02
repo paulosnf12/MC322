@@ -6,8 +6,8 @@ public abstract class Monstro extends Personagem {
 
     // construtor
 
-    public Monstro(String nome, int pontosDeVida, int forca, int xpConcedido) {
-        super(nome, pontosDeVida, forca);
+    public Monstro(String nome, int pontosDeVida, int forca, int agilidade, int xpConcedido) {
+        super(nome, pontosDeVida, forca, agilidade);
         this.xpConcedido = xpConcedido;
     }
 

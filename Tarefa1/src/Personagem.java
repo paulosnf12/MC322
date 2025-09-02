@@ -5,12 +5,15 @@ public abstract class Personagem { // serve tanto para herói quanto monstro
     protected  int pontosDeVida;
     protected  int forca;
 
+    protected int agilidade; // influencia na chance de acerto
+
     // construtor
 
-    public Personagem(String nome, int pontosDeVida, int forca){
+    public Personagem(String nome, int pontosDeVida, int forca, int agilidade) {
         this.nome = nome;
         this.pontosDeVida = pontosDeVida;
         this.forca = forca;
+        this.agilidade = agilidade;
     }
 
     // metodos
@@ -37,7 +40,11 @@ public abstract class Personagem { // serve tanto para herói quanto monstro
     }
 
     public String exibirStatus(){
-        return "Nome = " + nome + ", Vida = " + pontosDeVida + "Força = " + forca;
+        return "Nome = " + nome + ", Vida = " + pontosDeVida + "\nForça = " + forca;
+    }
+
+    public int getAgilidade() {
+        return agilidade;
     }
 
     // método abstrato
