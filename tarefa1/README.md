@@ -51,8 +51,6 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
   <img src="estrutura.png" alt="Estrutura do projeto"/>
 </p>
 
-![Estrutura do Projeto](estrutura.png)
-
 **Explicação das Classes:**
 
 *   **`Personagem.java` (Classe Abstrata):** Base para todas as entidades vivas no jogo. Define atributos comuns como `nome`, `pontosDeVida`, `forca` e métodos abstratos como `atacar()`.
@@ -88,5 +86,6 @@ Para compilar e executar o projeto, siga os passos abaixo (utilizando os mesmos 
     ```
 
 Certifique-se de que a sua classe `Main` (ou equivalente, caso utilize pacotes) contenha o método `public static void main(String[] args)` e esteja organizada de acordo com a estrutura de diretórios definida para que a compilação e execução ocorram corretamente.
+
 
 
