@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
         
                         // Criação dos Personagens (e Monstros)
@@ -27,8 +27,16 @@ public class App {
 
 
         
-        // Criação dos monstros (Goblin, Vampiro ou Kaonashi (Sem Rosto))
+        // Criação dos monstros
 
+        Vampiro edward = new Vampiro("Edward Cullen", 120, 10, 15, 0, 80);
+        System.out.println("Status inicial do vampiro: 1");
+        System.out.println(edward.exibirStatus());  
+        
+        Espirito kaonashi = new Espirito("Kaonashi", 100, 15, 10, 0, 70);
+        System.out.println("Status inicial do monstro 2:");
+        System.out.println(kaonashi.exibirStatus());
+    
         Goblin goblin1 = new Goblin("Goblin Guerreiro", 80, 10, 8, 50, "Clava", 5, 0.3);
         System.out.println("Status inicial do monstro 1:");
         System.out.println(goblin1.exibirStatus());
@@ -46,12 +54,12 @@ public class App {
 
         // Criação array para monstros
 
-        Goblin[] monstros = {goblin1, goblin2, goblin3};
+       Monstro[] monstros = {edward, kaonashi, goblin1};
 
 
         // Mensagem Inicial
 
-        System.out.println("O herói entra na masmorra para enfrentar três desafios!");
+        System.out.println("O herói entra na arena Street Fighter para enfrentar três desafios consecutivos!");
 
         System.out.println();
 
@@ -67,7 +75,7 @@ public class App {
 
         // Loop de batalhas (cada monstro)
         for (int i = 0; i < monstros.length; i++) {
-            Goblin monstro = monstros[i];
+            Monstro monstro = monstros[i];
             System.out.println("Batalha " + (i + 1) + ": Surge o " + monstro.getNome() + "!");
             System.out.println(monstro.exibirStatus());
             System.out.println();
@@ -96,13 +104,11 @@ public class App {
                     int rolagemMonstro = rand.nextInt(20) + 1; // 1d20
                     System.out.println("Monstro rola 1d20: " + rolagemMonstro);
                     if (rolagemMonstro >= elfo.getAgilidade()) {
-                        int dano = monstro.getForca() + monstro.danoArma;
                         if (rolagemMonstro == 20) {
-                            dano *= 2;
                             System.out.println("Ataque crítico do monstro!");
+                        
                         }
-                        elfo.receberDano(dano);
-                        System.out.println(monstro.getNome() + " atacou com " + monstro.tipoDeArma + " causando " + dano + " de dano!");
+                        monstro.atacar(elfo); // Chama o método correto de cada monstro
                     } else {
                         System.out.println("O ataque do monstro errou!");
                     }
