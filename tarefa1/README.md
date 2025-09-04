@@ -47,6 +47,10 @@ A classe `Main` simula um desafio de sobrevivência. Neste cenário, um único h
 ## Estrutura do Projeto
 
 O projeto está organizado na seguinte estrutura de diretórios e classes, refletindo a abordagem orientada a objetos:
+<p align="center">
+  <img src="estrutura.png" alt="Estrutura do projeto"/>
+</p>
+
 ![Estrutura do Projeto](estrutura.png)
 
 **Explicação das Classes:**
@@ -84,4 +88,5 @@ Para compilar e executar o projeto, siga os passos abaixo (utilizando os mesmos 
     ```
 
 Certifique-se de que a sua classe `Main` (ou equivalente, caso utilize pacotes) contenha o método `public static void main(String[] args)` e esteja organizada de acordo com a estrutura de diretórios definida para que a compilação e execução ocorram corretamente.
+
 
