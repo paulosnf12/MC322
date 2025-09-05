@@ -14,26 +14,21 @@ public class Elfo extends Heroi {
     public Elfo(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Arcos arcos) {
         super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
         this.arcos = arcos; // exemplo arcoBeta no inicio (ou quando for atualizar)
-        atualizarArco(); // metodo atualizar arco se subir de experiencia (não sei se precisa ser no construtor)
+        atualizarArco(); // metodo atualizar arco se subir de experiencia
     }
 
 
     // métodos
-
-
-    // Atualiza o arco conforme o nível/experiência
-
+    // Método para atualizar o arco com base no NÍVEL
     public void atualizarArco() {
-
-        int experiencia = getExperiencia(); // vai verificar experiência do elfo
-
-        if (experiencia < 100) { 
+        int nivelAtual = getNivel(); // obtém o nível atual do Elfo
+        if (nivelAtual < 2) { // Nível 1 usa Beta
             tipoDeArco = "Beta";
             danoArco = arcos.getDanoBeta();
-        } else if (experiencia < 200) {
+        } else if (nivelAtual < 3) { // Nível 2 usa Alpha
             tipoDeArco = "Alpha";
             danoArco = arcos.getDanoAlpha();
-        } else {
+        } else { // Nível 3 ou superior usa Sigma
             tipoDeArco = "Sigma";
             danoArco = arcos.getDanoSigma();
         }
@@ -41,8 +36,10 @@ public class Elfo extends Heroi {
 
     @Override
     public void ganharExperiencia(int exp) {
+        // primeiro, chama o método da superclasse para processar o ganho de XP e o possível nível-up
         super.ganharExperiencia(exp);
-        atualizarArco(); // chama atualizar arco a cada vez que ele (elfo) ganhar experiencia
+        // dps atualiza o arco pq o nível pode ter mudado
+        atualizarArco();
     }
 
 

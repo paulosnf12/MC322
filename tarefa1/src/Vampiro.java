@@ -8,9 +8,9 @@ public class Vampiro extends Monstro {
 
     @Override
     public void atacar(Personagem alvo) {
-        int dano = this.forca + this.brilho; // quanto maior o brilho, maior o dano
+        int dano = this.forca + (this.brilho / 10); // quanto maior o brilho, maior o dano
         alvo.receberDano(dano);
-        System.out.println(nome + " ataca com suas presas! Brilho: " + brilho + ". Dano causado: " + dano);
+        System.out.println(nome + " ataca com seu brilho! Brilho: " + brilho + ". Dano causado: " + dano);
     }
 
     @Override

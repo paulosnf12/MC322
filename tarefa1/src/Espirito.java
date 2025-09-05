@@ -8,7 +8,7 @@ public class Espirito extends Monstro {
 
     @Override
 public void atacar(Personagem alvo) {
-    int dano = this.forca * this.tristeza; // quanto maior a tristeza, maior o dano
+    int dano = this.forca + (this.tristeza / 10); // quanto maior a tristeza, maior o dano
     alvo.receberDano(dano);
     System.out.println(nome + " está triste, ele não gosta de ficar triste... Tristeza: " + tristeza + ". Dano causado: " + dano);
     }

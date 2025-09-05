@@ -2,14 +2,8 @@ public abstract class Heroi extends Personagem {
 
     // atributos
 
-    // todos os heróis terão nível/experiencia (pode ter mais alguma coisa)
-    // ADICIONAR: Herois e monstros devem ter atributos e descricoes de ações 
-    // (ataques, habilidades) que os tornem unicos entre si.
-
     protected  int nivel; 
     protected  int experiencia;
-
-    protected int agilidade; // influencia na chance de acerto
     
 
     // construtor
@@ -23,6 +17,11 @@ public abstract class Heroi extends Personagem {
 
     // metodos
 
+    public int getNivel() {
+        return nivel;
+    }
+    
+    // método para ganhar experiência e subir de nível
     public void ganharExperiencia(int exp) {
         experiencia += exp;
         if (experiencia >= 100) {
@@ -33,7 +32,7 @@ public abstract class Heroi extends Personagem {
     }
 
 
-    // **novo** 
+
     public int getExperiencia(){ // retorna experiencia do herói (público)
         return experiencia;
     }

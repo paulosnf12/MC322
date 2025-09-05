@@ -11,10 +11,13 @@ public abstract class Monstro extends Personagem {
         this.xpConcedido = xpConcedido;
     }
 
-    // metodos
+    // métodos
+
+    public int getXpConcedido() {
+        return xpConcedido;
+    }
 
     @Override
-    
     public String exibirStatus() {
         return super.exibirStatus() + ", XP Concedido = " + xpConcedido;
     }
