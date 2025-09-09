@@ -7,7 +7,7 @@ método. Retorna uma lista de Fases com dificuldade crescente (nível da fase). 
 
 import java.util.ArrayList;
 
-public static class ConstrutorDeCenario {
+public class ConstrutorDeCenario {
 
     public static ArrayList<Fase> gerarFases(int nFases) {
         ArrayList<Fase> fases = new ArrayList<>();
@@ -17,9 +17,37 @@ public static class ConstrutorDeCenario {
             String ambiente = "Ambiente da Fase " + i;
             ArrayList<Monstro> monstros = new ArrayList<>();
 
-            // Adiciona monstros à fase com dificuldade crescente
             for (int j = 0; j < i; j++) {
-                monstros.add(new Monstro("Monstro " + (j + 1) + " da Fase " + i, i * 10, i * 2));
+                if (j % 3 == 0) {
+                    monstros.add(new Goblin(
+                        "Goblin " + (j + 1) + " da Fase " + i,
+                        i * 10,
+                        i * 2,
+                        i,
+                        i * 5,
+                        "Adaga",
+                        3 + i,
+                        0.2 + (i * 0.05)
+                    ));
+                } else if (j % 3 == 1) {
+                    monstros.add(new Vampiro(
+                        "Vampiro " + (j + 1) + " da Fase " + i,
+                        i * 12,
+                        i * 3,
+                        i + 1,
+                        i * 6,
+                        10 + i * 2
+                    ));
+                } else {
+                    monstros.add(new Espirito(
+                        "Espirito " + (j + 1) + " da Fase " + i,
+                        i * 8,
+                        i * 1,
+                        i + 2,
+                        i * 4,
+                        15 + i * 3
+                    ));
+                }
             }
 
             fases.add(new Fase(nivel, ambiente, monstros));

@@ -9,6 +9,8 @@ public class Elfo extends Heroi {
 
     private int danoArco; // dano atual do arco 
 
+    private int cura; // atributo único --> faz o elfo se curar um pouco a cada ataque (5% do dano do arco)
+
 
     // construtor
     public Elfo(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Arcos arcos) {

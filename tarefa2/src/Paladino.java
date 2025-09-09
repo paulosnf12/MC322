@@ -5,6 +5,12 @@ public class Paladino extends Heroi {
     private String tipoDeEspada; // indica o tipo de espada utilizada
     private int danoEspada; // dano atual da espada
 
+
+    private int carisma; // atributo único --> faz a espada ficar mágica 
+                        // funciona com a sorte, se acertar o ataque, rola sorte, se for 1, adiciona carisma ao ataque
+
+
+
     // construtor
     public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Espada espada) {
         super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);

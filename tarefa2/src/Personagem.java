@@ -7,6 +7,8 @@ public abstract class Personagem { // serve tanto para herói quanto monstro
 
     protected int agilidade; // influencia na chance de acerto
 
+    protected Arma arma; // arma equipada
+
     // construtor
 
     public Personagem(String nome, int pontosDeVida, int forca, int agilidade) {
