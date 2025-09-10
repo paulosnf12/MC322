@@ -1,4 +1,4 @@
-# RPG - Jogo Narrativo MC322
+# RPG - Jogo Narrativo
 
 Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). O jogo simula um ambiente de aventura onde um herói enfrenta múltiplos desafios em fases distintas, com progressão de nível, combate dinâmico e sistema de itens.
 
@@ -44,46 +44,19 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
 
 1.  **Clone o Repositório**:
     ```bash
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    cd seu-repositorio
-    ```
-    (Substitua `seu-usuario/seu-repositorio` pelo caminho correto do seu projeto no GitHub)
-
-2.  **Estrutura de Diretórios**:
-    Certifique-se de que seus arquivos `.java` estão organizados dentro de um diretório `src/`. Por exemplo:
-    ```
-    .
-    ├── src/
-    │   ├── Arcos.java
-    │   ├── Arma.java
-    │   ├── ConstrutorDeCenario.java
-    │   ├── Elfo.java
-    │   ├── Espada.java
-    │   ├── Espirito.java
-    │   ├── Fase.java
-    │   ├── Goblin.java
-    │   ├── Heroi.java
-    │   ├── Main.java
-    │   ├── Monstro.java
-    │   ├── Paladino.java
-    │   └── Personagem.java
-    └── README.md
+    git clone https://github.com/paulosnf12/MC322.git
+    cd MC322
     ```
 
 3.  **Compile o Código**:
-    Navegue até o diretório raiz do projeto (`seu-repositorio`) no terminal e compile:
+    Dentro do diretório raiz do projeto (MC322) no terminal, compile:
     ```bash
-    mkdir -p bin # Cria o diretório bin se ele não existir
-    javac -d bin $(find src -name "*.java")
-    ```
-    *Se seus arquivos `.java` estiverem diretamente na raiz do projeto (não recomendado para projetos maiores), você pode usar:*
-    ```bash
-    mkdir -p bin
-    javac -d bin *.java
+   cd tarefa2
+   javac -d bin $(find src -name "*.java")
     ```
 
 4.  **Execute o Jogo**:
-    Após a compilação, execute o jogo a partir do diretório raiz do projeto:
+    Logo após a compilação com o comando javac -d bin $(find src -name "*.java"), basta executar o jogo digitando o comando a seguir:
     ```bash
     java -cp bin Main
     ```
@@ -118,4 +91,5 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
     *   Paulo Santos do Nascimento Filho
+
 
