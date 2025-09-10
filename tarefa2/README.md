@@ -51,8 +51,8 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
 3.  **Compile o Código**:
     Dentro do diretório raiz do projeto (MC322) no terminal, compile:
     ```bash
-   cd tarefa2
-   javac -d bin $(find src -name "*.java")
+    cd tarefa2
+    javac -d bin $(find src -name "*.java")
     ```
 
 4.  **Execute o Jogo**:
@@ -91,6 +91,7 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
     *   Paulo Santos do Nascimento Filho
+
 
 
 
