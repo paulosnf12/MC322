@@ -42,30 +42,28 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
 
 ### Passos para Compilação e Execução
 
-1.  **Clone o Repositório**:
+1.  **Clone o Repositório**:</br>
+    Clone o repositório e entre no diretório raiz:
     ```bash
     git clone https://github.com/paulosnf12/MC322.git
     cd MC322
     ```
 
-3.  **Compile o Código**:
+2.  **Compile o Código**:
     Dentro do diretório raiz do projeto (MC322) no terminal, compile:
     ```bash
     cd tarefa2
     javac -d bin $(find src -name "*.java")
     ```
 
-4.  **Execute o Jogo**:
+3.  **Execute o Jogo**:
     Logo após a compilação com o comando javac -d bin $(find src -name "*.java"), basta executar o jogo digitando o comando a seguir:
     ```bash
     java -cp bin Main
     ```
 
     O jogo será executado diretamente no terminal, exibindo o log da simulação de combate e a progressão do herói.
-
-## Tecnologias Utilizadas
-
-*   **Linguagem**: Java
+    
 
 ## Estrutura das Classes
 
@@ -91,6 +89,7 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
     *   Paulo Santos do Nascimento Filho
+
 
 
 
