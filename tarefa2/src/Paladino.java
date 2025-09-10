@@ -1,57 +1,66 @@
+//Paladino.java
+
 public class Paladino extends Heroi {
-
     // atributos
-    private Espada espada; // atribui uma espada ao paladino
+    private Espada espadaConfig; // Objeto de configuração da espada
     private String tipoDeEspada; // indica o tipo de espada utilizada
-    private int danoEspada; // dano atual da espada
-
-
-    private int carisma; // atributo único --> faz a espada ficar mágica 
-                        // funciona com a sorte, se acertar o ataque, rola sorte, se for 1, adiciona carisma ao ataque
-
-
+    private int danoEspadaBase; // dano base da espada, antes da força
+    private int carisma; // atributo único --> afeta a chance de ataque mágico
 
     // construtor
-    public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Espada espada) {
+    public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Espada espadaConfig) {
         super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
-        this.espada = espada;
-        atualizarEspada();
+        this.espadaConfig = espadaConfig;
+        this.carisma = 10; // Valor inicial de carisma
+        atualizarEspada(); // Garante que a arma inicial seja equipada
     }
 
-    // Atualiza a espada conforme o nível/experiência
+    // Atualiza a espada conforme o nível/experiência (mas usaremos o nível para consistência)
     public void atualizarEspada() {
-        int experiencia = getExperiencia();
-
-        if (experiencia < 100) {
+        int nivelAtual = getNivel();
+        int danoTemporario = 0;
+        if (nivelAtual < 2) { // Nível 1 usa Madeira
             tipoDeEspada = "Madeira";
-            danoEspada = espada.getDanoMadeira();
-        } else if (experiencia < 200) {
+            danoTemporario = espadaConfig.getDanoMadeira();
+        } else if (nivelAtual < 3) { // Nível 2 usa Ferro
             tipoDeEspada = "Ferro";
-            danoEspada = espada.getDanoFerro();
-        } else {
+            danoTemporario = espadaConfig.getDanoFerro();
+        } else { // Nível 3 ou superior usa Diamante
             tipoDeEspada = "Diamante";
-            danoEspada = espada.getDanoDiamante();
+            danoTemporario = espadaConfig.getDanoDiamante();
         }
+        this.danoEspadaBase = danoTemporario;
+        // Equipar uma nova instância de Arma com o dano e nível mínimo (para o paladino, minNivel é 1)
+        this.equiparArma(new Arma(this.danoEspadaBase, 1));
+        System.out.println(nome + " agora usa Espada de " + tipoDeEspada + " (Dano Base: " + danoEspadaBase + ").");
     }
 
     @Override
     public void ganharExperiencia(int exp) {
         super.ganharExperiencia(exp);
-        atualizarEspada();
+        atualizarEspada(); // Atualiza a espada caso o nível mude
     }
 
     @Override
     public void atacar(Personagem alvo) { // ataque base (dano da espada + força)
-        int danoTotal = danoEspada + getForca();
+        // Usa o dano da arma equipada (que foi atualizada por atualizarEspada) mais a força do Paladino
+        int danoTotal = (this.arma != null ? this.arma.getDano() : 0) + getForca();
         alvo.receberDano(danoTotal);
         System.out.println("Paladino atacou com espada de " + tipoDeEspada + " causando " + danoTotal + " de dano!");
     }
 
     @Override
     public void usarHabilidadeEspecial(Personagem alvo) {
-        int danoEspecial = danoEspada + getForca() + 25; // dano extra
+        // Habilidade especial com bônus de sorte e carisma
+        int danoEspecial = (this.arma != null ? this.arma.getDano() : 0) + getForca() + 25;
+        if (getSorte() > 0.6) { // Se a sorte for alta, tem chance de golpe sagrado mais forte
+            danoEspecial += carisma; // Adiciona carisma ao dano
+            System.out.println("A fé do Paladino potencializa o Golpe Sagrado! Dano extra de " + carisma + "!");
+        } else {
+            System.out.println("Paladino usou Golpe Sagrado!");
+        }
         alvo.receberDano(danoEspecial);
-        System.out.println("Paladino usou Golpe Sagrado com espada de " + tipoDeEspada + " causando " + danoEspecial + " de dano especial!");
+        System.out.println("Paladino causou " + danoEspecial + " de dano especial!");
     }
 
     public String getTipoDeEspada() {
@@ -59,6 +68,6 @@ public class Paladino extends Heroi {
     }
 
     public int getDanoEspada() {
-        return danoEspada;
+        return (this.arma != null ? this.arma.getDano() : 0);
     }
 }

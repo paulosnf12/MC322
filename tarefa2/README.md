@@ -1,48 +1,31 @@
-# RPG - Jogo Narrativo (MC322 - Programação Orientada a Objetos)
+# RPG - Jogo Narrativo MC322
 
-## Descrição Geral
+Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). O jogo simula um ambiente de aventura onde um herói enfrenta múltiplos desafios em fases distintas, com progressão de nível, combate dinâmico e sistema de itens.
 
-Este projeto consiste na implementação de um jogo de RPG (Role-Playing Game) simplificado, desenvolvido como parte da disciplina de Programação Orientada a Objetos (MC322) da UNICAMP. O objetivo principal é aplicar conceitos fundamentais de POO, como encapsulamento, herança e polimorfismo, para simular um cenário de sobrevivência onde um herói enfrenta uma série de monstros.
+## 📋 Descrição Geral
 
-Inspirado nos complexos e influentes jogos de RPG, o projeto busca recriar a essência da progressão de personagens, mundos interativos e narrativas ricas por meio de um sistema incremental em Java.
+O projeto foca na aplicação de conceitos fundamentais de Programação Orientada a Objetos, como herança, polimorfismo, classes abstratas e encapsulamento. A história do jogo se desenrola à medida que o herói avança por diferentes fases, cada uma com sua ambientação e monstros específicos, cuja dificuldade aumenta progressivamente. O sistema inclui ganho de experiência, evolução de atributos do herói, e a utilização de armas com diferentes propriedades.
 
-## Componentes Principais do Jogo
+## ✨ Funcionalidades Principais
 
-O jogo é estruturado em torno dos seguintes componentes, conforme descrito no enunciado:
-
-*   **Sistema de Personagens:** Representação de avatares de jogadores (heróis) e NPCs (monstros), incluindo atributos como força, pontos de vida, e sistemas de progressão (níveis e experiência).
-*   **Mundo Virtual:** Embora simplificado para este projeto, o conceito de um espaço onde a aventura acontece é fundamental.
-*   **Sistema de Navegação e Interação:** Gerencia como os personagens se movem e interagem com o ambiente.
-*   **Interface do Jogador (UI) e Estado do Jogo:** Elementos visuais (neste caso, saída de console) que comunicam o estado do jogo e do personagem.
-*   **Motor de Regras e Mecânicas de Jogo:** Algoritmos que definem como as ações (ataques, habilidades) são resolvidas com base nas regras do jogo.
-*   **Sistema de Combate:** Regras que governam os confrontos entre heróis e monstros.
-*   **Gerenciador de Narrativa e Missões:** Controla o fluxo da história principal e dos eventos do jogo.
-
-## Objetivos do Laboratório
-
-Os principais objetivos alcançados com este projeto foram:
-
-*   Familiarização com a linguagem Java (Versão 21) e o ambiente de desenvolvimento (VSCode).
-*   Compreensão e aplicação dos conceitos de Programação Orientada a Objetos: classes, atributos e métodos.
-*   Utilização do conceito de Herança para criar hierarquias de personagens (Herói, Monstro).
-*   Implementação de Classes Abstratas (`Personagem`, `Heroi`, `Monstro`) para definir contratos e comportamentos comuns.
-*   Criação de um sistema funcional que demonstra a interação entre objetos de diferentes classes.
-
-## Cenário de Sobrevivência
-
-A classe `Main` simula um desafio de sobrevivência. Neste cenário, um único herói enfrenta e deve sobreviver a três encontros consecutivos com monstros diferentes, um em cada turno.
-
-**Fluxo do Desafio:**
-
-1.  **Criação dos Personagens:** Uma instância de herói e três instâncias de monstros diferentes são criadas.
-2.  **Apresentação do Desafio:** Uma mensagem inicial introduz o cenário, e o status inicial do herói é exibido.
-3.  **Simulação dos Turnos:** Um laço de repetição executa 3 vezes, simulando cada turno.
-    *   A chegada de cada monstro é anunciada.
-    *   O herói ataca o monstro.
-    *   O monstro ataca o herói.
-    *   Verificação de sobrevivência do herói: se os pontos de vida chegarem a zero, o jogo termina com uma mensagem de "Game Over".
-    *   O status do herói e do monstro são exibidos ao final de cada turno.
-4.  **Conclusão:** Se o herói sobreviver aos três turnos, uma mensagem de vitória é exibida.
+*   **Mundo Virtual com Fases**: O jogo é dividido em fases com dificuldade crescente, cada uma com um conjunto de monstros adaptados ao seu nível.
+*   **Progressão de Nível do Herói**:
+    *   Ganho de experiência (XP) ao derrotar monstros ou sobreviver a turnos de combate.
+    *   Subida de nível com aumento de atributos (Pontos de Vida, Força, Agilidade) e ajuste da "Sorte".
+    *   Armas específicas para cada tipo de herói, que se aprimoram com o nível.
+*   **Sistema de Combate Dinâmico**:
+    *   Combates baseados em turnos, com rolagens de dados (1d20) para determinar acertos.
+    *   Acertos críticos com ativação de habilidades especiais.
+    *   Diferentes tipos de ataque e habilidades para heróis e monstros.
+*   **Tipos de Personagens**:
+    *   **Heróis**: Atualmente implementado o **Elfo** (especializado em arcos e cura). A estrutura permite a fácil adição de outros heróis como o Paladino.
+    *   **Monstros**: Inclui **Goblins** (com ataques de roubo), **Vampiros** (com ataques baseados em "brilho") e **Espíritos** (com ataques baseados em "tristeza").
+*   **Sistema de Armas e Itens**:
+    *   Classes de `Arma` abstratas e concretas para representar diferentes equipamentos.
+    *   Heróis podem equipar armas que influenciam seu dano.
+    *   Monstros têm uma chance de "dropar" armas ao serem derrotados.
+    *   O herói pode decidir se deseja equipar uma arma dropada, considerando seu dano e nível.
+*   **Mecanismo de Sorte**: Um atributo `sorte` (valor entre 0.0 e 1.0) influencia a chance de acertos críticos e a probabilidade de monstros largarem itens.
 
 ## Estrutura do Projeto
 
@@ -51,41 +34,87 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
   <img src="estrutura.png" alt="Estrutura do projeto"/>
 </p>
 
-**Explicação das Classes:**
+## 🚀 Como Executar o Projeto
 
-*   **`Personagem.java` (Classe Abstrata):** Base para todas as entidades vivas no jogo. Define atributos comuns como `nome`, `pontosDeVida`, `forca` e métodos abstratos como `atacar()`.
-*   **`Heroi.java` (Classe Abstrata):** Herda de `Personagem`. Base para todas as classes jogáveis. Adiciona atributos como `nivel` e `experiencia`, e o método abstrato `usarHabilidadeEspecial()`.
-*   **`Monstro.java` (Classe Abstrata):** Herda de `Personagem`. Base para todos os inimigos do jogo. Adiciona o atributo `xpConcedido`.
-*   **Classes Concretas de Herói:**
-    *   **`Elfo.java`:** Uma implementação concreta de `Heroi`. Provavelmente possui um atributo único como "precisão" ou relacionado a arcos, e implementa a lógica de ataque e habilidade especial.
-    *   **`Paladino.java`:** Outra implementação concreta de `Heroi`. Pode ter um atributo único como "fúria" ou "fé", com sua própria lógica de ataque e habilidade especial.
-*   **Classes Concretas de Monstro:**
-    *   **`Goblin.java`:** Uma implementação concreta de `Monstro`. Define seus próprios atributos e lógica de ataque.
-    *   **`Espirito.java`:** Outra implementação concreta de `Monstro`. Provavelmente com atributos e comportamentos únicos.
-    *   **`Vampiro.java`:** Mais uma implementação concreta de `Monstro`, com características próprias.
-*   **Classes Auxiliares (Itens/Habilidades):**
-    *   **`Arcos.java`:** Pode representar um tipo de arma ou habilidade específica para classes como `Elfo`.
-    *   **`Espada.java`:** Similar a `Arcos.java`, pode representar uma arma ou habilidade para classes como `Paladino`.
-*   **`Main.java`:** Contém a lógica principal do jogo, orquestrando o cenário de sobrevivência, a criação de personagens, a simulação de turnos e a exibição dos resultados.
+### Pré-requisitos
 
-## Como Compilar e Executar
+*   [Java Development Kit (JDK) 21](https://www.oracle.com/java/technologies/downloads/) ou superior.
 
-Para compilar e executar o projeto, siga os passos abaixo (utilizando os mesmos comandos que os PEDs usarão para avaliação):
+### Passos para Compilação e Execução
 
-1.  Navegue até o diretório `tarefa1` no seu terminal:
+1.  **Clone o Repositório**:
     ```bash
-    cd tarefa1
+    git clone https://github.com/seu-usuario/seu-repositorio.git
+    cd seu-repositorio
     ```
-2.  Compile todos os arquivos `.java` no diretório `src` e coloque os arquivos `.class` no diretório `bin`:
+    (Substitua `seu-usuario/seu-repositorio` pelo caminho correto do seu projeto no GitHub)
+
+2.  **Estrutura de Diretórios**:
+    Certifique-se de que seus arquivos `.java` estão organizados dentro de um diretório `src/`. Por exemplo:
+    ```
+    .
+    ├── src/
+    │   ├── Arcos.java
+    │   ├── Arma.java
+    │   ├── ConstrutorDeCenario.java
+    │   ├── Elfo.java
+    │   ├── Espada.java
+    │   ├── Espirito.java
+    │   ├── Fase.java
+    │   ├── Goblin.java
+    │   ├── Heroi.java
+    │   ├── Main.java
+    │   ├── Monstro.java
+    │   ├── Paladino.java
+    │   └── Personagem.java
+    └── README.md
+    ```
+
+3.  **Compile o Código**:
+    Navegue até o diretório raiz do projeto (`seu-repositorio`) no terminal e compile:
     ```bash
+    mkdir -p bin # Cria o diretório bin se ele não existir
     javac -d bin $(find src -name "*.java")
     ```
-3.  Execute a classe `Main` a partir do diretório `bin`:
+    *Se seus arquivos `.java` estiverem diretamente na raiz do projeto (não recomendado para projetos maiores), você pode usar:*
+    ```bash
+    mkdir -p bin
+    javac -d bin *.java
+    ```
+
+4.  **Execute o Jogo**:
+    Após a compilação, execute o jogo a partir do diretório raiz do projeto:
     ```bash
     java -cp bin Main
     ```
 
-Certifique-se de que a sua classe `Main` (ou equivalente, caso utilize pacotes) contenha o método `public static void main(String[] args)` e esteja organizada de acordo com a estrutura de diretórios definida para que a compilação e execução ocorram corretamente.
+    O jogo será executado diretamente no terminal, exibindo o log da simulação de combate e a progressão do herói.
 
+## 🛠️ Tecnologias Utilizadas
 
+*   **Linguagem**: Java
 
+## 📜 Estrutura das Classes
+
+*   `Personagem` (Classe Abstrata): Base para heróis e monstros, define atributos e métodos básicos.
+*   `Heroi` (Classe Abstrata): Estende `Personagem`, base para heróis jogáveis, com lógica de XP e níveis.
+*   `Monstro` (Classe Abstrata): Estende `Personagem`, base para inimigos, com XP concedida e itens dropáveis.
+*   `Elfo`, `Paladino` (Classes Concretas): Estendem `Heroi`, implementam ataques e habilidades especiais.
+*   `Goblin`, `Vampiro`, `Espirito` (Classes Concretas): Estendem `Monstro`, implementam ataques e comportamentos únicos.
+*   `Arma` (Classe Concreta): Representa um item de arma equipável, com dano e nível mínimo.
+*   `Arcos`, `Espada` (Classes de Configuração): Usadas por Elfo e Paladino para definir os danos de seus tipos de arma conforme o nível.
+*   `Fase`: Representa uma fase do jogo, com ambiente e lista de monstros.
+*   `ConstrutorDeCenario`: Classe utilitária estática para gerar as fases do jogo.
+*   `Main`: Ponto de entrada do jogo, orquestra a simulação das fases e combates.
+
+## ⚖️ Balanceamento e Dificuldade
+
+O jogo foi ajustado iterativamente para encontrar um equilíbrio entre desafio e jogabilidade. O balanceamento de atributos de heróis e monstros, bem como a taxa de ganho de experiência, foi refinado para garantir que a vitória seja uma conquista significativa para o jogador.
+
+## 👥 Créditos
+
+Este projeto foi desenvolvido como parte de um trabalho acadêmico.
+
+*   **Desenvolvedores do Projeto**:
+    *   Bárbara Maria Barreto Fonseca de Cerqueira César
+    *   Paulo Santos do Nascimento Filho

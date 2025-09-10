@@ -1,3 +1,5 @@
+//Arma.java
+
 
 /*Atributos:
 • dano - Quanto de dano extra esta arma dá ao Personagem.

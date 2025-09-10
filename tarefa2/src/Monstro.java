@@ -1,35 +1,9 @@
-/*
-public abstract class Monstro extends Personagem {
-
-    // atributos
-
-    protected  int xpConcedido;
-
-    // construtor
-
-    public Monstro(String nome, int pontosDeVida, int forca, int agilidade, int xpConcedido) {
-        super(nome, pontosDeVida, forca, agilidade);
-        this.xpConcedido = xpConcedido;
-    }
-
-    // métodos
-
-    public int getXpConcedido() {
-        return xpConcedido;
-    }
-
-    @Override
-    public String exibirStatus() {
-        return super.exibirStatus() + ", XP Concedido = " + xpConcedido;
-    }
-}
- */
+//Monstro.java
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Monstro extends Personagem {
-
     protected int xpConcedido;
     protected ArrayList<Arma> listaDeArmasParaLargar;
 
@@ -52,12 +26,16 @@ public abstract class Monstro extends Personagem {
         return super.exibirStatus() + ", XP Concedido = " + xpConcedido;
     }
 
+    // Método corrigido para largar uma arma aleatória
     public Arma largaArma() {
         if (listaDeArmasParaLargar == null || listaDeArmasParaLargar.isEmpty()) {
-            return null;
+            System.out.println(nome + " não largou nenhuma arma.");
+            return null; // Não há armas para largar
         }
         Random rand = new Random();
         int idx = rand.nextInt(listaDeArmasParaLargar.size());
-        return listaDeArmasParaLargar.get(idx);
+        Arma armaLargada = listaDeArmasParaLargar.get(idx);
+        System.out.println(nome + " largou uma arma! (Dano: " + armaLargada.getDano() + ", Nível Mínimo: " + armaLargada.getMinNivel() + ")");
+        return armaLargada;
     }
 }
