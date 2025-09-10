@@ -27,7 +27,7 @@ public class ConstrutorDeCenario {
                     monstrosFase.add(new Goblin(
                             "Goblin " + (j + 1) + " da Fase " + i,
                             i * 12 + 50, // Mais vida
-                            i * 2 + 7,   // Mais força
+                            i * 2 + 9,   // Mais força
                             i * 2 + 8,       // Mais agilidade (antes i + 6)
                             i * 25,      // Mais XP
                             "Adaga",
@@ -41,7 +41,7 @@ public class ConstrutorDeCenario {
                     monstrosFase.add(new Vampiro(
                             "Vampiro " + (j + 1) + " da Fase " + i,
                             i * 15 + 60, // Mais vida
-                            i * 3 + 8,  // Mais força
+                            i * 3 + 10,  // Mais força
                             i * 2 + 8,   // Mais agilidade (antes i + 8)
                             i * 30,      // Mais XP
                             10 + i * 2,
@@ -53,7 +53,7 @@ public class ConstrutorDeCenario {
                     monstrosFase.add(new Espirito(
                             "Espirito " + (j + 1) + " da Fase " + i,
                             i * 10 + 40, // Mais vida
-                            i * 2 + 6,   // Mais força (antes i + 4)
+                            i * 2 + 8,   // Mais força (antes i + 4)
                             i * 2 + 8,   // Mais agilidade (antes i + 7)
                             i * 23,      // Mais XP
                             15 + i * 3,

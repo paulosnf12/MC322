@@ -5,7 +5,7 @@
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner; // Para a entrada de usuário (decisão de equipar arma)
+//import java.util.Scanner; // Para a entrada de usuário (decisão de equipar arma) --> implementação futura
 
 public class Main {
     public static void main(String[] args) {
@@ -28,7 +28,9 @@ public class Main {
         ArrayList<Fase> fasesDoJogo = ConstrutorDeCenario.gerarFases(3); // Gerar 3 fases
 
         Random rand = new Random();
-        Scanner scanner = new Scanner(System.in); // Para capturar a decisão do jogador
+        // Scanner scanner = new Scanner(System.in); // Para capturar a decisão do jogador
+
+        ArrayList<Arma> armasDropadas = new ArrayList<>(); // NOVO: lista para guardar armas dropadas (inventário)
 
         // Loop de Fases
         for (int i = 0; i < fasesDoJogo.size(); i++) {
@@ -44,7 +46,7 @@ public class Main {
             for (Monstro monstro : faseAtual.getMonstros()) {
                 if (elfo.getpontosdevida() <= 0) {
                     System.out.println("\nGAME OVER! O herói foi derrotado na Fase " + (i + 1) + ".");
-                    scanner.close(); // Fechar scanner antes de sair
+                    // scanner.close(); // Fechar scanner antes de sair
                     return;
                 }
 
@@ -89,7 +91,7 @@ public class Main {
                     // Herói ataca monstro
                     int rolagemHeroi = rand.nextInt(20) + 1; // 1d20
                     System.out.println("Herói rola 1d20: " + rolagemHeroi);
-                    if (rolagemHeroi + elfo.getAgilidade() >= monstro.getAgilidade()) { // Adiciona agilidade do herói no acerto
+                    if (rolagemHeroi >= monstro.getAgilidade()) { // Adiciona agilidade do herói no acerto
                     if (rolagemHeroi == 20) {
                         System.out.println("ATAQUE CRÍTICO do herói!");
                         elfo.usarHabilidadeEspecial(monstro); // Habilidade especial em crítico
@@ -109,20 +111,33 @@ public class Main {
                         System.out.println("A sorte de " + elfo.getNome() + " brilhou! O monstro pode largar uma arma!");
                         Arma armaLargada = monstro.largaArma();
                     if (armaLargada != null) {
-                        System.out.println("Uma arma foi largada! Dano: " + armaLargada.getDano() + ", Nível Mínimo: " + armaLargada.getMinNivel());
+                                System.out.println("Uma arma foi largada! Dano: " + armaLargada.getDano() + ", Nível Mínimo: " + armaLargada.getMinNivel());
+                                armasDropadas.add(armaLargada); // Guarda a arma no inventário 
+                                System.out.println("A arma foi guardada no inventário [para uso futuro].");
+                            } else {
+                                System.out.println("O monstro não largou nenhuma arma.");
+                            }
+                    } 
+                    
+                    /* possível implementação futura com scanner para decisão de equipar arma largada
+                     
                     if (elfo.getArma() == null || armaLargada.getDano() > elfo.getArma().getDano()) {
-                        System.out.print("Deseja equipar esta arma? (S/N): ");
-                        String escolha = scanner.nextLine().trim().toUpperCase();
-                    if (escolha.equals("S")) {
-                        elfo.equiparArma(armaLargada);
-                    } else {
-                        System.out.println("O herói decidiu não equipar a arma largada.");
-                            }
-                    } else {
-                        System.out.println("O herói já tem uma arma melhor equipada ou não precisa desta.");
-                            }
-                            }
-                    } else {
+                                            System.out.print("Deseja equipar esta arma? (S/N): ");
+                                            String escolha = scanner.nextLine().trim().toUpperCase();
+                                        if (escolha.equals("S")) {
+                                            elfo.equiparArma(armaLargada);
+                                        } else {
+                                            System.out.println("O herói decidiu não equipar a arma largada.");
+                                                }
+                                        } else {
+                                            System.out.println("O herói já tem uma arma melhor equipada ou não precisa desta.");
+                                                }
+                                                }
+                    }
+
+                     */
+                    
+                    else {
                         System.out.println("A sorte não favoreceu... " + monstro.getNome() + " não largou nenhuma arma extra.");
                            }
                         break; // Monstro derrotado, sai do loop de combate do turno
@@ -133,7 +148,7 @@ public class Main {
                     if (elfo.getpontosdevida() > 0) { // Verifica se herói ainda está vivo antes do contra-ataque
                         int rolagemMonstro = rand.nextInt(20) + 1; // 1d20
                         System.out.println("Monstro rola 1d20: " + rolagemMonstro);
-                    if (rolagemMonstro + monstro.getAgilidade() >= elfo.getAgilidade()) { // Adiciona agilidade do monstro no acerto
+                    if (rolagemMonstro >= elfo.getAgilidade()) { // Adiciona agilidade do monstro no acerto
                     if (rolagemMonstro == 20) {
                         System.out.println("ATAQUE CRÍTICO do monstro!");
                             }
@@ -146,7 +161,7 @@ public class Main {
                     // Verifica se o herói sobreviveu ao ataque do monstro
                     if (elfo.getpontosdevida() <= 0) {
                         System.out.println("\nGAME OVER! O herói foi derrotado.");
-                        scanner.close(); // Fechar scanner antes de sair
+                        // scanner.close(); // Fechar scanner antes de sair
                         return;
                     }
 
@@ -167,6 +182,6 @@ public class Main {
             System.out.println(elfo.exibirStatus());
         }
 
-        scanner.close(); // Fechar scanner
+        // scanner.close(); // Fechar scanner
     }
 }

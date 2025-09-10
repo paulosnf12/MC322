@@ -33,7 +33,7 @@ public class Elfo extends Heroi {
         this.danoArcoBase = danoTemporario;
         // Equipar uma nova instância de Arma com o dano e nível mínimo (para o elfo, minNivel é 1)
         this.equiparArma(new Arma(this.danoArcoBase, 1));
-        this.cura = (int) (0.035 * this.danoArcoBase); // Atualiza a cura
+        this.cura = (int) (0.05 * this.danoArcoBase); // Atualiza a cura (50% do dano do arco)
         System.out.println(nome + " agora usa Arco " + tipoDeArco + " (Dano Base: " + danoArcoBase + ").");
     }
 
