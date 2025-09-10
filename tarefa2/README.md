@@ -2,11 +2,11 @@
 
 Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). O jogo simula um ambiente de aventura onde um herói enfrenta múltiplos desafios em fases distintas, com progressão de nível, combate dinâmico e sistema de itens.
 
-## 📋 Descrição Geral
+## Descrição Geral
 
 O projeto foca na aplicação de conceitos fundamentais de Programação Orientada a Objetos, como herança, polimorfismo, classes abstratas e encapsulamento. A história do jogo se desenrola à medida que o herói avança por diferentes fases, cada uma com sua ambientação e monstros específicos, cuja dificuldade aumenta progressivamente. O sistema inclui ganho de experiência, evolução de atributos do herói, e a utilização de armas com diferentes propriedades.
 
-## ✨ Funcionalidades Principais
+## Funcionalidades Principais
 
 *   **Mundo Virtual com Fases**: O jogo é dividido em fases com dificuldade crescente, cada uma com um conjunto de monstros adaptados ao seu nível.
 *   **Progressão de Nível do Herói**:
@@ -34,7 +34,7 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
   <img src="estrutura.png" alt="Estrutura do projeto"/>
 </p>
 
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 ### Pré-requisitos
 
@@ -90,11 +90,11 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
 
     O jogo será executado diretamente no terminal, exibindo o log da simulação de combate e a progressão do herói.
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 *   **Linguagem**: Java
 
-## 📜 Estrutura das Classes
+## Estrutura das Classes
 
 *   `Personagem` (Classe Abstrata): Base para heróis e monstros, define atributos e métodos básicos.
 *   `Heroi` (Classe Abstrata): Estende `Personagem`, base para heróis jogáveis, com lógica de XP e níveis.
@@ -107,14 +107,15 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
 *   `ConstrutorDeCenario`: Classe utilitária estática para gerar as fases do jogo.
 *   `Main`: Ponto de entrada do jogo, orquestra a simulação das fases e combates.
 
-## ⚖️ Balanceamento e Dificuldade
+## Balanceamento e Dificuldade
 
 O jogo foi ajustado iterativamente para encontrar um equilíbrio entre desafio e jogabilidade. O balanceamento de atributos de heróis e monstros, bem como a taxa de ganho de experiência, foi refinado para garantir que a vitória seja uma conquista significativa para o jogador.
 
-## 👥 Créditos
+## Créditos
 
 Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
     *   Paulo Santos do Nascimento Filho
+
