@@ -111,12 +111,18 @@ public class Main {
                         System.out.println("A sorte de " + elfo.getNome() + " brilhou! O monstro pode largar uma arma!");
                         Arma armaLargada = monstro.largaArma();
                     if (armaLargada != null) {
-                                System.out.println("Uma arma foi largada! Dano: " + armaLargada.getDano() + ", Nível Mínimo: " + armaLargada.getMinNivel());
-                                armasDropadas.add(armaLargada); // Guarda a arma no inventário 
-                                System.out.println("A arma foi guardada no inventário [para uso futuro].");
-                            } else {
-                                System.out.println("O monstro não largou nenhuma arma.");
-                            }
+                        String tipo = "";
+                        String nome = armaLargada.getClass().getSimpleName();
+                        if (armaLargada instanceof Adaga) tipo = ((Adaga)armaLargada).getTipoArma();
+                        else if (armaLargada instanceof Garras) tipo = ((Garras)armaLargada).getTipoArma();
+                        else if (armaLargada instanceof Cajado) tipo = ((Cajado)armaLargada).getTipoArma();
+
+                        System.out.println("Uma arma foi largada! [" + tipo + "] Nome: " + nome + ", Dano: " + armaLargada.getDano() + ", Nível Mínimo: " + armaLargada.getMinNivel());
+                        armasDropadas.add(armaLargada);
+                        System.out.println("A arma foi guardada no inventário.");
+                    } else {
+                        System.out.println("O monstro não largou nenhuma arma.");
+                    }
                     } 
                     
                     /* possível implementação futura com scanner para decisão de equipar arma largada
