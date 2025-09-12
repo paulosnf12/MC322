@@ -95,7 +95,7 @@ public class Main {
                 // Chama o diálogo especial do monstro, se houver
                 monstro.apresentarDialogoEspecial();
 
-                // Respostas do herói (mantidas aqui pois dependem do elfo)
+                // Respostas do herói 
                 if (monstro instanceof Vampiro && monstro.getNome().equals("Edward Cullen")) {
                     System.out.println(elfo.getNome() + ": \"Brilho não vai te salvar do meu arco, Edward! Prepare-se para a derrota! Sua beleza é inútil contra minha flecha!\"");
                     System.out.println();
@@ -132,10 +132,13 @@ public class Main {
                     // Verifica se o monstro foi derrotado após o ataque do herói
                     if (monstro.getpontosdevida() <= 0) {
                         System.out.println("\n" + monstro.getNome() + " tomba, derrotado! Sua forma se desfaz no ar.");
+                        System.out.println();
                         elfo.ganharExperiencia(monstro.getXpConcedido()); // XP por derrotar o monstro
                         // Teste de sorte para largar arma
                     if (rand.nextDouble() < elfo.getSorte()) { // Quanto maior a sorte, maior a chance
+                        System.out.println();
                         System.out.println("A sorte de " + elfo.getNome() + " brilha! Há um brilho no chão onde o monstro caiu!");
+                        System.out.println();
                         Arma armaLargada = monstro.largaArma();
                     if (armaLargada != null) {
                         System.out.println("Uma arma foi largada! Uma " + armaLargada.toString() + " aguarda!");
