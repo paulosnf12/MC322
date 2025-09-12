@@ -73,7 +73,7 @@ O projeto está organizado na seguinte estrutura de diretórios e classes, refle
 *   `Elfo`, `Paladino` (Classes Concretas): Estendem `Heroi`, implementam ataques e habilidades especiais.
 *   `Goblin`, `Vampiro`, `Espirito` (Classes Concretas): Estendem `Monstro`, implementam ataques e comportamentos únicos.
 *   `Arma` (Classe Concreta): Representa um item de arma equipável, com dano e nível mínimo.
-*   `Arcos`, `Espada` (Classes de Configuração): Usadas por Elfo e Paladino para definir os danos de seus tipos de arma conforme o nível.
+*   `Arcos`, `Espadas` (Classes de Configuração): Usadas por Elfo e Paladino para definir os danos de seus tipos de arma conforme o nível.
 *   `Fase`: Representa uma fase do jogo, com ambiente e lista de monstros.
 *   `ConstrutorDeCenario`: Classe utilitária estática para gerar as fases do jogo.
 *   `Main`: Ponto de entrada do jogo, orquestra a simulação das fases e combates.
@@ -89,6 +89,7 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
     *   Paulo Santos do Nascimento Filho
+
 
 
 
