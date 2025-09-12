@@ -1,38 +1,53 @@
-//Paladino.java
+// Paladino.java
 
 public class Paladino extends Heroi {
     // atributos
-    private Espada espadaConfig; // Objeto de configuração da espada
-    private String tipoDeEspada; // indica o tipo de espada utilizada
-    private int danoEspadaBase; // dano base da espada, antes da força
+    // private Espada espadaConfig; // Antigo: Objeto de configuração da espada. Agora os danos são passados diretamente.
+    private String tipoDeEspada; // indica o tipo de espada utilizada (Madeira, Ferro, Diamante)
+    private int danoEspadaBase; // dano base da espada, antes da força (agora reflete o dano da arma equipada)
     private int carisma; // atributo único --> afeta a chance de ataque mágico
 
+    // Novos atributos para armazenar os danos configuráveis de cada tipo de espada
+    private int configDanoMadeira;
+    private int configDanoFerro;
+    private int configDanoDiamante;
+
     // construtor
-    public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia, Espada espadaConfig) {
+    // O construtor agora recebe os valores de dano para cada tipo de espada diretamente
+    public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia,
+                    int danoMadeira, int danoFerro, int danoDiamante) { // Parâmetro Espada espadaConfig foi removido
         super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
-        this.espadaConfig = espadaConfig;
         this.carisma = 10; // Valor inicial de carisma
+        // Armazena os danos de configuração para uso no método atualizarEspada()
+        this.configDanoMadeira = danoMadeira;
+        this.configDanoFerro = danoFerro;
+        this.configDanoDiamante = danoDiamante;
         atualizarEspada(); // Garante que a arma inicial seja equipada
     }
 
     // Atualiza a espada conforme o nível/experiência (mas usaremos o nível para consistência)
     public void atualizarEspada() {
         int nivelAtual = getNivel();
-        int danoTemporario = 0;
+        // int danoTemporario = 0; // Não mais necessário, o dano vem da instância de Arma
+        Arma novaArma; // A arma agora é uma instância de uma subclasse concreta de Arma
+
         if (nivelAtual < 2) { // Nível 1 usa Madeira
             tipoDeEspada = "Madeira";
-            danoTemporario = espadaConfig.getDanoMadeira();
+            novaArma = new EspadaMadeira(configDanoMadeira); // Cria uma instância de EspadaMadeira
         } else if (nivelAtual < 3) { // Nível 2 usa Ferro
             tipoDeEspada = "Ferro";
-            danoTemporario = espadaConfig.getDanoFerro();
+            novaArma = new EspadaFerro(configDanoFerro); // Cria uma instância de EspadaFerro
         } else { // Nível 3 ou superior usa Diamante
             tipoDeEspada = "Diamante";
-            danoTemporario = espadaConfig.getDanoDiamante();
+            novaArma = new EspadaDiamante(configDanoDiamante); // Cria uma instância de EspadaDiamante
         }
-        this.danoEspadaBase = danoTemporario;
-        // Equipar uma nova instância de Arma com o dano e nível mínimo (para o paladino, minNivel é 1)
-        this.equiparArma(new Arma(this.danoEspadaBase, 1));
-        System.out.println(nome + " agora usa Espada de " + tipoDeEspada + " (Dano Base: " + danoEspadaBase + ").");
+
+        this.danoEspadaBase = novaArma.getDano(); // Atualiza o dano base com o dano da arma criada
+        // Equipar a nova instância de Arma. O nível mínimo é intrínseco à nova classe de Arma.
+        this.equiparArma(novaArma);
+        
+        // Exibe o nome completo da arma, que é obtido da própria instância de Arma
+        System.out.println(nome + " agora usa " + novaArma.getNomeCompleto() + " (Dano Base: " + danoEspadaBase + ").");
     }
 
     @Override
@@ -46,7 +61,8 @@ public class Paladino extends Heroi {
         // Usa o dano da arma equipada (que foi atualizada por atualizarEspada) mais a força do Paladino
         int danoTotal = (this.arma != null ? this.arma.getDano() : 0) + getForca();
         alvo.receberDano(danoTotal);
-        System.out.println("Paladino atacou com espada de " + tipoDeEspada + " causando " + danoTotal + " de dano!");
+        // Usa o nome completo da arma para a mensagem
+        System.out.println("Paladino atacou com " + (this.arma != null ? this.arma.getNomeCompleto() : "punhos") + " causando " + danoTotal + " de dano!");
     }
 
     @Override
@@ -64,7 +80,7 @@ public class Paladino extends Heroi {
     }
 
     public String getTipoDeEspada() {
-        return tipoDeEspada;
+        return tipoDeEspada; // Mantido, para indicar o tipo geral (Madeira, Ferro, Diamante)
     }
 
     public int getDanoEspada() {

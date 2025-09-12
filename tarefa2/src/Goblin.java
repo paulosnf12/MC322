@@ -15,6 +15,15 @@ public class Goblin extends Monstro {
         this.danoArma = danoArma;
         this.chanceDeRoubo = chanceDeRoubo;
     }
+
+    @Override
+    public void apresentarDialogoEspecial() {
+        if (this.getNome().equals("Goblin Guerreiro")) {
+            System.out.println("Goblin Guerreiro: \"Hehehe! Você não vai passar por mim tão fácil, herói! Minha clava está sedenta por batalha!\"");
+            System.out.println(); // Adiciona uma linha em branco
+        }
+    }
+
     @Override
     public void atacar(Personagem alvo) {
         int danoTotal = danoArma + getForca();

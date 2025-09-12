@@ -30,7 +30,6 @@ O projeto foca na aplicação de conceitos fundamentais de Programação Orienta
 ## Estrutura do Projeto
 
 O projeto está organizado na seguinte estrutura de diretórios e classes, refletindo a abordagem orientada a objetos:
-
 <p align="center">
   <img src="estrutura.png" alt="Estrutura do projeto"/>
 </p>
@@ -90,9 +89,6 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
     *   Paulo Santos do Nascimento Filho
-
-
-
 
 
 

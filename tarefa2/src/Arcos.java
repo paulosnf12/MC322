@@ -1,4 +1,9 @@
 //Arcos.java
+// Antiga classe que agrupava os tipos de arco
+// Agora, cada tipo de arco é uma classe separada que herda de Arma
+// Mantida para referência ou futuras funcionalidades relacionadas a arcos em geral
+
+/* 
 public class Arcos {
     
     // atributos
@@ -36,3 +41,4 @@ public class Arcos {
         return danoSigma;
     }
 }
+*/

@@ -21,6 +21,11 @@ public abstract class Monstro extends Personagem {
         return listaDeArmasParaLargar;
     }
 
+    public void apresentarDialogoEspecial() {
+        // Implementação padrão vazia ou com uma mensagem genérica
+        // Pode ser sobrescrito por subclasses para diálogos específicos
+    }
+
     @Override
     public String exibirStatus() {
         return super.exibirStatus() + ", XP Concedido = " + xpConcedido;

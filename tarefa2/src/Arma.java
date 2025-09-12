@@ -1,25 +1,32 @@
-//Arma.java
+// Arma.java
+public abstract class Arma {
+    protected int minNivel; // Nível mínimo para equipar a arma
+    protected String nomeTipoArma; // Ex: "Arco", "Espada", "Machado"
+    protected String nomeSubtipoArma; // Ex: "Beta", "Madeira", "Bronze"
 
-
-/*Atributos:
-• dano - Quanto de dano extra esta arma dá ao Personagem.
-• minNivel - Nı́vel mı́nimo que o Herói precisa ter para utilizar a Arma (note que monstros não
-possuem nı́vel definido, podendo usar qualquer arma).*/
-
-public class Arma {
-    private int dano;
-    private int minNivel;
-
-    public Arma(int dano, int minNivel) {
-        this.dano = dano;
+    // Construtor para inicializar os atributos básicos de qualquer arma
+    public Arma(String nomeTipoArma, String nomeSubtipoArma, int minNivel) {
+        this.nomeTipoArma = nomeTipoArma;
+        this.nomeSubtipoArma = nomeSubtipoArma;
         this.minNivel = minNivel;
     }
 
-    public int getDano() {
-        return dano;
-    }
+    // Método abstrato que cada arma concreta deverá implementar para retornar seu dano
+    public abstract int getDano();
 
+    // Getter para o nível mínimo
     public int getMinNivel() {
         return minNivel;
+    }
+
+    // Método para obter o nome completo da arma (ex: "Arco Beta", "Espada de Madeira")
+    public String getNomeCompleto() {
+        return nomeTipoArma + " " + nomeSubtipoArma;
+    }
+
+    // Sobrescrita do método toString para uma representação amigável da arma
+    @Override
+    public String toString() {
+        return getNomeCompleto() + " (Dano: " + getDano() + ", Nível Mínimo: " + minNivel + ")";
     }
 }
