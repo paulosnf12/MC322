@@ -1,6 +1,6 @@
 //Personagem.java
 
-public abstract class Personagem {
+public abstract class Personagem implements Combatente{
     protected String nome;
     protected int pontosDeVida;
     protected int forca;
@@ -16,23 +16,44 @@ public abstract class Personagem {
         this.arma = null; // Inicialmente sem arma equipada, pode ser ajustado em subclasses
     }
 
-    // metodos
+    // metodos interface Combatente
+
+    @Override
+    public String getNome() {
+        return this.nome;
+    }
+
+    @Override
+    public boolean estaVivo() {
+        return this.pontosDeVida > 0;
+    }
+
+    @Override
+    public void receberDano(int dano) {
+        this.pontosDeVida -= dano;
+        if (this.pontosDeVida < 0) {
+            this.pontosDeVida = 0;
+        }
+    }
+
+    @Override
+    public void receberCura(int cura) {
+        this.pontosDeVida += cura;
+    }
+
+    @Override
+    public abstract void escolherAcao(Combatente alvo);
+    
+
+    // metodos especificos da classe Personagem
+
     public void setpontosdevida(int pontosDeVida){
         this.pontosDeVida = pontosDeVida;
     }
     public int getpontosdevida(){
         return pontosDeVida;
     }
-    public void receberDano(int dano){
-        int vida = getpontosdevida() - dano;
-        setpontosdevida(vida);
-        if (this.pontosDeVida < 0) { // Garante que a vida não fique negativa
-            this.pontosDeVida = 0;
-        }
-    }
-    public String getNome(){
-        return nome;
-    }
+
     public int getForca(){
         return forca;
     }
@@ -43,14 +64,18 @@ public abstract class Personagem {
         return agilidade;
     }
 
-    public Arma getArma() { // NOVO getter para arma
+    public Arma getArma() { 
         return arma;
     }
 
-    public void setArma(Arma arma) { // NOVO setter para arma
+    public void setArma(Arma arma) { 
         this.arma = arma;
     }
 
+    /*      Agora implementado via lógica de interface
+
     // método abstrato
     public abstract void atacar(Personagem alvo);
+
+    */
 }

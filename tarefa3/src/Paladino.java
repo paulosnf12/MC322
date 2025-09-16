@@ -25,6 +25,23 @@ public class Paladino extends Heroi {
         atualizarEspada(); // Garante que a arma inicial seja equipada
     }
 
+
+    @Override
+    protected void inicializarAcoes() {
+        // 2. Adicionando as ações específicas do Paladino
+        this.acoes.add(new AtaqueEspada());
+        this.acoes.add(new GolpeSagrado());
+    }
+
+
+    public int getCarisma() {
+        return this.carisma;
+    }
+
+    public Arma getArma() {
+        return this.arma;
+    }
+
     // Atualiza a espada conforme o nível/experiência (mas usaremos o nível para consistência)
     public void atualizarEspada() {
         int nivelAtual = getNivel();
@@ -56,6 +73,8 @@ public class Paladino extends Heroi {
         atualizarEspada(); // Atualiza a espada caso o nível mude
     }
 
+    /*              Métodos agora implementados via interface
+
     @Override
     public void atacar(Personagem alvo) { // ataque base (dano da espada + força)
         // Usa o dano da arma equipada (que foi atualizada por atualizarEspada) mais a força do Paladino
@@ -78,6 +97,8 @@ public class Paladino extends Heroi {
         alvo.receberDano(danoEspecial);
         System.out.println("Paladino causou " + danoEspecial + " de dano especial!");
     }
+
+    */
 
     public String getTipoDeEspada() {
         return tipoDeEspada; // Mantido, para indicar o tipo geral (Madeira, Ferro, Diamante)

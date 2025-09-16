@@ -1,5 +1,6 @@
 // Elfo.java
 
+// Agora modificado para implementar o uso de interfaces
 public class Elfo extends Heroi {
 
     // atributos
@@ -26,6 +27,15 @@ public class Elfo extends Heroi {
     }
 
     // métodos
+
+    @Override
+    protected void inicializarAcoes() {
+        // Adicionando as ações específicas do Elfo à lista de ações herdada de Heroi
+        this.acoes.add(new AtaqueArco());
+        this.acoes.add(new FlechaMagica());
+    }
+
+
     // Método para atualizar o arco (e consequentemente a arma equipada) com base no NÍVEL
     public void atualizarArco() {
         int nivelAtual = getNivel(); // obtém o nível atual do Elfo
@@ -71,6 +81,8 @@ public class Elfo extends Heroi {
         atualizarArco();
     }
 
+   /*           Agora implementados via interface
+
     @Override
     public void atacar(Personagem alvo) { // ataque base (dano do arco + força)
         // Usa o dano da arma equipada (que foi atualizada por atualizarArco) mais a força do Elfo
@@ -96,6 +108,8 @@ public class Elfo extends Heroi {
         // Usa o nome completo da arma para a mensagem
         System.out.println("Elfo usou Flecha Mágica com " + (this.arma != null ? this.arma.getNomeCompleto() : "punhos") + " causando " + danoEspecial + " de dano especial!");
     }
+
+    */
 
     public String getTipoDeArco() {
         return tipoDeArco; // Mantido, para indicar o tipo geral (Beta, Alpha, Sigma)

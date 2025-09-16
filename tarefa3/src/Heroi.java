@@ -1,12 +1,21 @@
 //Heroi.java
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random; // Importar Random para a sorte
+
+
+// A classe Personagem já implementa Combatente, então Heroi herda isso.
+// Irá agora implementar a inferface Combatente.
 
 public abstract class Heroi extends Personagem {
     protected int nivel;
     protected int experiencia;
     protected int expProximoNivel;
     protected double sorte; // Valor entre 0.0 e 1.0
+
+    // 1. Atributo para armazenar as ações disponíveis para o herói
+    protected List<AcaoDeCombate> acoes;
 
     // construtor
     public Heroi(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia) {
@@ -15,7 +24,37 @@ public abstract class Heroi extends Personagem {
         this.experiencia = experiencia;
         this.expProximoNivel = 100; // Experiência inicial para o próximo nível
         this.sorte = new Random().nextDouble(); // Sorte inicial aleatória entre 0.0 e 1.0
+
+        // Inicializa a lista de ações
+        this.acoes = new ArrayList<>();
+        // Chama o método que será implementado pelas subclasses para popular a lista
+        inicializarAcoes();
     }
+
+    // Lógica para implementar a interface:
+
+    // 3. Método abstrato para forçar subclasses a definirem suas ações
+    protected abstract void inicializarAcoes();
+
+    // 4. Implementação do método escolherAcao  da interface Combatente
+
+    @Override
+    public void escolherAcao(Combatente alvo) {
+        // 2. Simula a escolha de uma ação pelo jogador (sem entrada de teclado)
+        if (acoes != null && !acoes.isEmpty()) {
+            // Escolhe uma ação aleatória da lista de ações disponíveis
+            Random rand = new Random();
+            int indiceAcao = rand.nextInt(acoes.size());
+            AcaoDeCombate acaoEscolhida = acoes.get(indiceAcao);
+            
+            // Executa a ação escolhida
+            acaoEscolhida.executar(this, alvo);
+        } else {
+            System.out.println(this.getNome() + " não tem ações para executar!");
+        }
+    }
+
+
 
     // metodos
     public int getNivel() {
@@ -83,6 +122,11 @@ public abstract class Heroi extends Personagem {
         System.out.println("Novos status: Vida = " + pontosDeVida + ", Força = " + forca + ", Agilidade = " + agilidade + ", Sorte = " + String.format("%.2f", sorte));
     }
 
+
+    /* Agora implementado via interface
+
     // método abstrato
     public abstract void usarHabilidadeEspecial(Personagem alvo); // exclusiva do herói --> será especificada/utilizada em cada herói especifico
+
+    */
 }

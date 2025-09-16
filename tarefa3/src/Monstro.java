@@ -3,7 +3,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Monstro extends Personagem {
+public abstract class Monstro extends Personagem implements Lootavel {
     protected int xpConcedido;
     protected ArrayList<Arma> listaDeArmasParaLargar;
 
@@ -43,4 +43,5 @@ public abstract class Monstro extends Personagem {
         System.out.println(nome + " largou uma arma! (Dano: " + armaLargada.getDano() + ", Nível Mínimo: " + armaLargada.getMinNivel() + ")");
         return armaLargada;
     }
+
 }
