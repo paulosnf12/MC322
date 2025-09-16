@@ -8,6 +8,11 @@ public class Vampiro extends Monstro {
         super(nome, pontosDeVida, forca, agilidade, xpConcedido, listaDeArmasParaLargar); // Passa a lista para o construtor da superclasse
         this.brilho = brilho;
     }
+
+    @Override
+    protected void inicializarAcoes() {
+        this.acoes.add(new AtaqueVampirico());
+    }
     
         @Override
     public void apresentarDialogoEspecial() {
@@ -16,15 +21,24 @@ public class Vampiro extends Monstro {
             System.out.println();
         }
     }
-    
+
+    public int getBrilho() {
+        return brilho;
+    }
+
+    @Override
+    public String exibirStatus() {
+        return super.exibirStatus() + ", Brilho = " + brilho;
+    }
+
+    /*      Antigo método atacar
+
     @Override
     public void atacar(Personagem alvo) {
         int dano = this.forca + (this.brilho / 10); // quanto maior o brilho, maior o dano
         alvo.receberDano(dano);
         System.out.println(nome + " ataca com seu brilho! Brilho: " + brilho + ". Dano causado: " + dano);
     }
-    @Override
-    public String exibirStatus() {
-        return super.exibirStatus() + ", Brilho = " + brilho;
-    }
+
+    */
 }

@@ -17,13 +17,20 @@ public class Goblin extends Monstro {
     }
 
     @Override
+    protected void inicializarAcoes() {
+        // Adiciona a ação específica do Goblin
+        this.acoes.add(new AtaqueGoblin());
+    }
+
+    @Override
     public void apresentarDialogoEspecial() {
         if (this.getNome().equals("Goblin Guerreiro")) {
             System.out.println("Goblin Guerreiro: \"Hehehe! Você não vai passar por mim tão fácil, herói! Minha clava está sedenta por batalha!\"");
             System.out.println(); // Adiciona uma linha em branco
         }
     }
-
+    /*      Antigo método atacar, agora substituído pela estratégia AtaqueGoblin
+    
     @Override
     public void atacar(Personagem alvo) {
         int danoTotal = danoArma + getForca();
@@ -37,8 +44,23 @@ public class Goblin extends Monstro {
             System.out.println("Goblin roubou " + valorRoubo + " de vida do alvo!");
         }
     }
+
+    */
+
     @Override
     public String exibirStatus() {
         return super.exibirStatus() + ", Arma: " + tipoDeArma + ", Dano Arma: " + danoArma + ", Chance de Roubo: " + String.format("%.2f", chanceDeRoubo);
+    }
+
+    public int getDanoArma() {
+        return danoArma;
+    }
+
+    public String getTipoDeArma() {
+        return tipoDeArma;
+    }
+
+    public double getChanceDeRoubo() {
+        return chanceDeRoubo;
     }
 }

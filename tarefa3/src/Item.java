@@ -1,3 +1,3 @@
 public interface Item {
-    String getNome();
+    String getNomeCompleto(); // modificado de getNome() para getNomeCompleto()
 }

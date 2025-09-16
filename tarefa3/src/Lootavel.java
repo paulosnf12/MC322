@@ -1,3 +1,3 @@
 public interface Lootavel {
-    Arma droparLoot();
+    Item droparLoot();
 }

@@ -1,4 +1,6 @@
-//ConstrutorDeCenario.java
+//ConstrutorDeCenario.java --> antigo construtor de cenário
+
+/* 
 
 import java.util.ArrayList;
 
@@ -155,7 +157,7 @@ public class ConstrutorDeCenario {
                     ));
                 }
             }*/
-
+/* 
             fases.add(new Fase(nivelFase, ambiente, monstrosFase)); // O 'ambiente' agora é o temático
             System.out.println("Fase " + nivelFase + ": '" + ambiente + "' criada com " + monstrosFase.size() + " monstros prontos para o desafio!");
         }
@@ -163,3 +165,5 @@ public class ConstrutorDeCenario {
         return fases;
     }
 }
+
+*/

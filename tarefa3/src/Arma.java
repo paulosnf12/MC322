@@ -1,5 +1,5 @@
 // Arma.java
-public abstract class Arma {
+public abstract class Arma implements Item{
     protected int minNivel; // Nível mínimo para equipar a arma
     protected String nomeTipoArma; // Ex: "Arco", "Espada", "Machado"
     protected String nomeSubtipoArma; // Ex: "Beta", "Madeira", "Bronze"
@@ -20,6 +20,8 @@ public abstract class Arma {
     }
 
     // Método para obter o nome completo da arma (ex: "Arco Beta", "Espada de Madeira")
+    // Agora implementado da interface Item
+    @Override
     public String getNomeCompleto() {
         return nomeTipoArma + " " + nomeSubtipoArma;
     }
