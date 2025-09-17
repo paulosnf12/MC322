@@ -150,16 +150,22 @@ public class Main {
                     System.out.println("Herói rola 1d20: " + rolagemHeroi);
 
                     if (rolagemHeroi >= monstro.getAgilidade()) {
-                        // ---> MUDANÇA MECÂNICA: A lógica de qual ação usar foi movida para o herói.
-                        // Em vez de if/else para chamar atacar/habilidade, apenas chamamos escolherAcao.
-                        // Para simular o CRÍTICO, podemos criar um método específico ou simplesmente
-                        // chamar a ação normal, já que o Elfo tem uma chance de dano extra baseada na sorte.
-                        // Para manter a simplicidade, vamos deixar o herói decidir a ação.
-                        if(rolagemHeroi == 20) System.out.println("UM ATAQUE CRÍTICO!");
-                        heroi.escolherAcao(monstro);
-                    } else {
-                        System.out.println("O ataque de " + heroi.getNome() + " falha! O monstro desvia por pouco.");
+                    // É um acerto! Agora vamos verificar se é um crítico.
+                    
+                    if (rolagemHeroi == 20) {
+                        // Se for 20, sinalizar ao herói que a ação será um crítico.
+                        System.out.println("UM ATAQUE CRÍTICO! " + heroi.getNome() + " prepara um golpe devastador!");
+                        heroi.setProximoAtaqueCritico(true);
                     }
+                    
+                    // Chama o método escolherAcao, como requisitado pelo enunciado.
+                    
+                    // O herói agora sabe qual ação tomar com base no sinal que definimos.
+                    heroi.escolherAcao(monstro);
+
+                } else {
+                    System.out.println("O ataque de " + heroi.getNome() + " falha! O monstro desvia por pouco.");
+                }
 
                     if (!monstro.estaVivo()) break;
 

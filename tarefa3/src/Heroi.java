@@ -17,6 +17,9 @@ public abstract class Heroi extends Personagem {
     // 1. Atributo para armazenar as ações disponíveis para o herói
     protected List<AcaoDeCombate> acoes;
 
+    // ---- NOVO ATRIBUTO ----
+    private boolean proximoAtaqueEhCritico = false; // Verifica se o próximo ataque será crítico
+
     // construtor
     public Heroi(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia) {
         super(nome, pontosDeVida, forca, agilidade);
@@ -36,22 +39,41 @@ public abstract class Heroi extends Personagem {
     // 3. Método abstrato para forçar subclasses a definirem suas ações
     protected abstract void inicializarAcoes();
 
+    // ---- NOVO MÉTODO PARA "SINALIZAR" O CRÍTICO ----
+    /**
+     * Define se a próxima ação escolhida pelo herói deve ser um ataque crítico (especial).
+     * Este método será chamado pela Main antes de invocar escolherAcao.
+     */
+    public void setProximoAtaqueCritico(boolean isCritico) {
+        this.proximoAtaqueEhCritico = isCritico;
+    }
+
     // 4. Implementação do método escolherAcao  da interface Combatente
 
+    // ---- MÉTODO escolherAcao MODIFICADO ----
     @Override
     public void escolherAcao(Combatente alvo) {
-        // 2. Simula a escolha de uma ação pelo jogador (sem entrada de teclado)
-        if (acoes != null && !acoes.isEmpty()) {
-            // Escolhe uma ação aleatória da lista de ações disponíveis
-            Random rand = new Random();
-            int indiceAcao = rand.nextInt(acoes.size());
-            AcaoDeCombate acaoEscolhida = acoes.get(indiceAcao);
-            
-            // Executa a ação escolhida
-            acaoEscolhida.executar(this, alvo);
-        } else {
+        if (acoes == null || acoes.isEmpty()) {
             System.out.println(this.getNome() + " não tem ações para executar!");
+            return;
         }
+
+        AcaoDeCombate acaoEscolhida;
+
+        // Verifica o sinalizador de crítico
+        if (this.proximoAtaqueEhCritico && acoes.size() > 1) {
+            // Se for crítico e houver uma habilidade especial, escolha-a
+            acaoEscolhida = acoes.get(1); // Usa a convenção: índice 1 = Ataque Especial
+        } else {
+            // Caso contrário, use o ataque básico
+            acaoEscolhida = acoes.get(0); // Usa a convenção: índice 0 = Ataque Básico
+        }
+
+        // Executa a ação
+        acaoEscolhida.executar(this, alvo);
+
+        // IMPORTANTE: Reseta o sinalizador para o estado padrão após a ação.
+        this.proximoAtaqueEhCritico = false;
     }
 
 

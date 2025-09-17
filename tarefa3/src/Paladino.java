@@ -28,9 +28,10 @@ public class Paladino extends Heroi {
 
     @Override
     protected void inicializarAcoes() {
-        // 2. Adicionando as ações específicas do Paladino
-        this.acoes.add(new AtaqueEspada());
-        this.acoes.add(new GolpeSagrado());
+        // Adicionando as ações específicas do Paladino
+        // CONVENÇÃO: Índice 0 é o ataque básico, Índice 1 é o especial.
+        this.acoes.add(new AtaqueEspada());    // Adicionado na posição 0
+        this.acoes.add(new GolpeSagrado());    // Adicionado na posição 1
     }
 
 

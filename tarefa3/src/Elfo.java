@@ -30,9 +30,10 @@ public class Elfo extends Heroi {
 
     @Override
     protected void inicializarAcoes() {
-        // Adicionando as ações específicas do Elfo à lista de ações herdada de Heroi
-        this.acoes.add(new AtaqueArco());
-        this.acoes.add(new FlechaMagica());
+        // Adicionando as ações específicas do Elfo à lista de ações
+        // CONVENÇÃO: Índice 0 é o ataque básico, Índice 1 é o especial.
+        this.acoes.add(new AtaqueArco());      // Adicionado na posição 0
+        this.acoes.add(new FlechaMagica());    // Adicionado na posição 1
     }
 
 
