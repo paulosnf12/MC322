@@ -33,15 +33,16 @@ As principais interfaces que governam o sistema são:
     *   Eventos são disparados com base em gatilhos específicos. Atualmente, ao entrar na fase da Floresta, o herói recebe uma bênção que restaura sua vida.
 *   **Heróis Jogáveis com Classes Distintas**:
     *   **Elfo**: Ágil, especialista em arcos, com cura passiva em seus ataques.
-    *   **Paladino**: Resistente, mestre de espadas, com um poderoso golpe sagrado. Agora está totalmente jogável (requer descomentar na classe `Main`).
+    *   **Paladino**: Resistente, mestre de espadas, com um poderoso golpe sagrado. 
 *   **Mecanismo de Sorte**: Um atributo `sorte` (0.0 a 1.0) influencia habilidades e a chance de drops. Por exemplo, o `GolpeSagrado` do Paladino recebe 20% de dano bônus se a sorte for maior que 0.4.
 
 ## Melhorias e Correções (Fixes)
 
-*   **Sistema de Experiência**: A XP agora é concedida corretamente **apenas ao derrotar um monstro**, e não mais ao final de cada turno.
-*   **Restrição de Equipamentos**: Heróis só podem equipar armas compatíveis com sua classe (Elfos usam Arcos, Paladinos usam Espadas).
-*   **Balanceamento de Atributos**: A vida ganha ao subir de nível foi ajustada para uma progressão mais suave.
-*   **Diálogos Dinâmicos**: As falas dos heróis em encontros especiais foram adaptadas para serem genéricas, funcionando de forma coerente com qualquer personagem.
+*   **Paladino agora 100% jogável**: Para escolher o herói, comentar ou descomentar na main o herói na qual você quer jogar. (exemplo: comentar Paladino e descomentar Elfo (linhas 26 a 30 da Main);
+*   **Sistema de Experiência**: A XP agora é concedida corretamente **apenas ao derrotar um monstro**, e não mais ao final de cada turno (para um melhor balanceamento);
+*   **Restrição de Equipamentos**: Heróis agora só podem equipar armas compatíveis com sua classe (Elfos só usam Arcos e Paladinos só usam Espadas);
+*   **Balanceamento de Atributos**: A vida ganha ao subir de nível foi ajustada para um melhor balanceamento;
+*   **Diálogos Dinâmicos**: As falas dos heróis em encontros especiais foram adaptadas para serem genéricas de acordo com o personagem jogado.
 
 ## Personagens, Armas e Balanceamento
 
@@ -155,6 +156,7 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
 
 
 
