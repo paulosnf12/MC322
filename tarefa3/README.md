@@ -116,7 +116,7 @@ O projeto é dividido em uma arquitetura modular, com uma clara separação entr
 
 ### Estrutura de Personagens (Classes Abstratas)
 *   **`Personagem`**: Classe base para todos os seres vivos, implementa `Combatente` e define atributos essenciais como nome, vida, força e agilidade.
-*   **`Heroi`**: Herda de `Personagem`. Base para todos os heróis jogáveis, implementa a lógica de XP, níveis e a escolha de ações baseada em inputs do jogo.
+*   **`Heroi`**: Herda de `Personagem`. Base para todos os heróis jogáveis, implementa a lógica de XP, níveis e a escolha de ações baseada nos dados.
 *   **`Monstro`**: Herda de `Personagem`. Base para os inimigos, implementa `Lootavel` e a lógica de IA para `escolherAcao`.
 
 ### Heróis e Monstros (Classes Concretas)
@@ -155,5 +155,6 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
 
 
