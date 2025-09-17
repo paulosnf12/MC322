@@ -38,7 +38,7 @@ As principais interfaces que governam o sistema são:
 
 ## Melhorias e Correções (Fixes)
 
-*   **Paladino agora 100% jogável**: Para escolher o herói, comentar ou descomentar na main o herói na qual você quer jogar. (exemplo: comentar Paladino e descomentar Elfo (linhas 26 a 30 da Main);
+*   **Paladino agora jogável**: Para escolher o herói, comentar ou descomentar na main o herói na qual você quer jogar. (exemplo: comentar Paladino e descomentar Elfo (linhas 26 a 30 da Main);
 *   **Sistema de Experiência**: A XP agora é concedida corretamente **apenas ao derrotar um monstro**, e não mais ao final de cada turno (para um melhor balanceamento);
 *   **Restrição de Equipamentos**: Heróis agora só podem equipar armas compatíveis com sua classe (Elfos só usam Arcos e Paladinos só usam Espadas);
 *   **Balanceamento de Atributos**: A vida ganha ao subir de nível foi ajustada para um melhor balanceamento;
@@ -156,6 +156,7 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
 
 
 
