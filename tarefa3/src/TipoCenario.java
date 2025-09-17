@@ -14,15 +14,15 @@ public enum TipoCenario {
         @Override
         public void aplicarEfeitos(Heroi heroi) {
             System.out.println("O ar puro da floresta revigora " + heroi.getNome() + ". Ele se sente mais ágil!");
-            // Em um jogo real, você poderia aplicar um bônus: heroi.aumentarAgilidade(5);
+            // Poderemos futuramente aplicar um bônus ao herói. Ex: heroi.aumentarAgilidade(5);
         }
-    }, // A vírgula é usada para separar as constantes.
+    }, 
 
     CAVERNA("Uma caverna escura e úmida, com ecos misteriosos.") {
         @Override
         public void aplicarEfeitos(Heroi heroi) {
             System.out.println("A escuridão opressiva da caverna deixa " + heroi.getNome() + " apreensivo. Sua visão é limitada.");
-            // Efeito negativo: heroi.aplicarDebuff("Visão Reduzida");
+            // Efeito negativo: heroi.aplicarDebuff("Visão Reduzida"); --> ideia futura
         }
     },
 
@@ -30,9 +30,9 @@ public enum TipoCenario {
         @Override
         public void aplicarEfeitos(Heroi heroi) {
             System.out.println("A grandiosidade do castelo inspira " + heroi.getNome() + ". Ele se sente mais confiante e determinado!");
-            // Bônus de moral: heroi.aumentarConfianca(10);
+            // Bônus de moral: heroi.aumentarConfianca(10); --> ideia futura
         }
-    }; // O ponto e vírgula é OBRIGATÓRIO ao final da lista de constantes se o enum tiver campos ou métodos.
+    }; 
 
 
     // 2. CAMPO (ATRIBUTO)

@@ -1,4 +1,4 @@
 public interface Evento {
-    boolean vericarGatilho(/*Heroi heroi, Inimigo inimigo*/);
-    void executar(/*Heroi heroi, Inimigo inimigo*/);
+    boolean vericarGatilho(Heroi heroi, String ambiente);
+    void executar(Heroi heroi);
 }

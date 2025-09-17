@@ -1,6 +1,7 @@
 //Fase.java
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Fase implements InterfaceFase { // Agora implementa InterfaceFase
 
@@ -10,24 +11,34 @@ public class Fase implements InterfaceFase { // Agora implementa InterfaceFase
     private String ambiente;
     private ArrayList<Monstro> monstros;
 
-    // construtor
-    public Fase(int nivel, String ambiente, ArrayList<Monstro> monstros) {
+    private List<Evento> eventos; // NOVO ATRIBUTO
+
+
+    // NOVO CONSTRUTOR:
+    public Fase(int nivel, String ambiente, ArrayList<Monstro> monstros, List<Evento> eventos) {
         this.nivel = nivel;
         this.ambiente = ambiente;
         this.monstros = monstros;
+        this.eventos = eventos; // Inicializa a lista de eventos
     }
 
     // métodos: construtor para inicializar os atributos
 
+    // Getter para os eventos
+    public List<Evento> getEventos() {
+        return this.eventos;
+    }
+
     @Override
     public void iniciar(Heroi heroi) {
-        System.out.println("\n==============================================");
-        System.out.println("INICIANDO FASE " + this.nivel + ": " + this.ambiente.toUpperCase());
-        System.out.println("==============================================");
-        
-        // Poderemos adicionar futuramente a lógica para aplicar efeitos do cenário.
-        // Ex: TipoCenario.valueOf(ambiente.toUpperCase()).aplicarEfeitos(heroi), etc
-    }
+
+    // ---- NOVO CÓDIGO ----
+    int numMonstros = this.monstros.size();
+    System.out.println("\n========================================================");
+    System.out.println("INICIANDO FASE " + this.nivel + ": " + this.ambiente.toUpperCase());
+    System.out.println("========================================================");
+    System.out.println(heroi.getNome() + " entra na " + this.ambiente + " para enfrentar " + numMonstros + " criaturas temíveis!");
+}
 
     @Override
     public boolean isConcluida() {

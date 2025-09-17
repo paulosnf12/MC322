@@ -122,50 +122,19 @@ public class ConstrutorDeCenarioFixo implements GeradorDeFases {
                 }
             }
 
-            /*
-            for (int j = 0; j < i + 1; j++) { // Aumenta a quantidade de monstros por fase
-                // Monstro Goblin
-                if (j % 3 == 0) {
-                    monstrosFase.add(new Goblin(
-                            "Goblin " + (j + 1) + " da Fase " + i,
-                            i * 10 + 50, // Mais vida
-                            i * 2 + 5,   // Mais força
-                            i + 5,       // Mais agilidade
-                            i * 20,      // Mais XP
-                            "Adaga",
-                            3 + i,
-                            0.2 + (i * 0.05),
-                            armasComuns // Lista de armas para largar
-                    ));
-                // Monstro Vampiro
-                } else if (j % 3 == 1) {
-                    monstrosFase.add(new Vampiro(
-                            "Vampiro " + (j + 1) + " da Fase " + i,
-                            i * 12 + 60,
-                            i * 3 + 8,
-                            i + 7,
-                            i * 25,
-                            10 + i * 2,
-                            armasComuns
-                    ));
-                // Monstro Espirito
-                } else {
-                    monstrosFase.add(new Espirito(
-                            "Espirito " + (j + 1) + " da Fase " + i,
-                            i * 8 + 40,
-                            i * 1 + 3,
-                            i + 6,
-                            i * 18,
-                            15 + i * 3,
-                            armasComuns
-                    ));
-                }
-            }*/
+            // ---> ADIÇÃO DA LÓGICA DE EVENTO <---
+            List<Evento> eventosDaFase = new ArrayList<>();
+            if (ambiente.contains("Floresta")) {
+                eventosDaFase.add(new EventoDeBencao());
+            }
 
-            fases.add(new Fase(nivelFase, ambiente, monstrosFase)); // O 'ambiente' agora é o temático
+            fases.add(new Fase(nivelFase, ambiente, monstrosFase, eventosDaFase)); // Agora adiciona eventos da fase
+
             System.out.println("Fase " + nivelFase + ": '" + ambiente + "' criada com " + monstrosFase.size() + " monstros prontos para o desafio!");
         }
+
         System.out.println("Todas as fases foram geradas com sucesso! A aventura aguarda...\n");
+
         return fases;
     }
 }

@@ -57,6 +57,27 @@ public class Main {
             // ---> MUDANÇA MECÂNICA: Cast para acessar a lista de monstros.
             if (!(faseAtualInterface instanceof Fase)) continue; // Segurança
             Fase faseAtual = (Fase) faseAtualInterface;
+            
+            // 1. Usa o método iniciar() da fase para exibir o cabeçalho.
+            faseAtual.iniciar(heroi);
+
+            // 2. Determina o TipoCenario e chama aplicarEfeitos() para a mensagem temática.
+
+            //    (Foi utilizado o .contains() para maior flexibilidade com os nomes dos ambientes)
+            if (ambiente.contains("Floresta")) {
+                TipoCenario.FLORESTA.aplicarEfeitos(heroi);
+            } else if (ambiente.contains("Cripta")) {
+                TipoCenario.CAVERNA.aplicarEfeitos(heroi);
+            } else if (ambiente.contains("Pico")) {
+                TipoCenario.CASTELO.aplicarEfeitos(heroi); // Corresponde à constante que ajustamos
+            }
+
+            // O status do herói e o loop de combate permanecem exatamente os mesmos
+            System.out.println("\nStatus atual do herói antes da batalha: " + heroi.exibirStatus());
+            System.out.println("\n" + heroi.getNome() + " aperta o punho em sua arma, pronto para o combate!");
+
+            /* 
+
             int numMonstros = faseAtual.getMonstros().size();
 
             System.out.println("==============================================");
@@ -83,8 +104,20 @@ public class Main {
             System.out.println("\nStatus atual do herói antes da batalha: " + heroi.exibirStatus());
             System.out.println("\n" + heroi.getNome() + " aperta o punho em sua arma, pronto para o combate!");
 
+            */
+
             // --- LOOP DE COMBATE POR MONSTRO (Lógica e diálogos 100% preservados) ---
             for (Monstro monstro : faseAtual.getMonstros()) {
+
+                // ---> LÓGICA PARA VERIFICAR EVENTOS <---
+                if (faseAtual.getEventos() != null) {
+                    for (Evento evento : faseAtual.getEventos()) {
+                        if (evento.vericarGatilho(heroi, ambiente)) {
+                            evento.executar(heroi);
+                        }
+                    }
+                }
+
                 if (!heroi.estaVivo()) {
                     System.out.println("\n==============================================");
                     System.out.println("                 GAME OVER!");
@@ -177,6 +210,14 @@ public class Main {
                     }
                 }
             }
+
+            // 3. (NOVO) VERIFICA SE A FASE FOI CONCLUÍDA USANDO A INTERFACE
+            if (heroi.estaVivo() && faseAtual.isConcluida()) {
+                System.out.println("\n--------------------------------------------------------");
+                System.out.println("VITÓRIA NA FASE! " + heroi.getNome() + " superou todos os desafios de " + ambiente + "!");
+                System.out.println("--------------------------------------------------------");
+            }
+
         }
 
         // --- MENSAGEM FINAL (100% preservada) ---
