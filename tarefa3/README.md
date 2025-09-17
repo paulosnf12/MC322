@@ -20,7 +20,7 @@ As principais interfaces que governam o sistema são:
 
 ## Funcionalidades Principais
 
-*   **Mundo Virtual com Fases**: O jogo é dividido em fases com dificuldade crescente, cada uma com um conjunto de monstros e eventos adaptados ao seu nível.
+*   **Sistema de Fases**: O jogo é dividido em fases com dificuldade crescente, cada uma com um conjunto de monstros e eventos adaptados ao seu nível.
 *   **Sistema de Combate Dinâmico**:
     *   Combates por turnos, com rolagens de dados (1d20) para determinar acertos.
     *   **Ataque Crítico com Habilidade Garantida**: Uma rolagem de 20 não é apenas um dano extra, mas ativa a habilidade especial do herói (`FlechaMagica` ou `GolpeSagrado`).
@@ -155,3 +155,4 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
