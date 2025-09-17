@@ -46,7 +46,7 @@ As principais interfaces que governam o sistema são:
 ## Personagens, Armas e Balanceamento
 
 ### O Paladino
-*   **Ações de Combate**: `AqueEspada` (básico), `GolpeSagrado` (especial).
+*   **Ações de Combate**: `AtaqueEspada` (básico), `GolpeSagrado` (especial).
 *   **Armas Equipáveis**: Espadas (`Espada de Madeira`, `Espada de Ferro`, `Espada de Diamante`).
 *   **Danos Base Recomendados**: 6 (Madeira), 17 (Ferro), 37 (Diamante).
 
@@ -155,4 +155,5 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
 
