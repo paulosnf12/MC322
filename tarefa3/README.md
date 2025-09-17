@@ -42,7 +42,8 @@ As principais interfaces que governam o sistema são:
 *   **Sistema de Experiência**: A XP agora é concedida corretamente **apenas ao derrotar um monstro**, e não mais ao final de cada turno (para um melhor balanceamento);
 *   **Restrição de Equipamentos**: Heróis agora só podem equipar armas compatíveis com sua classe (Elfos só usam Arcos e Paladinos só usam Espadas);
 *   **Balanceamento de Atributos**: A vida ganha ao subir de nível foi ajustada para um melhor balanceamento;
-*   **Diálogos Dinâmicos**: As falas dos heróis em encontros especiais foram adaptadas para serem genéricas de acordo com o personagem jogado.
+*   **Diálogos Dinâmicos**: As falas dos heróis em encontros especiais foram adaptadas para serem genéricas de acordo com o personagem jogado;
+*   **Uso de interfaces na dinâmica da Main**: O código foi refatorado de maneira a funcionar melhor com o uso de interfaces na lógica da Main.
 
 ## Personagens, Armas e Balanceamento
 
@@ -156,6 +157,7 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
 
 
 
