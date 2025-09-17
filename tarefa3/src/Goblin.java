@@ -29,23 +29,6 @@ public class Goblin extends Monstro {
             System.out.println(); // Adiciona uma linha em branco
         }
     }
-    /*      Antigo método atacar, agora substituído pela estratégia AtaqueGoblin
-    
-    @Override
-    public void atacar(Personagem alvo) {
-        int danoTotal = danoArma + getForca();
-        alvo.receberDano(danoTotal);
-        System.out.println("Goblin atacou com " + tipoDeArma + " causando " + danoTotal + " de dano!");
-        // Implementação do roubo
-        if (Math.random() < chanceDeRoubo) {
-            int valorRoubo = 3; // valor fixo roubado
-            alvo.receberDano(valorRoubo); // personagem perde vida extra
-            this.setpontosdevida(this.getpontosdevida() + valorRoubo); // goblin recupera vida
-            System.out.println("Goblin roubou " + valorRoubo + " de vida do alvo!");
-        }
-    }
-
-    */
 
     @Override
     public String exibirStatus() {

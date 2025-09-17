@@ -122,20 +122,11 @@ public abstract class Heroi extends Personagem {
 
     // Método privado para aumentar o nível do herói e atualizar atributos
     private void subirDeNivel() {
-        
-        /*
-        nivel++;
-        experiencia -= expProximoNivel; // Deduz a experiência necessária para o nível anterior
-        expProximoNivel = 100 + (nivel - 1) * 50; // Aumenta a experiência necessária para o próximo nível
-        pontosDeVida += 20 + (nivel * 5); // Aumenta mais a cada nível
-        forca += 5 + (nivel * 2);
-        agilidade += 3 + nivel;
-        */
 
         nivel++;
         experiencia -= expProximoNivel; // Deduz a experiência necessária para o nível anterior
         expProximoNivel = 100 + (nivel * 75); 
-        pontosDeVida += 15 + (nivel * 4); 
+        pontosDeVida += 16 + (nivel * 4); 
         forca += 4 + (nivel * 1);           
         agilidade += 2 + nivel;         
 

@@ -16,10 +16,10 @@ public class ConstrutorDeCenarioFixo implements GeradorDeFases {
 
     // MUDANÇA 2: A assinatura do método foi alterada para corresponder à interface
     @Override                 //gerarFases virou gerar para corresponder à interface
-    public List<InterfaceFase> gerar(int nFases) { //--> antigo public static ArrayList<Fase> gerarFases(int nFases);
+    public List<Fase> gerar(int nFases) { //--> antigo public static ArrayList<Fase> gerarFases(int nFases);
 
         // MUDANÇA 3: O tipo da lista foi alterado para a interface
-        List<InterfaceFase> fases = new ArrayList<>();
+        List<Fase> fases = new ArrayList<>();
         System.out.println("\n-------------------------------------------------");
         System.out.println(" Preparando o reino para sua jornada, herói...");
         System.out.println("-------------------------------------------------");
@@ -128,7 +128,7 @@ public class ConstrutorDeCenarioFixo implements GeradorDeFases {
                 eventosDaFase.add(new EventoDeBencao());
             }
 
-            fases.add(new Fase(nivelFase, ambiente, monstrosFase, eventosDaFase)); // Agora adiciona eventos da fase
+            fases.add(new FaseDeCombate(nivelFase, ambiente, monstrosFase, eventosDaFase)); // Agora adiciona eventos da fase
 
             System.out.println("Fase " + nivelFase + ": '" + ambiente + "' criada com " + monstrosFase.size() + " monstros prontos para o desafio!");
         }

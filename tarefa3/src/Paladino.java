@@ -43,31 +43,43 @@ public class Paladino extends Heroi {
         return this.arma;
     }
 
-    // Atualiza a espada 
-    public void atualizarEspada() {
-        int nivelAtual = getNivel();
-        // int danoTemporario = 0; // Não mais necessário, o dano vem da instância de Arma
-        Arma novaArma; // A arma agora é uma instância de uma subclasse concreta de Arma
+    // Atualiza a espada
+public void atualizarEspada() {
+    int nivelAtual = getNivel();
+    Arma novaArmaPadrao; // A arma padrão que o Paladino pode criar neste nível
 
-        if (nivelAtual < 2) { // Nível 1 usa Madeira
-            tipoDeEspada = "Madeira";
-            novaArma = new EspadaMadeira(configDanoMadeira); // Cria uma instância de EspadaMadeira
-        } else if (nivelAtual < 3) { // Nível 2 usa Ferro
-            tipoDeEspada = "Ferro";
-            novaArma = new EspadaFerro(configDanoFerro); // Cria uma instância de EspadaFerro
-        } else { // Nível 3 ou superior usa Diamante
-            tipoDeEspada = "Diamante";
-            novaArma = new EspadaDiamante(configDanoDiamante); // Cria uma instância de EspadaDiamante
-        }
-
-        this.danoEspadaBase = novaArma.getDano(); // Atualiza o dano base com o dano da arma criada
-
-        // Equipar a nova instância de Arma. O nível mínimo é intrínseco à nova classe de Arma.
-        this.equiparArma(novaArma);
-        
-        // Exibe o nome completo da arma, que é obtido da própria instância de Arma
-        System.out.println(nome + " agora usa " + novaArma.getNomeCompleto() + " (Dano Base: " + danoEspadaBase + ").");
+    // 1. Determina qual é a arma padrão para o nível atual
+    if (nivelAtual < 2) { // Nível 1 usa Madeira
+        novaArmaPadrao = new EspadaMadeira(configDanoMadeira);
+    } else if (nivelAtual < 3) { // Nível 2 usa Ferro
+        novaArmaPadrao = new EspadaFerro(configDanoFerro);
+    } else { // Nível 3 ou superior usa Diamante
+        novaArmaPadrao = new EspadaDiamante(configDanoDiamante);
     }
+
+    // 2. Compara a arma padrão com a arma atualmente equipada
+    Arma armaAtual = this.getArma();
+
+    if (armaAtual == null) {
+        // CASO 1: O Paladino não tem arma. Equipa a nova arma padrão.
+        System.out.println(this.getNome() + " sente sua fé renovada e consagra uma nova arma: " + novaArmaPadrao.getNomeCompleto() + "!");
+        this.equiparArma(novaArmaPadrao);
+
+    } else if (novaArmaPadrao.getDano() > armaAtual.getDano()) {
+        // CASO 2: A nova arma padrão é mais forte que a atual.
+        System.out.println("Guiado por sua convicção, " + this.getNome() + " forja uma arma mais poderosa: uma " + novaArmaPadrao.getNomeCompleto() + "!");
+        this.equiparArma(novaArmaPadrao);
+
+    } else {
+        // CASO 3: A arma atual (possivelmente de um drop) é melhor ou igual. Não faz nada.
+        System.out.println(this.getNome() + " poderia forjar uma " + novaArmaPadrao.getNomeCompleto() + ", mas sua arma atual (" + armaAtual.getNomeCompleto() + ") já serve bem ao seu propósito sagrado.");
+    }
+
+    // 3. Atualiza o dano base do Paladino com base na arma que ele REALMENTE tem equipada
+    if (this.getArma() != null) {
+        this.danoEspadaBase = this.getArma().getDano();
+    }
+}
 
     @Override
     public void ganharExperiencia(int exp) {

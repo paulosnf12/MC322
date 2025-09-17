@@ -30,15 +30,4 @@ public class Vampiro extends Monstro {
     public String exibirStatus() {
         return super.exibirStatus() + ", Brilho = " + brilho;
     }
-
-    /*      Antigo método atacar
-
-    @Override
-    public void atacar(Personagem alvo) {
-        int dano = this.forca + (this.brilho / 10); // quanto maior o brilho, maior o dano
-        alvo.receberDano(dano);
-        System.out.println(nome + " ataca com seu brilho! Brilho: " + brilho + ". Dano causado: " + dano);
-    }
-
-    */
 }

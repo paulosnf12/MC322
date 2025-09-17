@@ -71,11 +71,4 @@ public abstract class Personagem implements Combatente{
     public void setArma(Arma arma) { 
         this.arma = arma;
     }
-
-    /*      Agora implementado via lógica de interface
-
-    // método abstrato
-    public abstract void atacar(Personagem alvo);
-
-    */
 }

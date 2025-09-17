@@ -39,37 +39,41 @@ public class Elfo extends Heroi {
 
     // Método para atualizar o arco (e consequentemente a arma equipada) com base no NÍVEL
     public void atualizarArco() {
-        int nivelAtual = getNivel(); // obtém o nível atual do Elfo
-        // int danoTemporario = 0; // Não mais necessário, o dano vem da instância de Arma
-        Arma novaArma; // A arma agora é uma instância de uma subclasse concreta de Arma
+        int nivelAtual = getNivel();
+        Arma novaArmaPadrao; // A arma padrão que o Elfo pode criar neste nível
 
+        // 1. Determina qual é a arma padrão para o nível atual
         if (nivelAtual < 2) { // Nível 1 usa Beta
-            tipoDeArco = "Beta";
-            novaArma = new ArcoBeta(configDanoBeta); // Cria uma instância de ArcoBeta
+            novaArmaPadrao = new ArcoBeta(configDanoBeta);
         } else if (nivelAtual < 3) { // Nível 2 usa Alpha
-            tipoDeArco = "Alpha";
-            novaArma = new ArcoAlpha(configDanoAlpha); // Cria uma instância de ArcoAlpha
+            novaArmaPadrao = new ArcoAlpha(configDanoAlpha);
         } else { // Nível 3 ou superior usa Sigma
-            tipoDeArco = "Sigma";
-            novaArma = new ArcoSigma(configDanoSigma); // Cria uma instância de ArcoSigma
+            novaArmaPadrao = new ArcoSigma(configDanoSigma);
         }
 
-        boolean mudouArma = (this.arma == null) || !this.arma.getNomeCompleto().equals(novaArma.getNomeCompleto());
-        
-        this.danoArcoBase = novaArma.getDano(); // Atualiza o dano base com o dano da arma criada
-        // Equipar a nova instância de Arma. O nível mínimo é intrínseco à nova classe de Arma.
-        this.equiparArma(novaArma);
-        this.cura = (int) (0.02 * this.danoArcoBase); // Atualiza a cura (2% do dano do arco) --> bom em níveis altos
+        // 2. Compara a arma padrão com a arma atualmente equipada
+        Arma armaAtual = this.getArma();
 
-        if (mudouArma) {
-        System.out.println(nome + " equipou a arma [" + novaArma.getNomeCompleto() + "].");
-    }
-        
-/* 
+        if (armaAtual == null) {
+            // CASO 1: O Elfo não tem arma. Equipa a nova arma padrão.
+            System.out.println(this.getNome() + " atingiu um novo patamar e forja uma nova arma: " + novaArmaPadrao.getNomeCompleto() + "!");
+            this.equiparArma(novaArmaPadrao);
 
-        // Exibe o nome completo da arma, que é obtido da própria instância de Arma
-        System.out.println(nome + " agora usa " + novaArma.getNomeCompleto() + " (Dano Base: " + danoArcoBase + ").");
-        */
+        } else if (novaArmaPadrao.getDano() > armaAtual.getDano()) {
+            // CASO 2: A nova arma padrão é mais forte que a atual.
+            System.out.println("Com sua nova experiência, " + this.getNome() + " aprimora seu equipamento para uma " + novaArmaPadrao.getNomeCompleto() + "!");
+            this.equiparArma(novaArmaPadrao);
+
+        } else {
+            // CASO 3: A arma atual (possivelmente de um drop) é melhor ou igual. Não faz nada.
+            System.out.println(this.getNome() + " sente que poderia forjar uma " + novaArmaPadrao.getNomeCompleto() + ", mas sua arma atual (" + armaAtual.getNomeCompleto() + ") ainda é superior.");
+        }
+
+        // 3. Atualiza os atributos do Elfo com base na arma que ele REALMENTE tem equipada agora
+        if (this.getArma() != null) {
+            this.danoArcoBase = this.getArma().getDano();
+            this.cura = (int) (0.02 * this.danoArcoBase);
+        }
     }
 
 

@@ -24,7 +24,7 @@ public class Main {
         // Comentar/Descomentar caso queira testar/jogar com o Elfo, Heroi padrão sendo testado agora é o Paladino.
 
         // Jogar com o Elfo:
-        //Heroi heroi = new Elfo("Legolas", 100, 15, 12, 1, 0, 8, 17, 32);
+        // Heroi heroi = new Elfo("Legolas", 100, 15, 12, 1, 0, 8, 17, 32);
 
         // Jogar com o Paladino:
         Heroi heroi = new Paladino("Paladino", 120, 17, 12, 1, 0, 6, 17, 37);
@@ -36,7 +36,7 @@ public class Main {
         System.out.println();
 
         // ---> MUDANÇA MECÂNICA: Gerando as fases através da interface.
-        List<InterfaceFase> fasesDoJogo = gerador.gerar(3);
+        List<Fase> fasesDoJogo = gerador.gerar(3);
         Random rand = new Random();
         // Scanner scanner = new Scanner(System.in);
         ArrayList<Item> armasDropadas = new ArrayList<>();
@@ -47,7 +47,7 @@ public class Main {
         System.out.println("Que a sorte esteja ao seu lado!\n");
 
         for (int i = 0; i < fasesDoJogo.size(); i++) {
-            InterfaceFase faseAtualInterface = fasesDoJogo.get(i);
+            Fase faseAtualInterface = fasesDoJogo.get(i);
             
             if (!heroi.estaVivo()) break;
 
@@ -55,8 +55,8 @@ public class Main {
             String ambiente = faseAtualInterface.getTipoDeCenario();
             
             // ---> MUDANÇA MECÂNICA: Cast para acessar a lista de monstros.
-            if (!(faseAtualInterface instanceof Fase)) continue; // Segurança
-            Fase faseAtual = (Fase) faseAtualInterface;
+            if (!(faseAtualInterface instanceof FaseDeCombate)) continue; // Segurança
+            FaseDeCombate faseAtual = (FaseDeCombate) faseAtualInterface;
             
             // 1. Usa o método iniciar() da fase para exibir o cabeçalho.
             faseAtual.iniciar(heroi);
@@ -76,35 +76,6 @@ public class Main {
             System.out.println("\nStatus atual do herói antes da batalha: " + heroi.exibirStatus());
             System.out.println("\n" + heroi.getNome() + " aperta o punho em sua arma, pronto para o combate!");
 
-            /* 
-
-            int numMonstros = faseAtual.getMonstros().size();
-
-            System.out.println("==============================================");
-            System.out.println("          INICIANDO FASE " + (i + 1) + ": " + ambiente.toUpperCase());
-            System.out.println("==============================================");
-            System.out.println(heroi.getNome() + " entra na " + ambiente + " para enfrentar " + numMonstros + " criaturas temíveis!");
-
-            // Narração do ambiente preservada
-            switch (ambiente.split(" ")[0]) {
-                case "Floresta":
-                    System.out.println("O ar da Floresta Sussurrante é úmido e denso. Sons misteriosos ecoam entre as árvores antigas...");
-                    break;
-                case "Cripta":
-                    System.out.println("Um calafrio percorre a espinha de " + heroi.getNome() + " ao adentrar a Cripta Sombria...");
-                    break;
-                case "Pico":
-                    System.out.println("O vento gélido chicoteia o rosto de " + heroi.getNome() + " no Pico Nevado dos Ventos Uivantes...");
-                    break;
-                default:
-                    System.out.println("Um novo e misterioso ambiente se revela! Que desafios aguardam " + heroi.getNome() + "?");
-                    break;
-            }
-
-            System.out.println("\nStatus atual do herói antes da batalha: " + heroi.exibirStatus());
-            System.out.println("\n" + heroi.getNome() + " aperta o punho em sua arma, pronto para o combate!");
-
-            */
 
             // --- LOOP DE COMBATE POR MONSTRO (Lógica e diálogos 100% preservados) ---
             for (Monstro monstro : faseAtual.getMonstros()) {
@@ -191,12 +162,14 @@ public class Main {
 
                     if (rand.nextDouble() < heroi.getSorte()) {
                         System.out.println("A sorte de " + heroi.getNome() + " brilha! Há um brilho no chão onde o monstro caiu!");
+                        System.out.println();
                         
                         // ---> MUDANÇA MECÂNICA: Usando droparLoot() que retorna um Item.
                         Item loot = monstro.droparLoot();
                         if (loot != null && loot instanceof Arma) {
                         Arma armaLargada = (Arma) loot;
                         System.out.println(" - " + armaLargada.toString());
+                        System.out.println();
 
                         boolean podeEquipar = false;
 
@@ -252,7 +225,6 @@ public class Main {
                 System.out.println("VITÓRIA NA FASE! " + heroi.getNome() + " superou todos os desafios de " + ambiente + "!");
                 System.out.println("--------------------------------------------------------");
             }
-
         }
 
         // --- MENSAGEM FINAL (100% preservada) ---

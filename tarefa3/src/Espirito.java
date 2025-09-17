@@ -29,15 +29,4 @@ public class Espirito extends Monstro {
     public String exibirStatus() {
         return super.exibirStatus() + ", Tristeza = " + tristeza;
     }
-
-    /* 
-
-    @Override
-    public void atacar(Personagem alvo) {
-        int dano = this.forca + (this.tristeza / 10); // quanto maior a tristeza, maior o dano
-        alvo.receberDano(dano);
-        System.out.println(nome + " está triste, ele não gosta de ficar triste... Tristeza: " + tristeza + ". Dano causado: " + dano);
-    }
-
-    */
 }

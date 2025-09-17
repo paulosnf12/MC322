@@ -71,24 +71,4 @@ public abstract class Monstro extends Personagem implements Lootavel {
     public String exibirStatus() {
         return super.exibirStatus() + ", XP Concedido = " + xpConcedido;
     }
-
-    /*          Antigo método largarArma() substituído por droparLoot() da interface Lootavel
-     
-     ------------- CÓDIGO ANTIGO -------------
-
-    // Método corrigido para largar uma arma aleatória
-    public Arma largaArma() {
-        if (listaDeArmasParaLargar == null || listaDeArmasParaLargar.isEmpty()) {
-            System.out.println(nome + " não largou nenhuma arma.");
-            return null; // Não há armas para largar
-        }
-        Random rand = new Random();
-        int idx = rand.nextInt(listaDeArmasParaLargar.size());
-        Arma armaLargada = listaDeArmasParaLargar.get(idx);
-        System.out.println(nome + " largou uma arma! (Dano: " + armaLargada.getDano() + ", Nível Mínimo: " + armaLargada.getMinNivel() + ")");
-        return armaLargada;
-    }
-
-     */
-
 }

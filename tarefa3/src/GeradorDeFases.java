@@ -3,6 +3,6 @@
 import java.util.List;
 
 public interface GeradorDeFases {
-    List<InterfaceFase> gerar(int quantidadeDeFases);
+    List<Fase> gerar(int quantidadeDeFases);
 }
 
