@@ -33,7 +33,7 @@ As principais interfaces que governam o sistema são:
     *   Eventos são disparados com base em gatilhos específicos. Atualmente, ao entrar na fase da Floresta, o herói recebe uma bênção que restaura sua vida.
 *   **Heróis Jogáveis com Classes Distintas**:
     *   **Elfo**: Ágil, especialista em arcos, com cura passiva em seus ataques.
-    *   **Paladino**: Resistente, mestre de espadas, com um poderoso golpe sagrado. 
+    *   **Paladino**: Resistente, mestre de espadas, com ataque e armas poderosas. 
 *   **Mecanismo de Sorte**: Um atributo `sorte` (0.0 a 1.0) influencia habilidades e a chance de drops. Por exemplo, o `GolpeSagrado` do Paladino recebe 20% de dano bônus se a sorte for maior que 0.4.
 
 ## Melhorias e Correções (Fixes)
@@ -157,6 +157,7 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
 
 
 
