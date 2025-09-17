@@ -134,9 +134,9 @@ public class Main {
 
                 monstro.apresentarDialogoEspecial();
                 // Respostas do herói preservadas
-                if (monstro.getNome().equals("Edward Cullen")) { System.out.println(heroi.getNome() + ": \"Brilho não vai te salvar do meu arco, Edward!\""); } 
+                if (monstro.getNome().equals("Edward Cullen")) { System.out.println(heroi.getNome() + ": \"O brilho da vida que eu defendo é muito mais forte que o seu falso esplendor, criatura!\""); } 
                 else if (monstro.getNome().equals("Kaonashi")) { System.out.println(heroi.getNome() + ": \"Não quero ouro, Kaonashi. Só quero vencer!\""); } 
-                else if (monstro.getNome().equals("Goblin Guerreiro")) { System.out.println(heroi.getNome() + ": \"Veremos se sua clava é páreo para minha mira, Goblin!\""); }
+                else if (monstro.getNome().equals("Goblin Guerreiro")) { System.out.println(heroi.getNome() + ": \"Sua sede de batalha será o seu fim, Goblin!\""); }
 
                 // --- LOOP DE TURNO (Lógica de ataque e d20 preservada, mas usando os novos métodos) ---
                 int turno = 1;
@@ -159,7 +159,7 @@ public class Main {
                     }
                     
                     // Chama o método escolherAcao, como requisitado pelo enunciado.
-                    
+
                     // O herói agora sabe qual ação tomar com base no sinal que definimos.
                     heroi.escolherAcao(monstro);
 
@@ -195,27 +195,56 @@ public class Main {
                         // ---> MUDANÇA MECÂNICA: Usando droparLoot() que retorna um Item.
                         Item loot = monstro.droparLoot();
                         if (loot != null && loot instanceof Arma) {
-                            Arma armaLargada = (Arma) loot;
-                            System.out.println("Uma " + armaLargada.toString() + " aguarda!");
-                            
-                            // Lógica de equipar idêntica
+                        Arma armaLargada = (Arma) loot;
+                        System.out.println(" - " + armaLargada.toString());
+
+                        boolean podeEquipar = false;
+
+                        // 1. Verifica se o herói é do tipo certo para a arma dropada
+                        if (heroi instanceof Paladino && armaLargada.getTipoArma().equals("Espada")) {
+                            podeEquipar = true;
+                        } else if (heroi instanceof Elfo && armaLargada.getTipoArma().equals("Arco")) {
+                            podeEquipar = true;
+                        }
+
+                        // 2. Se o herói PODE equipar este TIPO de arma, então verifica se VALE A PENA
+                        if (podeEquipar) {
+                            boolean equipou = false; // Flag para saber se a arma foi equipada
+
+                            // Lógica para equipar se o slot estiver vazio
                             if (heroi.getArma() == null) {
                                 System.out.println(heroi.getNome() + " não tinha nenhuma arma equipada. Ele rapidamente empunha a " + armaLargada.getNomeCompleto() + "!");
                                 heroi.equiparArma(armaLargada);
-                            } else if (armaLargada.getDano() > heroi.getArma().getDano() && heroi.getNivel() >= armaLargada.getMinNivel()) {
-                                System.out.println("Uma arma superior! " + heroi.getNome() + " troca sua " + heroi.getArma().getNomeCompleto() + " pela poderosa " + armaLargada.getNomeCompleto() + "!");
-                                heroi.equiparArma(armaLargada);
-                            } else {
-                                System.out.println("A " + armaLargada.getNomeCompleto() + " não é tão boa quanto a arma atual de " + heroi.getNome() + ". Ele decide não equipá-la.");
-                            }
-                        } else {
-                             System.out.println("O monstro não largou nenhuma arma digna. A sorte nem sempre sorri.");
+                                equipou = true;
+                            
+                                    // Lógica para comparar com a arma atual
+                                    } else if (armaLargada.getDano() > heroi.getArma().getDano() && heroi.getNivel() >= armaLargada.getMinNivel()) {
+                                        System.out.println("Uma arma superior! " + heroi.getNome() + " troca sua " + heroi.getArma().getNomeCompleto() + " pela poderosa " + armaLargada.getNomeCompleto() + "!");
+                                        heroi.equiparArma(armaLargada);
+                                        equipou = true;
+                                    }
+
+                                    // Se a arma era do tipo certo, mas não era melhor, informa o jogador
+                                    if (!equipou) {
+                                        System.out.println("A " + armaLargada.getNomeCompleto() + " não é tão boa quanto a arma atual de " + heroi.getNome() + ". Ele decide não equipá-la.");
+                                    }
+
+                                    } else {
+                                        // 3. Se a arma é do tipo errado, informa o jogador e a ignora
+                                        System.out.println(heroi.getNome() + " encontra a arma, mas ela não é do seu estilo. (" + armaLargada.getNomeCompleto() + " ignorada).");
+                                    }
+
+                                } else if (loot != null) {
+                                    // Caso o loot seja um Item mas não uma Arma (preparado para o futuro)
+                                    System.out.println(heroi.getNome() + " encontrou um item: " + loot.getNomeCompleto());
+
+                                } else {
+                                    // Se não houve loot de arma
+                                    System.out.println("O monstro não largou nenhuma arma digna. A sorte nem sempre sorri.");
+                                }             
+                            } 
                         }
-                    } else {
-                        System.out.println("A sorte não favoreceu desta vez. O monstro não largou nada valioso.");
                     }
-                }
-            }
 
             // 3. (NOVO) VERIFICA SE A FASE FOI CONCLUÍDA USANDO A INTERFACE
             if (heroi.estaVivo() && faseAtual.isConcluida()) {

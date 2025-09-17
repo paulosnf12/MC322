@@ -29,6 +29,10 @@ public abstract class Arma implements Item{
     // Sobrescrita do método toString para uma representação amigável da arma
     @Override
     public String toString() {
-        return getNomeCompleto() + " (Dano: " + getDano() + ", Nível Mínimo: " + minNivel + ")";
+        return getNomeCompleto() + " - Dano: " + getDano() + ", Nível Mínimo: " + minNivel + "";
+    }
+
+    public String getTipoArma() {
+        return this.nomeTipoArma;
     }
 }

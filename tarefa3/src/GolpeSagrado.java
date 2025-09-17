@@ -11,9 +11,9 @@ public class GolpeSagrado implements AcaoDeCombate {
 
             // A sorte alta aumenta o dano com base no carisma
             if (paladino.getSorte() > 0.4) {
-                // Usando o novo getter que vamos criar
-                danoEspecial += paladino.getCarisma();
-                System.out.println("A fé do Paladino potencializa o Golpe Sagrado! Dano extra de " + danoEspecial*0.2 + "!");
+                double boostDano = danoEspecial * 1.2; // Boost de 20% no dano
+                danoEspecial = (int) Math.round(boostDano); // Arrendondar dano para inteiro
+                System.out.println("A fé do Paladino potencializa o Golpe Sagrado! [atributo de sorte ativado!]");
             } else {
                 System.out.println("Paladino usou Golpe Sagrado!");
             }
