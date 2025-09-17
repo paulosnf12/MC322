@@ -50,7 +50,7 @@ public abstract class Monstro extends Personagem implements Lootavel {
         int idx = rand.nextInt(listaDeArmasParaLargar.size());
         Arma armaLargada = listaDeArmasParaLargar.get(idx); // Pega uma Arma...
 
-        System.out.println(nome + " largou uma arma! (" + armaLargada.getNomeCompleto() + ")");
+        System.out.println(nome + " largou uma arma encantada! (" + armaLargada.getNomeCompleto() + " [Encantada])");
         return armaLargada; // ...e a retorna como um Item.
     }
 

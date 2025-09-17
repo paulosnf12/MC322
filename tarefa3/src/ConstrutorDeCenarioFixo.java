@@ -43,19 +43,19 @@ public class ConstrutorDeCenarioFixo implements GeradorDeFases {
           // Criar algumas armas para os monstros largarem, usando as novas classes concretas de Arma
             ArrayList<Arma> armasComuns = new ArrayList<>();
             // As armas agora são instâncias de classes concretas que herdam de Arma
-            armasComuns.add(new EspadaMadeira(5 + nivelFase)); // Exemplo de Arma simples: Espada de Madeira
-            armasComuns.add(new ArcoBeta(8 + nivelFase * 2));   // Exemplo de Arma média: Arco Beta
+            armasComuns.add(new EspadaMadeira(9 + nivelFase)); // Espada de Madeira [encantada] (nível 1 mínimo na classe)
+            armasComuns.add(new ArcoBeta(12 + nivelFase));   // Arco Beta [encantado] (nível 1 mínimo na classe)
 
             // --- ADIÇÃO DE ARMAS MAIS AVANÇADAS PARA DROP ---
             // A partir da Fase 2 (nivelFase 2)
             if (nivelFase >= 2) {
-                armasComuns.add(new EspadaFerro(12 + nivelFase * 3)); // Exemplo de Arma rara: Espada de Ferro (nível 2 mínimo na classe)
-                armasComuns.add(new ArcoAlpha(15 + nivelFase * 3)); // Arco mais forte
+                armasComuns.add(new EspadaFerro(21 + nivelFase)); // Espada de Ferro [encantada] (nível 2 mínimo na classe)
+                armasComuns.add(new ArcoAlpha(19 + nivelFase)); // Arco Alpha [encantado]  (nível 2 mínimo na classe)
             }
             // A partir da Fase 3 (nivelFase 3)
             if (nivelFase >= 3) {
-                armasComuns.add(new EspadaDiamante(20 + nivelFase * 4)); // Espada Lendária
-                armasComuns.add(new ArcoSigma(25 + nivelFase * 4)); // Arco Lendário
+                armasComuns.add(new EspadaDiamante(42 + nivelFase)); // Espada de Diamante [Lendária] --> encantada
+                armasComuns.add(new ArcoSigma(38 + nivelFase)); // Arco Sigma [Lendário] --> encantado
             }
             // --- FIM DA ADIÇÃO DE ARMAS MAIS AVANÇADAS PARA DROP ---
 

@@ -1,0 +1,57 @@
+mecânica de critico,
+
+aumentar cura para 14~15% (verificar Elfo)
+
+flecha magica não está curando
+
+subir de nível esta curando vida? --> (sim, pode estar mais balanceado)
+
+Verificar cura dos personagens
+
+futuramente: -implementar dano especial e dano físico
+             -defesa especial/defesa física
+
+Features README:
+
+	-lista de ataques para cada personagem:
+
+	-lista de armas equipáveis cada personagem:
+
+	-lista de ataques monstros:
+
+-talvez nova mecânica ataque espada Paladino
+
+-adicionar sangramento no golpe sagrado --> monstro agora toma -5% da vida atual no final de cada turno
+
+- "para minha mira" quando jogando de paladino
+
+-adição armas encantadas drop de monstros
+
+6 17 37
+8 17 32
+
+Dano extra de 16.400000000000002!
+Paladino troca sua Espada Madeira pela poderosa Arco Beta!
+
+elfo usar flecha mágica com espada
+
+fazer com que, se herói for paladino, pode equipar somente espadas, e se for elfo, usar somente arcos;
+	para isso, verificar se arma atual do herói for espada, somente pode equipar espadas, se for arco, somente poderá equipar arcos
+
+README:
+
+- Paladino agora jogável! (descomentar main)
+
+- Agora o herói só ganha experiencia ao derrotar o monstro da fase (antigamente ganhava ao final do turno).
+
+-Detalhes da sorte:
+	Todo herói tem uma sorte aleatória no momento da sua criação, variando de 0 a 1, que será usada posteriormente ao longo da jogatina, como por exemplo, o Golpe Sagrado do Paladino, para ter um boost de 20%, depende da sorte do paladino ter sido maior que 40% inicialmente.
+
+
+-subir de nível faz com que herói equipe arma mais fraca do que a atual se for encantada, por exemplo
+
+talvez alterar nome arquivo Fases.java
+
+Indicar que os métodos iniciar e TipoCenario estão sendo usados,
+
+verificar se os métodos da InterfaceFase estão sendo usados

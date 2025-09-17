@@ -16,7 +16,18 @@ public class Main {
 
         // ---> MUDANÇA MECÂNICA: Usando a interface para criar o gerador.
         GeradorDeFases gerador = new ConstrutorDeCenarioFixo();
-        Heroi heroi = new Elfo("Legolas", 100, 15, 12, 1, 0, 10, 20, 30);
+
+        // DISCLAIMER:
+
+         // Os últimos 3 argumentos são os danos base das armas! (Recomenda-se manter os valores sugeridos para um melhor balanceamento.)
+
+        // Comentar/Descomentar caso queira testar/jogar com o Elfo, Heroi padrão sendo testado agora é o Paladino.
+
+        // Jogar com o Elfo:
+        //Heroi heroi = new Elfo("Legolas", 100, 15, 12, 1, 0, 8, 17, 32);
+
+        // Jogar com o Paladino:
+        Heroi heroi = new Paladino("Paladino", 120, 17, 12, 1, 0, 6, 17, 37);
         
         System.out.println("\n== Despertar do Herói ==");
         System.out.println("Seu campeão surge das lendas...");
@@ -146,7 +157,7 @@ public class Main {
                         Item loot = monstro.droparLoot();
                         if (loot != null && loot instanceof Arma) {
                             Arma armaLargada = (Arma) loot;
-                            System.out.println("Uma arma foi largada! Uma " + armaLargada.toString() + " aguarda!");
+                            System.out.println("Uma " + armaLargada.toString() + " aguarda!");
                             
                             // Lógica de equipar idêntica
                             if (heroi.getArma() == null) {

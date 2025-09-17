@@ -17,7 +17,7 @@ public class Paladino extends Heroi {
     public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int nivel, int experiencia,
                     int danoMadeira, int danoFerro, int danoDiamante) { // Parâmetro Espada espadaConfig foi removido
         super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
-        this.carisma = 10; // Valor inicial de carisma
+        this.carisma = 26; // Valor inicial de carisma
         // Armazena os danos de configuração para uso no método atualizarEspada()
         this.configDanoMadeira = danoMadeira;
         this.configDanoFerro = danoFerro;
@@ -42,7 +42,7 @@ public class Paladino extends Heroi {
         return this.arma;
     }
 
-    // Atualiza a espada conforme o nível/experiência (mas usaremos o nível para consistência)
+    // Atualiza a espada 
     public void atualizarEspada() {
         int nivelAtual = getNivel();
         // int danoTemporario = 0; // Não mais necessário, o dano vem da instância de Arma
@@ -60,6 +60,7 @@ public class Paladino extends Heroi {
         }
 
         this.danoEspadaBase = novaArma.getDano(); // Atualiza o dano base com o dano da arma criada
+
         // Equipar a nova instância de Arma. O nível mínimo é intrínseco à nova classe de Arma.
         this.equiparArma(novaArma);
         

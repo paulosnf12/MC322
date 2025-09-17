@@ -25,8 +25,8 @@ public class Fase implements InterfaceFase { // Agora implementa InterfaceFase
         System.out.println("INICIANDO FASE " + this.nivel + ": " + this.ambiente.toUpperCase());
         System.out.println("==============================================");
         
-        // Aqui você pode adicionar a lógica de aplicar efeitos do cenário, se desejar
-        // Ex: TipoCenario.valueOf(ambiente.toUpperCase()).aplicarEfeitos(heroi);
+        // Poderemos adicionar futuramente a lógica para aplicar efeitos do cenário.
+        // Ex: TipoCenario.valueOf(ambiente.toUpperCase()).aplicarEfeitos(heroi), etc
     }
 
     @Override
