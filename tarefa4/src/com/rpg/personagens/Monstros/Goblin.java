@@ -1,11 +1,8 @@
 // Goblin.java
 package com.rpg.personagens.monstros;
-import com.rpg.personagens.monstros.Monstro;
-import com.rpg.itens.Arma;
-import com.rpg.combate.AcaoDeCombate;
 import com.rpg.combate.AtaqueGoblin;
-
-
+import com.rpg.itens.Arma;
+import com.rpg.personagens.Monstro;
 import java.util.ArrayList;
 
 public class Goblin extends Monstro {

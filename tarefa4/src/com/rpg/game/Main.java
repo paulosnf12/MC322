@@ -1,24 +1,22 @@
 package com.rpg.game; // Declaração do pacote, conforme a nova estrutura
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-// Importa as classes necessárias dos novos pacotes
+import com.rpg.cenario.ConstrutorDeCenarioFixo;
+import com.rpg.cenario.Evento;
 import com.rpg.cenario.Fase;
 import com.rpg.cenario.FaseDeCombate;
 import com.rpg.cenario.GeradorDeFases;
-import com.rpg.cenario.ConstrutorDeCenarioFixo;
 import com.rpg.cenario.TipoCenario;
-import com.rpg.cenario.Evento;
-import com.rpg.exceptions.NivelInsuficienteException; // Importa a exceção customizada
+import com.rpg.exceptions.NivelInsuficienteException;
 import com.rpg.itens.Arma;
 import com.rpg.itens.Item;
 import com.rpg.personagens.Heroi;
 import com.rpg.personagens.Monstro;
-import com.rpg.personagens.herois.Elfo; // Para o exemplo, mantido para referência
+import com.rpg.personagens.herois.Elfo;
 import com.rpg.personagens.herois.Paladino; // Para o exemplo de herói
-import com.rpg.util.InputManager; // Importa o InputManager
+import com.rpg.util.InputManager;
+import java.util.ArrayList; // Importa o InputManager
+import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -175,12 +173,12 @@ public class Main {
 
                 // Respostas do herói preservadas
                 if (monstro.getNome().equals("Edward Cullen")) {
-                    System.out.println(heroi.getNome() + ": "O brilho da vida que eu defendo e muito " +
-                                       "mais forte que o seu falso esplendor, criatura!"");
+                    System.out.println(heroi.getNome() + ": \"O brilho da vida que eu defendo e muito " +
+                                    "mais forte que o seu falso esplendor, criatura!");
                 } else if (monstro.getNome().equals("Kaonashi")) {
-                    System.out.println(heroi.getNome() + ": "Nao quero ouro, Kaonashi. So quero vencer!"");
+                    System.out.println(heroi.getNome() + ": \"Nao quero ouro, Kaonashi. So quero vencer!");
                 } else if (monstro.getNome().equals("Goblin Guerreiro")) {
-                    System.out.println(heroi.getNome() + ": "Sua sede de batalha sera o seu fim, Goblin!"");
+                    System.out.println(heroi.getNome() + ": \"Sua sede de batalha sera o seu fim, Goblin!");
                 }
 
                 // --- LOOP DE TURNO (Lógica de ataque e d20 preservada, mas usando os novos métodos) --

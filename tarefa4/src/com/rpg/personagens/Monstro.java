@@ -1,16 +1,13 @@
-package com.rpg.personagens.monstros; // Declaração do pacote para monstros
+package com.rpg.personagens; // Declaração do pacote para monstros
 
+import com.rpg.combate.AcaoDeCombate;
+import com.rpg.combate.Combatente;
+import com.rpg.itens.Arma;
+import com.rpg.itens.Item;
+import com.rpg.itens.Lootavel; // Embora herdado de Personagem, mantido para clareza em casos de uso direto
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-// Importa as classes necessárias dos novos pacotes
-import com.rpg.combate.AcaoDeCombate;
-import com.rpg.combate.Combatente; // Embora herdado de Personagem, mantido para clareza em casos de uso direto
-import com.rpg.itens.Arma;
-import com.rpg.itens.Item;
-import com.rpg.itens.Lootavel;
-import com.rpg.personagens.Personagem;
 
 // Agora implementa Lootavel (e herda Combatente de Personagem)
 public abstract class Monstro extends Personagem implements Lootavel {

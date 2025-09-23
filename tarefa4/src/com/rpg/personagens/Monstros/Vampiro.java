@@ -1,11 +1,10 @@
 // Vampiro.java
 package com.rpg.personagens.monstros;
-import com.rpg.personagens.monstros.Monstro;
-import com.rpg.itens.Arma;
-import com.rpg.combate.AcaoDeCombate;
-import com.rpg.combate.AtaqueVampirico;
-
 import java.util.ArrayList;
+
+import com.rpg.combate.AtaqueVampirico;
+import com.rpg.itens.Arma;
+import com.rpg.personagens.Monstro;
 
 public class Vampiro extends Monstro {
     private int brilho; // atributo único

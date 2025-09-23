@@ -1,8 +1,6 @@
 // Paladino.java
 package com.rpg.personagens.herois; // Pacote correto para heróis
 
-// Importa as classes necessárias dos novos pacotes
-import com.rpg.combate.AcaoDeCombate;
 import com.rpg.combate.AtaqueEspada;
 import com.rpg.combate.GolpeSagrado;
 import com.rpg.exceptions.NivelInsuficienteException; // Importa a exceção

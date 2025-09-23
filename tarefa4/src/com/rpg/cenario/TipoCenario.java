@@ -5,8 +5,6 @@
  * com sua própria descrição e implementação do método aplicarEfeitos.
  */
 package com.rpg.cenario;
-import java.util.ArrayList;
-import java.util.List;
 import com.rpg.personagens.Heroi;
 
 

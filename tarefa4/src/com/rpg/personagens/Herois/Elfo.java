@@ -1,15 +1,13 @@
 // Elfo.java
 package com.rpg.personagens.herois; // Pacote correto para heróis
 
-// Importa as classes necessárias dos novos pacotes
-import com.rpg.combate.AcaoDeCombate;
 import com.rpg.combate.AtaqueArco;
 import com.rpg.combate.FlechaMagica;
 import com.rpg.exceptions.NivelInsuficienteException; // Importa a exceção
-import com.rpg.itens.Arma;
 import com.rpg.itens.ArcoAlpha;
 import com.rpg.itens.ArcoBeta;
 import com.rpg.itens.ArcoSigma;
+import com.rpg.itens.Arma;
 import com.rpg.personagens.Heroi; // Elfo estende Heroi
 
 // Agora modificado para implementar o uso de interfaces

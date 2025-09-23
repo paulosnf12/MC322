@@ -1,12 +1,7 @@
 //FaseDeCombate.java
 package com.rpg.cenario;
-import java.util.ArrayList;
-import java.util.List;
 import com.rpg.personagens.Heroi;
-import com.rpg.personagens.monstros.Monstro;
-import com.rpg.cenario.Evento;
-
-
+import com.rpg.personagens.Monstro;
 import java.util.ArrayList;
 import java.util.List;
 

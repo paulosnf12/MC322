@@ -6,16 +6,16 @@ import java.util.List;
 
 // Importa as classes necessárias dos novos pacotes
 import com.rpg.game.Dificuldade; // Importa o enum de Dificuldade
-import com.rpg.itens.Arma;
 import com.rpg.itens.ArcoAlpha;
 import com.rpg.itens.ArcoBeta;
 import com.rpg.itens.ArcoSigma;
+import com.rpg.itens.Arma;
 import com.rpg.itens.EspadaDiamante;
 import com.rpg.itens.EspadaFerro;
 import com.rpg.itens.EspadaMadeira;
+import com.rpg.personagens.Monstro;
 import com.rpg.personagens.monstros.Espirito;
 import com.rpg.personagens.monstros.Goblin;
-import com.rpg.personagens.monstros.Monstro;
 import com.rpg.personagens.monstros.Vampiro;
 
 // MUDANÇA 1: A classe agora implementa a interface GeradorDeFases

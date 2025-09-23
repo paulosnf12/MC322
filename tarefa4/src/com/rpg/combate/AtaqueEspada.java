@@ -1,10 +1,6 @@
 // AtaqueEspada.java (NOVO ARQUIVO)
 package com.rpg.combate;
-import com.rpg.combate.AcaoDeCombate;
-import com.rpg.combate.Combatente;
-import com.rpg.personagens.herois.Elfo;
 import com.rpg.personagens.herois.Paladino;
-import com.rpg.personagens.monstros.Goblin;
 
 
 public class AtaqueEspada implements AcaoDeCombate {
