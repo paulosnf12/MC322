@@ -94,7 +94,7 @@ public class Main {
         //     heroi = new Paladino("Paladino", 120, 17, 12, 1, 0, 6, 17, 37);
         // }
         // Para a tarefa, vamos manter um herói fixo como estava no seu código original:
-        heroi = new Paladino("Paladino", 120, 17, 12, 1, 0, 6, 17, 37);
+        heroi = new Paladino("Paladino Capitão Nascimento", 120, 17, 12, 1, 0, 6, 17, 37);
 
 
         System.out.println("\n== Despertar do Herói ==");

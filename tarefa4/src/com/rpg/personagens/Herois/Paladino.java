@@ -80,12 +80,12 @@ public class Paladino extends Heroi {
             }
         } else if (novaArmaPadrao.getDano() > armaAtual.getDano()) {
             // CASO 2: A nova arma padrão é mais forte que a atual.
-            System.out.println("Guiado por sua conviccao, " + this.getNome() + " forja uma " +
+            System.out.println("Guiado por sua conviccao " + this.getNome() + " forja uma " +
                                "arma mais poderosa: uma " + novaArmaPadrao.getNomeCompleto() + "!");
             try { // <-- MUDANÇA AQUI: try-catch para NivelInsuficienteException
                 this.equiparArma(novaArmaPadrao);
             } catch (NivelInsuficienteException e) {
-                System.out.println("Erro ao aprimorar arma para " + this.getNome() + ": " + e.getMessage());
+                System.out.println("Erro ao aprimorar arma para Paladino" + this.getNome() + ": " + e.getMessage());
             }
         } else {
             // CASO 3: A arma atual (possivelmente de um drop) é melhor ou igual. Não faz nada.

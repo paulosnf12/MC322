@@ -2,15 +2,13 @@
 
 package com.rpg.personagens; // Declaração do pacote, conforme a nova estrutura
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random; // Importar Random para a sorte
-
-// Importa as classes necessárias dos novos pacotes
 import com.rpg.combate.AcaoDeCombate;
 import com.rpg.combate.Combatente;
-import com.rpg.exceptions.NivelInsuficienteException; // Importa a exceção customizada
+import com.rpg.exceptions.NivelInsuficienteException; // Importar Random para a sorte
 import com.rpg.itens.Arma;
+import java.util.ArrayList;
+import java.util.List; // Importa a exceção customizada
+import java.util.Random;
 
 // A classe Personagem já implementa Combatente, então Heroi herda isso.
 // Irá agora implementar a inferface Combatente (já implementado por Personagem).
@@ -141,7 +139,7 @@ public abstract class Heroi extends Personagem {
         expProximoNivel = 100 + (nivel * 75);
         pontosDeVida += 16 + (nivel * 4);
         forca += 4 + (nivel * 1);
-        agilidade += 2 + nivel;
+        //agilidade += 2 + nivel; Se ele ganha agilidade o jogo fica muito desequilibrado, então decidimos retirar.
         sorte = new Random().nextDouble(); // Atualiza sorte ao subir de nível
         System.out.println("Parabéns! " + nome + " subiu para o nivel " + nivel +
                            "!");

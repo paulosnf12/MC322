@@ -13,7 +13,7 @@ public class AtaqueEspada implements AcaoDeCombate {
             // Lógica do método atacar() original
             int danoTotal = (paladino.getArma() != null ? paladino.getArma().getDano() : 0) + paladino.getForca();
 
-            System.out.println("Paladino " + paladino.getNome() + " atacou com " + (paladino.getArma() != null ? paladino.getArma().getNomeCompleto() : "punhos") + "!");
+            System.out.println(paladino.getNome() + " atacou com " + (paladino.getArma() != null ? paladino.getArma().getNomeCompleto() : "punhos") + "!");
             alvo.receberDano(danoTotal);
             System.out.println("O ataque causou " + danoTotal + " de dano!");
         }
