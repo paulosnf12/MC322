@@ -79,7 +79,7 @@ public static void esperarEnter(String mensagem) {
 public static void fecharScanner() {
     if (scanner != null) {
         scanner.close();
-        System.out.println("Recursos do Scanner liberados.");
+        System.out.println();
     }
 }
 

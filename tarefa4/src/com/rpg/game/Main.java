@@ -115,8 +115,18 @@ public class Main {
 
         // --- LOOP DE FASES (Lógica e narração 100% preservadas) --
         System.out.println("\n== Inicio da Grande Jornada ==");
-        System.out.println("O destino do reino repousa sobre os ombros de " +
-                           heroi.getNome() + ".");
+        System.out.println();
+        System.out.println("O herói, " + heroi.getNome() + ", entra na arena para o teste definitivo: sobreviver a três desafios consecutivos!");
+        System.out.println();
+        System.out.println("O rugido da multidão é uma muralha de som. Holofotes cegantes varrem a escuridão, na arena o héroi aguarda a ser transportado para seu primeiro desafio, um chão que antes da tecnologia do teleporte foi marcado por incontáveis batalhas. Cada mancha escura é o eco de um guerreiro que tombou exatamente onde ele pisa, agora é a vez dele.");
+        System.out.println("O ar é denso, pesado com a promessa de violência. Nos ombros de " + heroi.getNome() + ", não pesa apenas a própria vida, mas o legado de todos que vieram antes. Muitos monstros. Muitos testes de vontade e aço. O caminho para a glória é pavimentado com perigo.");
+        System.out.println();
+        System.out.println("O teleporte está sendo ajustado.");
+        System.out.println();
+        System.out.println(heroi.getNome() + " será transportado para o cenário de batalha.");
+        System.out.println();
+        System.out.println("Que o primeiro oponente se revele!");
+        System.out.println();
         System.out.println("Que a sorte esteja ao seu lado!\n");
 
         for (int i = 0; i < fasesDoJogo.size(); i++) {
@@ -139,9 +149,9 @@ public class Main {
             if (ambiente.contains("Floresta")) {
                 TipoCenario.FLORESTA.aplicarEfeitos(heroi);
             } else if (ambiente.contains("Cripta")) {
-                TipoCenario.CAVERNA.aplicarEfeitos(heroi);
+                TipoCenario.CRIPTA.aplicarEfeitos(heroi);
             } else if (ambiente.contains("Pico")) {
-                TipoCenario.CASTELO.aplicarEfeitos(heroi); // Corresponde à constante que ajustamos
+                TipoCenario.PICO.aplicarEfeitos(heroi); // Corresponde à constante que ajustamos
             }
 
             // O status do herói e o loop de combate permanecem exatamente os mesmos

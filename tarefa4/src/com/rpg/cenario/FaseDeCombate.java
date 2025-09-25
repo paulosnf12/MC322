@@ -39,7 +39,8 @@ public class FaseDeCombate implements Fase { // Agora implementa InterfaceFase
     System.out.println("\n========================================================");
     System.out.println("INICIANDO FASE " + this.nivel + ": " + this.ambiente.toUpperCase());
     System.out.println("========================================================");
-    System.out.println(heroi.getNome() + " entra na " + this.ambiente + " para enfrentar " + numMonstros + " criaturas temíveis!");
+    System.out.println();
+    System.out.println(heroi.getNome() + " é transportado para " + this.ambiente + " com o intuito de enfrentar " + numMonstros + " criaturas temíveis!");
 }
 
     @Override
