@@ -35,7 +35,7 @@ As principais evoluções que permitiram essa transformação são:
 O código-fonte foi reorganizado em pacotes, seguindo as convenções do Java para agrupar classes com responsabilidades relacionadas. A nova estrutura de diretórios `src` é a seguinte:
 
 <p align="center">
-  <img src="estrutura.png" alt="Estrutura do projeto"/>
+  <img src="estrutur.png" alt="Estrutura do projeto"/>
 </p>
 
 ## Como Executar o Projeto
@@ -73,17 +73,17 @@ O código-fonte foi reorganizado em pacotes, seguindo as convenções do Java pa
 
 Para a implementação desta tarefa, foram cumpridos os seguintes requisitos conforme o enunciado:
 
-- **✔️ Arquitetura de Pacotes:** O projeto foi inteiramente refatorado, com todas as classes organizadas em pacotes lógicos como `com.rpg.game`, `com.rpg.personagens`, e `com.rpg.itens`, conforme especificado.
+- ** Arquitetura de Pacotes:** O projeto foi inteiramente refatorado, com todas as classes organizadas em pacotes lógicos como `com.rpg.game`, `com.rpg.personagens`, e `com.rpg.itens`, conforme especificado.
 
-- **✔️ Gerenciador de Entradas (`InputManager`):** A classe `InputManager` foi implementada no pacote `com.rpg.util` com todos os métodos estáticos solicitados (`lerInteiro`, `lerString`, `lerSimNao`, `esperarEnter`, `fecharScanner`), garantindo a robustez das interações.
+- ** Gerenciador de Entradas (`InputManager`):** A classe `InputManager` foi implementada no pacote `com.rpg.util` com todos os métodos estáticos solicitados (`lerInteiro`, `lerString`, `lerSimNao`, `esperarEnter`, `fecharScanner`), garantindo a robustez das interações.
 
-- **✔️ Sistema de Dificuldade:** Foi criado o `enum Dificuldade` com os níveis `FACIL`, `NORMAL` e `DIFICIL`, e a classe `ConstrutorDeCenarioFixo` utiliza o parâmetro de dificuldade para ajustar os atributos dos monstros.
+- ** Sistema de Dificuldade:** Foi criado o `enum Dificuldade` com os níveis `FACIL`, `NORMAL` e `DIFICIL`, e a classe `ConstrutorDeCenarioFixo` utiliza o parâmetro de dificuldade para ajustar os atributos dos monstros.
 
-- **✔️ Interação com o Jogador:** A classe `Main` foi reestruturada para apresentar um menu principal e um menu pós-combate, utilizando o `InputManager` para todas as interações e controlando o fluxo do jogo com base nas escolhas do usuário.
+- ** Interação com o Jogador:** A classe `Main` foi reestruturada para apresentar um menu principal e um menu pós-combate, utilizando o `InputManager` para todas as interações e controlando o fluxo do jogo com base nas escolhas do usuário.
 
-- **✔️ Tratamento de Exceções Customizadas:** Foram criadas as classes `NivelInsuficienteException` e `RecursoInsuficienteException`. A `NivelInsuficienteException` é lançada pelo método `equiparArma` na classe `Heroi` e tratada com um bloco `try-catch` na `Main`, demonstrando um controle de fluxo de erros robusto.
+- ** Tratamento de Exceções Customizadas:** Foram criadas as classes `NivelInsuficienteException` e `RecursoInsuficienteException`. A `NivelInsuficienteException` é lançada pelo método `equiparArma` na classe `Heroi` e tratada com um bloco `try-catch` na `Main`, demonstrando um controle de fluxo de erros robusto.
 
-- **✔️ Adaptação da Classe `Main`:** O fluxo principal do jogo foi completamente adaptado para iniciar com o menu, solicitar a dificuldade, gerar as fases de acordo e exibir o menu pós-combate, satisfazendo todos os requisitos de reestruturação.
+- ** Adaptação da Classe `Main`:** O fluxo principal do jogo foi completamente adaptado para iniciar com o menu, solicitar a dificuldade, gerar as fases de acordo e exibir o menu pós-combate, satisfazendo todos os requisitos de reestruturação.
 
 ## Créditos
 
@@ -91,4 +91,5 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
+
     *   Paulo Santos do Nascimento Filho
