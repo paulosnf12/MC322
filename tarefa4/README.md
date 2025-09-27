@@ -34,7 +34,9 @@ As principais evoluções que permitiram essa transformação são:
 
 O código-fonte foi reorganizado em pacotes, seguindo as convenções do Java para agrupar classes com responsabilidades relacionadas. A nova estrutura de diretórios `src` é a seguinte:
 
-
+<p align="center">
+  <img src="estrutura.png" alt="Estrutura do projeto"/>
+</p>
 
 ## Como Executar o Projeto
 
@@ -91,5 +93,6 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
 
     *   Paulo Santos do Nascimento Filho
+
 
 
