@@ -1,73 +1,38 @@
-# RPG Narrativo - Tarefa 3
+# RPG Narrativo - Tarefa 4
 
-Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, como parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). O jogo simula um ambiente de aventura onde um herói enfrenta múltiplos desafios em fases distintas, com progressão de nível, combate dinâmico e um sistema robusto de itens e habilidades.
+Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, como parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). O jogo agora é uma experiência totalmente interativa, onde o jogador controla o fluxo da aventura, escolhe a dificuldade e gerencia a campanha do herói através de menus.
 
 ## Descrição Geral
 
-O projeto foca na aplicação avançada de conceitos de Programação Orientada a Objetos. A principal evolução desta versão foi a **refatoração completa do código para uma arquitetura orientada a interfaces**, criando um sistema flexível, desacoplado e de fácil manutenção. A história se desenrola à medida que o herói avança por fases com monstros e eventos específicos, cuja dificuldade aumenta progressivamente.
+A Tarefa 4 transforma a simulação da versão anterior em um jogo completo e robusto. Com base na arquitetura orientada a interfaces da Tarefa 3, esta versão introduz interatividade com o jogador, um sistema de dificuldade, uma arquitetura de pacotes organizada e tratamento de exceções. O resultado é um jogo mais resiliente, dinâmico e com maior manutenibilidade.
 
-## Destaque Principal: Arquitetura Orientada a Interfaces
+## Destaque Principal: De Simulação a Jogo Interativo
 
-A mudança mais significativa foi a transição de uma lógica fortemente acoplada para um design baseado em contratos (interfaces). O motor do jogo (classe `Main`) agora interage com abstrações como `Fase`, `Combatente` e `AcaoDeCombate`, sem precisar conhecer os detalhes concretos de cada herói ou ataque.
+A mudança mais significativa foi a transição de uma simulação automática para um jogo controlado pelo jogador. Agora, o fluxo do programa depende das escolhas do usuário, que são capturadas e validadas pelo sistema, garantindo que o jogo não quebre por entradas inválidas.
 
-As principais interfaces que governam o sistema são:
-*   **`Fase`**: Define o contrato para qualquer área ou nível do jogo.
-*   **`Combatente`**: Representa qualquer entidade que participa de uma batalha (Heróis e Monstros).
-*   **`AcaoDeCombate`**: Descreve qualquer ação executável em combate (ataques, habilidades).
-*   **`Lootavel`**: Define uma entidade que pode dropar uma recompensa ao ser derrotada.
-*   **`Evento`**: Modela eventos especiais que podem ser disparados dentro de uma fase.
-*   **`Item`**: Interface base para qualquer item do jogo.
+As principais evoluções que permitiram essa transformação são:
+*   **Menus de Interação**: Implementação de um Menu Principal para iniciar ou sair do jogo e um Menu Pós-Combate para gerenciar o personagem após cada batalha.
+*   **Gerenciador de Entradas (`InputManager`)**: Uma classe utilitária centralizada que gerencia toda a interação com o console, validando entradas e tratando erros de forma segura.
+*   **Sistema de Dificuldade**: O jogador pode escolher entre os níveis `FACIL`, `NORMAL` e `DIFICIL`, alterando dinamicamente o poder dos monstros e a chance de obter melhores recompensas.
+*   **Tratamento de Exceções Customizadas**: O jogo agora lança e trata exceções específicas do jogo, como `NivelInsuficienteException`, tornando o controle de fluxo mais claro e objetivo.
 
-## Funcionalidades Principais
+## Novas Funcionalidades e Melhorias
 
-*   **Sistema de Fases**: O jogo é dividido em fases com dificuldade crescente, cada uma com um conjunto de monstros e eventos adaptados ao seu nível.
-*   **Sistema de Combate Dinâmico**:
-    *   Combates por turnos, com rolagens de dados (1d20) para determinar acertos.
-    *   **Ataque Crítico com Habilidade Garantida**: Uma rolagem de 20 não é apenas um dano extra, mas ativa a habilidade especial do herói (`FlechaMagica` ou `GolpeSagrado`).
-    *   Ações modulares (`AcaoDeCombate`) que permitem fácil adição de novas habilidades.
-*   **Progressão de Nível e Equipamentos**:
-    *   Ganho de experiência (XP) ao derrotar monstros.
-    *   Subida de nível com aumento de atributos (Vida, Força, Agilidade).
-    *   **Lógica de Upgrade Inteligente**: Ao subir de nível, o herói não substitui uma arma forte (dropada) por uma padrão mais fraca. O sistema sempre mantém o melhor equipamento.
-*   **Sistema de Eventos**:
-    *   Eventos são disparados com base em gatilhos específicos. Atualmente, ao entrar na fase da Floresta, o herói recebe uma bênção que restaura sua vida.
-*   **Heróis Jogáveis com Classes Distintas**:
-    *   **Elfo**: Ágil, especialista em arcos, com cura passiva em seus ataques.
-    *   **Paladino**: Resistente, mestre de espadas, com ataque e armas poderosas. 
-*   **Mecanismo de Sorte**: Um atributo `sorte` (0.0 a 1.0) influencia habilidades e a chance de drops. Por exemplo, o `GolpeSagrado` do Paladino recebe 20% de dano bônus se a sorte for maior que 0.4.
-
-## Melhorias e Correções (Fixes)
-
-*   **Paladino agora jogável**: Para escolher o herói, comentar ou descomentar na main o herói na qual você quer jogar (Exemplo: comentar Paladino e descomentar Elfo (linhas 26 a 30 da Main);
-*   **Sistema de Experiência**: A XP agora é concedida corretamente **apenas ao derrotar um monstro**, e não mais ao final de cada turno (para um melhor balanceamento);
-*   **Restrição de Equipamentos**: Heróis agora só podem equipar armas compatíveis com sua classe (Elfos só usam Arcos e Paladinos só usam Espadas);
-*   **Balanceamento de Atributos**: A vida ganha ao subir de nível foi ajustada para um melhor balanceamento;
-*   **Diálogos Dinâmicos**: As falas dos heróis em encontros especiais foram adaptadas para serem genéricas de acordo com o personagem jogado;
-*   **Uso de interfaces na dinâmica da Main**: O código foi refatorado de maneira a funcionar melhor com o uso de interfaces na lógica da Main.
-
-## Personagens, Armas e Balanceamento
-
-### O Paladino
-*   **Ações de Combate**: `AtaqueEspada` (básico), `GolpeSagrado` (especial).
-*   **Armas Equipáveis**: Espadas (`Espada de Madeira`, `Espada de Ferro`, `Espada de Diamante`).
-*   **Danos Base Recomendados**: 6 (Madeira), 17 (Ferro), 37 (Diamante).
-
-### O Elfo
-*   **Ações de Combate**: `AtaqueArco` (básico), `FlechaMagica` (especial).
-*   **Armas Equipáveis**: Arcos (`Arco Beta`, `Arco Alpha`, `Arco Sigma`).
-*   **Danos Base Recomendados**: 8 (Beta), 17 (Alpha), 32 (Sigma).
-
-### Itens Dropáveis dos Monstros
-*   `Espada de Madeira [encantada]`
-*   `Arco Beta [encantado]`
-*   `Espada de Ferro [encantada]`
-*   `Arco Alpha [encantado]`
-*   `Espada de Diamante [Lendária]`
-*   `Arco Sigma [Lendário]`
+*   **Arquitetura de Pacotes**: O projeto foi completamente refatorado para uma estrutura de pacotes lógica (`com.rpg.game`, `com.rpg.personagens`, `com.rpg.itens`, etc.), melhorando a organização e a manutenibilidade do código.
+*   **Gerenciador de Entradas (`InputManager`)**: Classe estática responsável por toda a leitura de dados do console. Garante que o programa só receba entradas válidas (inteiros em um intervalo, strings, etc.), tratando exceções como `InputMismatchException` internamente.
+*   **Sistema de Dificuldade Dinâmica**:
+    *   Ao iniciar um novo jogo, o jogador escolhe a dificuldade.
+    *   Essa escolha ajusta dinamicamente os atributos dos monstros (vida, força e XP concedido). Em dificuldades maiores, a chance de obter armas melhores (o *loot*) também é ajustada.
+*   **Exceções Customizadas**:
+    *   Foram criadas exceções como `NivelInsuficienteException` para representar erros específicos do jogo.
+    *   Por exemplo, ao tentar equipar uma arma de nível superior, o jogo agora lança essa exceção, que é tratada na `Main`, informando o jogador do erro de forma elegante em vez de apenas impedir a ação.
+*   **Menus e Fluxo de Jogo**:
+    *   **Menu Principal**: Permite iniciar um novo jogo, ver informações sobre heróis/monstros ou sair.
+    *   **Menu Pós-Combate**: Após cada vitória, o jogador pode interagir com o loot, ver o status do personagem, desistir do jogo ou continuar a aventura.
 
 ## Estrutura do Projeto
 
-A estrutura de arquivos foi organizada para refletir a separação de responsabilidades e a arquitetura orientada a objetos.
+O código-fonte foi reorganizado em pacotes, seguindo as convenções do Java para agrupar classes com responsabilidades relacionadas. A nova estrutura de diretórios `src` é a seguinte:
 
 <p align="center">
   <img src="estrutura.png" alt="Estrutura do projeto"/>
@@ -82,72 +47,43 @@ A estrutura de arquivos foi organizada para refletir a separação de responsabi
 ### Passos para Compilação e Execução
 
 1.  **Clone o Repositório**:
-    Clone o repositório e navegue até o diretório da tarefa.
+    Clone o repositório e navegue até o diretório da `tarefa4`.
     ```bash
     git clone https://github.com/paulosnf12/MC322.git
     cd MC322
     ```
 
 2.  **Compile o Código**:
-    Dentro do diretório raiz do projeto (MC322) no terminal, compile:
+    Dentro do diretório raiz do projeto (MC322) no terminal, execute os comandos a seguir. Ele compilará todos os arquivos `.java` da pasta `src` e colocará os `.class` na pasta `bin`, mantendo a estrutura de pacotes.
     ```bash
-    cd tarefa3
-    javac -d bin $(find src -name "*.java")
+    # Para Linux/macOS
+    cd tarefa4
+    javac -d bin -sourcepath src $(find src -name "*.java")
     ```
+    *Observação: Para Windows, pode ser necessário um comando equivalente para listar todos os arquivos fonte.*
 
 3.  **Execute o Jogo**:
-    Logo após a compilação com o comando javac -d bin $(find src -name "*.java"), basta executar o jogo digitando o comando a seguir:
+    Após compilar, execute o jogo com o seguinte comando, que especifica o `classpath` e o nome completo da classe principal.
     ```bash
-    java -cp bin Main
+    java -cp bin com.rpg.game.Main
     ```
+    O menu do jogo será exibido no terminal, e você poderá interagir com ele.
 
-    O jogo será executado diretamente no terminal, exibindo o log da simulação de combate e a progressão do herói.
+## Requisitos para Implementação da Tarefa 4
 
-## Estrutura das Classes
+Para a implementação desta tarefa, foram cumpridos os seguintes requisitos conforme o enunciado:
 
-O projeto é dividido em uma arquitetura modular, com uma clara separação entre interfaces (contratos), classes abstratas (esqueletos) e classes concretas (implementações).
+- **✔️ Arquitetura de Pacotes:** O projeto foi inteiramente refatorado, com todas as classes organizadas em pacotes lógicos como `com.rpg.game`, `com.rpg.personagens`, e `com.rpg.itens`, conforme especificado.
 
-### Interfaces (Contratos)
-*   **`Combatente`**: Define o comportamento essencial de qualquer entidade que pode participar de uma batalha.
-*   **`AcaoDeCombate`**: Representa qualquer ação executável em combate, como um ataque ou uma habilidade.
-*   **`Item`**: Interface base para qualquer item do jogo (armas, poções, etc.).
-*   **`Lootavel`**: Define uma entidade que pode dropar uma recompensa ao ser derrotada.
-*   **`Fase`**: Descreve o contrato para qualquer área ou nível do jogo.
-*   **`GeradorDeFases`**: Define um objeto capaz de criar uma sequência de fases.
-*   **`Evento`**: Modela um evento especial que pode ser disparado dentro de uma fase.
+- **✔️ Gerenciador de Entradas (`InputManager`):** A classe `InputManager` foi implementada no pacote `com.rpg.util` com todos os métodos estáticos solicitados (`lerInteiro`, `lerString`, `lerSimNao`, `esperarEnter`, `fecharScanner`), garantindo a robustez das interações.
 
-### Estrutura de Personagens (Classes Abstratas)
-*   **`Personagem`**: Classe base para todos os seres vivos, implementa `Combatente` e define atributos essenciais como nome, vida, força e agilidade.
-*   **`Heroi`**: Herda de `Personagem`. Base para todos os heróis jogáveis, implementa a lógica de XP, níveis e a escolha de ações baseada nos dados.
-*   **`Monstro`**: Herda de `Personagem`. Base para os inimigos, implementa `Lootavel` e a lógica de IA para `escolherAcao`.
+- **✔️ Sistema de Dificuldade:** Foi criado o `enum Dificuldade` com os níveis `FACIL`, `NORMAL` e `DIFICIL`, e a classe `ConstrutorDeCenarioFixo` utiliza o parâmetro de dificuldade para ajustar os atributos dos monstros.
 
-### Heróis e Monstros (Classes Concretas)
-*   **`Elfo`, `Paladino`**: Herdam de `Heroi`, cada um com sua lista de ações e mecânicas únicas.
-*   **`Goblin`, `Vampiro`, `Espirito`**: Herdam de `Monstro`, com comportamentos, diálogos e ataques específicos.
+- **✔️ Interação com o Jogador:** A classe `Main` foi reestruturada para apresentar um menu principal e um menu pós-combate, utilizando o `InputManager` para todas as interações e controlando o fluxo do jogo com base nas escolhas do usuário.
 
-### Ações e Habilidades (Classes Concretas)
-*   **`AtaqueArco`, `AtaqueEspada`**: Implementam `AcaoDeCombate` como os ataques básicos dos heróis.
-*   **`FlechaMagica`, `GolpeSagrado`**: Habilidades especiais dos heróis.
-*   **`AtaqueAssombrado`, `AtaqueGoblin`, `AtaqueVampirico`**: Habilidades únicas dos monstros.
+- **✔️ Tratamento de Exceções Customizadas:** Foram criadas as classes `NivelInsuficienteException` e `RecursoInsuficienteException`. A `NivelInsuficienteException` é lançada pelo método `equiparArma` na classe `Heroi` e tratada com um bloco `try-catch` na `Main`, demonstrando um controle de fluxo de erros robusto.
 
-### Itens e Armas
-*   **`Arma` (Abstrata)**: Implementa `Item`. Classe base para todos os equipamentos, definindo dano, nível mínimo e tipo.
-*   **`ArcoAlpha`, `ArcoBeta`, `ArcoSigma`**: Classes concretas que herdam de `Arma`, representando os arcos do jogo.
-*   **`EspadaMadeira`, `EspadaFerro`, `EspadaDiamante`**: Classes concretas que herdam de `Arma`, representando as espadas do jogo.
-
-### Mundo e Lógica de Jogo
-*   **`FaseDeCombate` (Concreta)**: Implementa a interface `Fase` e representa um nível do jogo, contendo monstros e eventos.
-*   **`ConstrutorDeCenarioFixo`**: Implementa `GeradorDeFases`. Classe responsável por criar e configurar todas as fases da campanha.
-*   **`EventoDeBencao`**: Implementação concreta de `Evento`, que cura o herói na floresta.
-*   **`TipoCenario` (Enum)**: Define os diferentes ambientes do jogo e seus efeitos.
-
-### Classe Principal
-*   **`Main`**: Ponto de entrada do projeto. Orquestra a criação do cenário, o loop principal de fases e os combates, interagindo apenas com as interfaces para garantir o baixo acoplamento.
-
-## Planos Futuros
-
-*   **Nova Mecânica para o Paladino**: Implementar um efeito de **sangramento** no `GolpeSagrado`, causando dano contínuo ao monstro.
-*   **Sistema de Tipos de Dano**: Diferenciar danos em **Físico** e **Mágico** para introduzir mecânicas de resistência e fraqueza.
+- **✔️ Adaptação da Classe `Main`:** O fluxo principal do jogo foi completamente adaptado para iniciar com o menu, solicitar a dificuldade, gerar as fases de acordo e exibir o menu pós-combate, satisfazendo todos os requisitos de reestruturação.
 
 ## Créditos
 
@@ -155,13 +91,4 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
-
     *   Paulo Santos do Nascimento Filho
-
-
-
-
-
-
-
-
