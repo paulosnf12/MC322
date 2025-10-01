@@ -9,11 +9,20 @@ public class AtaqueGoblin implements AcaoDeCombate {
     public void executar(Combatente usuario, Combatente alvo) {
         if (usuario instanceof Goblin) {
             Goblin goblin = (Goblin) usuario;
+        
+        int danoTotal = goblin.getDanoArma() + goblin.getForca();
 
-            // Lógica do método atacar() original do Goblin
-            int danoTotal = goblin.getDanoArma() + goblin.getForca();
+            // --- LÓGICA DO CRÍTICO ---
+            // 1. Verifica se o ataque do monstro é crítico
+            if (goblin.isProximoAtaqueCritico()) {
+                System.out.println("DANO CRÍTICO!");
+                danoTotal *= 1.5; // Aumenta o dano em 50% (ou 2 para dobrar)
+
+                // 2. Reseta o status de crítico para não afetar o próximo ataque
+                goblin.setProximoAtaqueCritico(false);
+            }
+
             alvo.receberDano(danoTotal);
-            
             System.out.println("Goblin atacou com " + goblin.getTipoDeArma() + " causando " + danoTotal + " de dano!");
 
             // Implementação do roubo

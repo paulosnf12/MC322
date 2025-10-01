@@ -55,26 +55,28 @@ public abstract class Heroi extends Personagem {
     // 4. Implementação do método escolherAcao da interface Combatente
     // ---- MÉTODO escolherAcao MODIFICADO ---
     @Override
-    public void escolherAcao(Combatente alvo) {
+    public AcaoDeCombate escolherAcao(Combatente alvo) {
         if (acoes == null || acoes.isEmpty()) {
             System.out.println(this.getNome() + " nao tem acoes para executar!");
-            return;
+            return null;
         }
 
         AcaoDeCombate acaoEscolhida;
         // Verifica o sinalizador de crítico
         if (this.proximoAtaqueEhCritico && acoes.size() > 1) {
             // Se for crítico e houver uma habilidade especial, escolha-a
-            acaoEscolhida = acoes.get(1); // Usa a convenção: índice 1 = Ataque Especial
+            acaoEscolhida = acoes.get(1); // Retorna a habilidade especial,  usa a convenção: índice 1 = Ataque Especial
         } else {
             // Caso contrário, use o ataque básico
-            acaoEscolhida = acoes.get(0); // Usa a convenção: índice 0 = Ataque Básico
+            acaoEscolhida = acoes.get(0); // Retorna o ataque básico acaoEscolhida = acoes.get(0); // Usa a convenção: índice 0 = Ataque Básico
         }
 
         // Executa a ação
-        acaoEscolhida.executar(this, alvo);
+        //acaoEscolhida.executar(this, alvo);
         // IMPORTANTE: Reseta o sinalizador para o estado padrão após a ação.
         this.proximoAtaqueEhCritico = false;
+
+        return acaoEscolhida;
     }
 
     // metodos

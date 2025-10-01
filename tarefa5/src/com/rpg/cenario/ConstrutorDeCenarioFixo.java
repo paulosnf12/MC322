@@ -19,10 +19,11 @@ import java.util.List;
 // MUDANÇA 1: A classe agora implementa a interface GeradorDeFases
 public class ConstrutorDeCenarioFixo implements GeradorDeFases {
     // Array de nomes de ambientes temáticos.
-    private static final String[] AMBIENTES_TEMATICOS = {
-        "Floresta Sussurrante", // Para a Fase 1
-        "Cripta Sombria",       // Para a Fase 2
-        "Pico Nevado dos Ventos Uivantes" // Para a Fase 3 e subsequentes
+    //  O array agora é de TipoCenario
+    private static final TipoCenario[] CENARIOS_TEMATICOS = {
+        TipoCenario.FLORESTA,
+        TipoCenario.CRIPTA,
+        TipoCenario.PICO
     };
 
     // MUDANÇA 2: A assinatura do método foi alterada para corresponder à interface
@@ -43,11 +44,13 @@ public class ConstrutorDeCenarioFixo implements GeradorDeFases {
             // Seleciona um ambiente temático com base no índice 'i'.
             // Se o número de fases for maior que o array de temas, ele usará o último
             // tema disponível.
-            String ambiente;
-            if (i < AMBIENTES_TEMATICOS.length) {
-                ambiente = AMBIENTES_TEMATICOS[i];
+
+            // A variável local agora é do tipo enum
+            TipoCenario cenario;
+            if (i < CENARIOS_TEMATICOS.length) {
+                cenario = CENARIOS_TEMATICOS[i];
             } else {
-                ambiente = AMBIENTES_TEMATICOS[AMBIENTES_TEMATICOS.length - 1] + " (Nível " + nivelFase + ")";
+                cenario = CENARIOS_TEMATICOS[CENARIOS_TEMATICOS.length - 1]; // Repete o último cenário para fases extras
             }
 
             ArrayList<Monstro> monstrosFase = new ArrayList<>();
@@ -159,12 +162,13 @@ public class ConstrutorDeCenarioFixo implements GeradorDeFases {
 
             // ---> ADIÇÃO DA LÓGICA DE EVENTO <--
             List<Evento> eventosDaFase = new ArrayList<>();
-            if (ambiente.contains("Floresta")) {
+            if (cenario == TipoCenario.FLORESTA) {
                 eventosDaFase.add(new EventoDeBencao());
             }
 
-            fases.add(new FaseDeCombate(nivelFase, ambiente, monstrosFase, eventosDaFase)); // Agora adiciona eventos da fase
-            System.out.println("Fase " + nivelFase + ": '" + ambiente + "' criada com " + monstrosFase.size() + " monstros prontos para o desafio!");
+            // <-- MUDANÇA 4: Passa o objeto 'cenario' em vez de uma String
+            fases.add(new FaseDeCombate(nivelFase, cenario, monstrosFase, eventosDaFase));
+            System.out.println("Fase " + nivelFase + ": '" + cenario.getDescricao() + "' criada com " + monstrosFase.size() + " monstros prontos para o desafio!");
         }
         System.out.println("Todas as fases foram geradas com sucesso! A aventura aguarda...\n");
         return fases;

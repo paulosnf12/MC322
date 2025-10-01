@@ -6,6 +6,7 @@ import com.rpg.cenario.Fase;
 import com.rpg.cenario.FaseDeCombate;
 import com.rpg.cenario.GeradorDeFases;
 import com.rpg.cenario.TipoCenario;
+import com.rpg.combate.AcaoDeCombate;
 import com.rpg.exceptions.NivelInsuficienteException;
 import com.rpg.itens.Arma;
 import com.rpg.itens.Item;
@@ -14,8 +15,7 @@ import com.rpg.personagens.Monstro;
 import com.rpg.personagens.herois.Elfo;
 import com.rpg.personagens.herois.Paladino; // Para o exemplo de herói
 import com.rpg.util.InputManager;
-import java.util.ArrayList; // Importa o InputManager
-import java.util.List;
+import java.util.List; // Importa o InputManager
 import java.util.Random;
 
 public class Main {
@@ -111,7 +111,6 @@ public class Main {
 
         Random rand = new Random();
         // Scanner scanner = new Scanner(System.in); // Removido, substituído por InputManager
-        ArrayList<Item> armasDropadas = new ArrayList<>(); // Não utilizado diretamente neste fluxo atual, mas pode ser para inventário
 
         // --- LOOP DE FASES (Lógica e narração 100% preservadas) --
         System.out.println("\n== Inicio da Grande Jornada ==");
@@ -133,8 +132,7 @@ public class Main {
             Fase faseAtualInterface = fasesDoJogo.get(i);
             if (!heroi.estaVivo()) break;
 
-            // ---> MUDANÇA MECÂNICA: Usando o método da interface para obter dados.
-            String ambiente = faseAtualInterface.getTipoDeCenario();
+            TipoCenario cenarioDaFase = faseAtualInterface.getTipoDeCenario();
 
             // ---> MUDANÇA MECÂNICA: Cast para acessar a lista de monstros.
             if (!(faseAtualInterface instanceof FaseDeCombate)) continue; // Segurança
@@ -146,13 +144,8 @@ public class Main {
             // 2. Determina o TipoCenario e chama aplicarEfeitos() para a mensagem temática.
             // (Foi utilizado o .contains() para maior flexibilidade com os nomes
             // dos ambientes)
-            if (ambiente.contains("Floresta")) {
-                TipoCenario.FLORESTA.aplicarEfeitos(heroi);
-            } else if (ambiente.contains("Cripta")) {
-                TipoCenario.CRIPTA.aplicarEfeitos(heroi);
-            } else if (ambiente.contains("Pico")) {
-                TipoCenario.PICO.aplicarEfeitos(heroi); // Corresponde à constante que ajustamos
-            }
+
+            faseAtualInterface.getTipoDeCenario().aplicarEfeitos(heroi);
 
             // O status do herói e o loop de combate permanecem exatamente os mesmos
             System.out.println("\nStatus atual do heroi antes da batalha: " +
@@ -165,7 +158,7 @@ public class Main {
                 // ---> LÓGICA PARA VERIFICAR EVENTOS <--
                 if (faseAtual.getEventos() != null) {
                     for (Evento evento : faseAtual.getEventos()) {
-                        if (evento.vericarGatilho(heroi, ambiente)) {
+                        if (evento.vericarGatilho(heroi, cenarioDaFase)) {
                             evento.executar(heroi);
                         }
                     }
@@ -213,7 +206,10 @@ public class Main {
                         }
                         // Chama o método escolherAcao, como requisitado pelo enunciado.
                         // O herói agora sabe qual ação tomar com base no sinal que definimos.
-                        heroi.escolherAcao(monstro);
+                        AcaoDeCombate acaoHeroi = heroi.escolherAcao(monstro); 
+                        if (acaoHeroi != null) {
+                            acaoHeroi.executar(heroi, monstro);
+                        }
                     } else {
                         System.out.println("O ataque de " + heroi.getNome() + " falha! " +
                                            "O monstro desvia por pouco.");
@@ -227,10 +223,23 @@ public class Main {
                     System.out.println(monstro.getNome() + " rola 1d20: " + rolagemMonstro);
 
                     if (rolagemMonstro >= heroi.getAgilidade()) {
-                        if (rolagemMonstro == 20) System.out.println("UM ATAQUE " +
-                                                                     "CRITICO de " + monstro.getNome() + "!");
-                        monstro.escolherAcao(heroi);
-                    } else {
+                        if (rolagemMonstro == 20) {
+                            System.out.println("UM ATAQUE CRITICO de " + monstro.getNome() + "!");
+                                // Converte o tipo para Monstro para acessar o novo método
+                                if (monstro instanceof Monstro) {
+                                    ((Monstro) monstro).setProximoAtaqueCritico(true); // <-- MUDANÇA AQUI
+                                }
+                        }
+                        // 1. Pega a ação que o monstro escolheu
+                        AcaoDeCombate acaoMonstro = monstro.escolherAcao(heroi);
+
+                        // 2. Executa a ação
+                        if (acaoMonstro != null) {
+                            acaoMonstro.executar(monstro, heroi);
+                        }
+                    } 
+                    
+                    else {
                         System.out.println("O ataque de " + monstro.getNome() + " erra! " +
                                            heroi.getNome() + " se esquiva com maestria.");
                     }
@@ -325,7 +334,7 @@ public class Main {
             // 3. (NOVO) VERIFICA SE A FASE FOI CONCLUÍDA USANDO A INTERFACE
             if (heroi.estaVivo() && faseAtual.isConcluida()) {
                 System.out.println("\n--------------------------------------------------------");
-                System.out.println("VITORIA NA FASE! " + heroi.getNome() + " superou todos os desafios de " + ambiente + "!");
+                System.out.println("VITORIA NA FASE! " + heroi.getNome() + " superou todos os desafios de " + faseAtual.getTipoDeCenario().getDescricao() + "!");
                 System.out.println("--------------------------------------------------------");
             } else if (!heroi.estaVivo()) { // Se o herói morreu na fase
                 break; // Sai do loop de fases

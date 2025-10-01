@@ -8,9 +8,9 @@ public class EventoDeBencao implements Evento {
     private boolean jaExecutado = false; // Garante que o evento ocorra apenas uma vez
 
     @Override
-    public boolean vericarGatilho(Heroi heroi, String ambiente) {
+    public boolean vericarGatilho(Heroi heroi, TipoCenario cenario) {
         // O gatilho é: estar na floresta e o evento ainda não ter ocorrido.
-        if (ambiente.contains("Floresta") && !jaExecutado) {
+        if (cenario == TipoCenario.FLORESTA && !jaExecutado) {
             return true;
         }
         return false;

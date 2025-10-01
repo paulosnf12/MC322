@@ -14,7 +14,7 @@ import com.rpg.personagens.Heroi;
     // Cada constante chama o construtor do enum e, em seguida,
     // implementa o método abstrato 'aplicarEfeitos'.
     
-    FLORESTA("Uma floresta densa e cheia de vida selvagem.") {
+    FLORESTA("Floresta Sussurrante") {
         @Override
         public void aplicarEfeitos(Heroi heroi) {
             System.out.println("O ar da Floresta Sussurrante é puro e úmido. Sons misteriosos ecoam entre as árvores antigas, e a luz do sol mal penetra a copa frondosa.");
@@ -24,7 +24,7 @@ import com.rpg.personagens.Heroi;
         }
     }, 
 
-    CRIPTA("Uma cripta escura e úmida, com ecos misteriosos.") {
+    CRIPTA("Cripta Sombria") {
         @Override
         public void aplicarEfeitos(Heroi heroi) {
             System.out.println("Um calafrio percorre a espinha de " + heroi.getNome() + " ao adentrar a Cripta Sombria.");

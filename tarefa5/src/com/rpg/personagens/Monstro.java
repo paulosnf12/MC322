@@ -16,6 +16,8 @@ public abstract class Monstro extends Personagem implements Lootavel {
     // 1. Atributo para armazenar as ações do monstro
     protected List<AcaoDeCombate> acoes;
 
+    protected boolean proximoAtaqueEhCritico = false;
+
     public Monstro(String nome, int pontosDeVida, int forca, int agilidade, int
                    xpConcedido, ArrayList<Arma> listaDeArmasParaLargar) {
         super(nome, pontosDeVida, forca, agilidade);
@@ -28,20 +30,37 @@ public abstract class Monstro extends Personagem implements Lootavel {
         inicializarAcoes();
     }
 
+    /**
+     * Sinaliza que o próximo ataque deste monstro deve ser um acerto crítico.
+     * @param isCritico true se o próximo ataque for crítico, false caso contrário.
+     */
+    public void setProximoAtaqueCritico(boolean isCritico) {
+        this.proximoAtaqueEhCritico = isCritico;
+    }
+
+     /**
+     * Verifica se o próximo ataque do monstro está sinalizado como crítico.
+     * @return true se o próximo ataque for crítico.
+     */
+    public boolean isProximoAtaqueCritico() {
+        return this.proximoAtaqueEhCritico;
+    }
+
+
     // 2. Método abstrato que força as subclasses (Goblin, Vampiro e Espírito)
     // definirem suas ações
     protected abstract void inicializarAcoes();
 
     @Override
-    public void escolherAcao(Combatente alvo) {
+    public AcaoDeCombate escolherAcao(Combatente alvo) {
         // 3. IA do monstro: escolhe e executa uma ação aleatória
         if (acoes != null && !acoes.isEmpty()) {
             Random rand = new Random();
             int indiceAcao = rand.nextInt(acoes.size());
-            AcaoDeCombate acaoEscolhida = acoes.get(indiceAcao);
-            acaoEscolhida.executar(this, alvo);
+            return acoes.get(indiceAcao); // Retorna a ação escolhida
         } else {
             System.out.println(this.getNome() + " observa, sem saber o que fazer!");
+            return null; // Retorna null se não houver ações disponíveis
         }
     }
 

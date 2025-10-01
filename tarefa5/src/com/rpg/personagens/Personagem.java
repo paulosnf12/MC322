@@ -2,6 +2,7 @@
 package com.rpg.personagens; // Pacote correto para a classe base de personagens
 
 // Importa as classes necessárias dos novos pacotes
+import com.rpg.combate.AcaoDeCombate;
 import com.rpg.combate.Combatente;
 import com.rpg.itens.Arma; // Personagem tem uma Arma
 
@@ -46,7 +47,7 @@ public abstract class Personagem implements Combatente {
     }
 
     @Override
-    public abstract void escolherAcao(Combatente alvo);
+    public abstract AcaoDeCombate escolherAcao(Combatente alvo);
 
     // metodos especificos da classe Personagem
     public void setpontosdevida(int pontosDeVida) {
