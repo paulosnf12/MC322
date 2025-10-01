@@ -28,6 +28,10 @@ public class FaseDeCombate implements Fase {
         System.out.println("========================================");
         System.out.println();
         System.out.println(heroi.getNome() + " é transportado para " + this.tipoDeCenario.getDescricao() + " com o intuito de enfrentar " + numMonstros + " criaturas temíveis!");
+
+        System.out.println();
+
+        this.tipoDeCenario.aplicarEfeitos(heroi); // agora aplica efeitos do enum direto no iniciar
     }
 
     // Método da interface implementado corretamente

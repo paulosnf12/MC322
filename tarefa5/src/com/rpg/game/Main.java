@@ -145,7 +145,7 @@ public class Main {
             // (Foi utilizado o .contains() para maior flexibilidade com os nomes
             // dos ambientes)
 
-            faseAtualInterface.getTipoDeCenario().aplicarEfeitos(heroi);
+            //faseAtualInterface.getTipoDeCenario().aplicarEfeitos(heroi);
 
             // O status do herói e o loop de combate permanecem exatamente os mesmos
             System.out.println("\nStatus atual do heroi antes da batalha: " +
