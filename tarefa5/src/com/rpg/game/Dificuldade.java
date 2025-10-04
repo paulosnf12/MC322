@@ -8,8 +8,17 @@ package com.rpg.game; // ou com.rpg.cenario
  */
 
 public enum Dificuldade {
+    /**
+     * Dificuldade fácil, onde os monstros são mais fracos e concedem mais XP.
+     */
     FACIL(0.3, 0.3, 0.7, 0.7),  // Vida x%, Dano x%, XP x% dos monstros, Chance de loot de armas comuns x%
+    /**
+     * Dificuldade normal, com atributos balanceados para monstros.
+     */
     NORMAL(0.5, 0.5, 0.5, 0.5), // Padrão
+    /**
+     * Dificuldade difícil, onde os monstros são mais fortes e concedem menos XP.
+     */
     DIFICIL(1.0, 1.0, 0.3, 0.3); // Vida x%, Dano x%, XP x% dos monstros, Chance de loot de armas melhores x%
 
     private final double multiplicadorVidaMonstro;
@@ -27,7 +36,7 @@ public enum Dificuldade {
 
     /**
      * Retorna o multiplicador de vida para esta dificuldade.
-     * @return O valor double do multiplicador.
+     * @return O valor double do multiplicador de vida dos monstros.
      */
 
     public double getMultiplicadorVidaMonstro() {
@@ -37,7 +46,7 @@ public enum Dificuldade {
 
     /**
      * Retorna o multiplicador de dano para esta dificuldade.
-     * @return O valor double do multiplicador.
+     * @return O valor double do multiplicador de dano dos monstros.
      */
     
     public double getMultiplicadorDanoMonstro() {

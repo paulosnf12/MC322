@@ -25,16 +25,6 @@ import java.util.List;
 // MUDANÇA 1: A classe agora implementa a interface GeradorDeFases
 public class ConstrutorDeCenarioFixo implements GeradorDeFases {
     
-    /**
-     * Gera uma lista de fases de combate com monstros e recompensas.
-     * A dificuldade influencia os atributos dos monstros e a qualidade das armas.
-     *
-     * @param nFases O número de fases a serem geradas.
-     * @param dificuldade A dificuldade selecionada para o jogo, que ajusta os atributos dos inimigos.
-     * @return Uma lista de fases prontas para o combate.
-     */
-
-
     // Array de nomes de ambientes temáticos.
     //  O array agora é de TipoCenario
     private static final TipoCenario[] CENARIOS_TEMATICOS = {
@@ -47,6 +37,20 @@ public class ConstrutorDeCenarioFixo implements GeradorDeFases {
     @Override
     // gerarFases virou gerar para corresponder à interface
     // AGORA ACEITA UM PARÂMETRO DE DIFICULDADE
+
+/**
+     * Gera uma lista de fases para o jogo com base no número de fases desejado
+     * e na dificuldade selecionada.
+     * Cada fase é configurada com monstros e cenários temáticos.
+     *
+     * @param nFases O número total de fases a serem geradas.
+     * @param dificuldade A dificuldade do jogo, que influenciará os atributos dos monstros
+     *                    e a chance de loot.
+     * @return Uma {@code List} de objetos {@code Fase}, representando a sequência de desafios do jogo.
+     * @see Fase
+     * @see Dificuldade
+     */
+
     public List<Fase> gerar(int nFases, Dificuldade dificuldade) { // <-- MUDANÇA AQUI: Adicionado Dificuldade
         // MUDANÇA 3: O tipo da lista foi alterado para a interface
         List<Fase> fases = new ArrayList<>();

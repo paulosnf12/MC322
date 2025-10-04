@@ -1,18 +1,22 @@
 // Enum: TipoCenario.java
+
+package com.rpg.cenario;
+import com.rpg.personagens.Heroi;
+
 /**
  * Enum que representa os diferentes ambientes do jogo.
  * Cada constante (FLORESTA, CRIPTA, PICO) é uma instância única
  * com sua própria descrição e implementação do método aplicarEfeitos.
  */
-package com.rpg.cenario;
-import com.rpg.personagens.Heroi;
-
-
  public enum TipoCenario {
 
     // 1. DEFINIÇÃO DAS CONSTANTES
     // Cada constante chama o construtor do enum e, em seguida,
     // implementa o método abstrato 'aplicarEfeitos'.
+
+    /**
+     * Cenário Floresta Sussurrante. Poderá aplicar efeitos de cura ou agilidade.
+     */
     
     FLORESTA("Floresta Sussurrante") {
         @Override
@@ -24,6 +28,10 @@ import com.rpg.personagens.Heroi;
         }
     }, 
 
+    /**
+     * Cenário Cripta Sombria. Aplicará efeitos negativos ou restrições no personagem.
+     */
+
     CRIPTA("Cripta Sombria") {
         @Override
         public void aplicarEfeitos(Heroi heroi) {
@@ -34,6 +42,9 @@ import com.rpg.personagens.Heroi;
         }
     },
 
+    /**
+     * Cenário Pico Nevado dos Ventos Uivantes. Aplicará efeitos positivos ao personagem (em planejamento).
+     */
     PICO("Pico Nevado dos Ventos Uivantes") {
         @Override
         public void aplicarEfeitos(Heroi heroi) {
@@ -60,16 +71,19 @@ import com.rpg.personagens.Heroi;
     // 4. MÉTODOS
     
     /**
-     * Retorna a descrição do cenário.
+     * Retorna uma descrição do cenário.
+     * @return Uma {@code String} contendo a descrição do cenário.
      */
+
     public String getDescricao() {
         return this.descricao;
     }
 
     /**
-     * Este é um método abstrato. Ele não tem implementação aqui.
-     * Isso FORÇA cada constante (FLORESTA, CRIPTA, PICO, etc.) a fornecer
-     * sua própria implementação, como fizemos acima.
+     * Este é um método abstrato que cada constante do enum deve implementar.
+     * Ele aplica efeitos específicos do cenário ao herói quando este entra na fase.
+     *
+     * @param heroi O objeto {@code Heroi} que entrará no cenário e receberá os efeitos.
      */
     public abstract void aplicarEfeitos(Heroi heroi);
 }
