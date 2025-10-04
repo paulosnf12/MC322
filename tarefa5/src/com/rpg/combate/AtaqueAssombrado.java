@@ -1,4 +1,5 @@
 package com.rpg.combate;
+import com.rpg.exceptions.RecursoInsuficienteException;
 import com.rpg.personagens.monstros.Espirito;
 
 /**
@@ -8,7 +9,7 @@ import com.rpg.personagens.monstros.Espirito;
 
 public class AtaqueAssombrado implements AcaoDeCombate {
     @Override
-    public void executar(Combatente usuario, Combatente alvo) {
+    public void executar(Combatente usuario, Combatente alvo) throws RecursoInsuficienteException{
         if (usuario instanceof Espirito) {
             Espirito espirito = (Espirito) usuario;
 

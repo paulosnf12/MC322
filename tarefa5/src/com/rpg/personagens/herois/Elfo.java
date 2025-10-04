@@ -32,11 +32,26 @@ public class Elfo extends Heroi {
 
     // construtor
     // O construtor agora recebe os valores de dano para cada tipo de arco diretamente
+
+    /**
+     * Construtor do Elfo.
+     * 
+     * @param nome       Nome do Elfo.
+     * @param pontosDeVida Pontos de vida iniciais do Elfo.
+     * @param forca      Força do Elfo, que afeta o dano físico.
+     * @param agilidade  Agilidade do Elfo, que pode afetar esquiva e velocidade.
+     * @param nivel      Nível inicial do Elfo.
+     * @param experiencia Experiência inicial do Elfo.
+     * @param danoBeta   Dano base do arco Beta.
+     * @param danoAlpha  Dano base do arco Alpha.
+     * @param danoSigma  Dano base do arco Sigma.
+     * @param mana       Mana inicial do Elfo.
+     */
     public Elfo(String nome, int pontosDeVida, int forca, int agilidade, int nivel,
                 int experiencia,
-                int danoBeta, int danoAlpha, int danoSigma) { // Parâmetro Arcos arcos
+                int danoBeta, int danoAlpha, int danoSigma, int mana) { // Parâmetro Arcos arcos
         // foi removido
-        super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
+        super(nome, pontosDeVida, forca, agilidade, nivel, experiencia, mana); // 50 de mana inicial
         // Armazena os danos de configuração para uso no método atualizarArco()
         this.configDanoBeta = danoBeta;
         this.configDanoAlpha = danoAlpha;

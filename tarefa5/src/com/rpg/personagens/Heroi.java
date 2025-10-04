@@ -25,6 +25,9 @@ public abstract class Heroi extends Personagem {
     protected int expProximoNivel;
     protected double sorte; // Valor entre 0.0 e 1.0
 
+    protected int mana;
+    protected int manaMaxima; 
+
     // 1. Atributo para armazenar as ações disponíveis para o herói
     protected List<AcaoDeCombate> acoes;
 
@@ -33,17 +36,43 @@ public abstract class Heroi extends Personagem {
 
     // construtor
     public Heroi(String nome, int pontosDeVida, int forca, int agilidade, int nivel,
-                 int experiencia) {
+                 int experiencia, int mana) {
         super(nome, pontosDeVida, forca, agilidade);
         this.nivel = nivel;
         this.experiencia = experiencia;
         this.expProximoNivel = 100; // Experiência inicial para o próximo nível
+        this.mana = mana; // Atribui a mana inicial
+        this.manaMaxima = mana; // Define a mana máxima como a inicial
         this.sorte = new Random().nextDouble(); // Sorte inicial aleatória entre 0.0 e 1.0
 
         // Inicializa a lista de ações
         this.acoes = new ArrayList<>();
         // Chama o método que será implementado pelas subclasses para popular a lista
         inicializarAcoes();
+    }
+
+    // Adicione métodos para gerenciar a mana
+    public int getMana() {
+        return mana;
+    }
+
+    // Método para simular o gasto de mana
+    public void usarMana(int custo) {
+        if (custo <= this.mana) {
+            this.mana -= custo;
+        }
+    }
+
+    // Método para testes, para forçar um valor de mana
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+    
+    // (Opcional, mas recomendado) Atualize o exibirStatus() para mostrar a mana
+    @Override
+    public String exibirStatus() {
+        return super.exibirStatus() + ", Nivel = " + nivel + ", Mana = " + mana + "/" + manaMaxima +
+               ", Experiencia = " + experiencia + "/" + expProximoNivel;
     }
 
     // Lógica para implementar a interface:
@@ -126,12 +155,6 @@ public abstract class Heroi extends Personagem {
 
     public int getExperiencia(){ // retorna experiencia do herói (público)
         return experiencia;
-    }
-
-    @Override
-    public String exibirStatus() { // exibe status atual do herói
-        return super.exibirStatus() + ", Nivel = " + nivel + ", Experiencia = " +
-               experiencia + "/" + expProximoNivel;
     }
 
     /**

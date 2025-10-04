@@ -8,6 +8,7 @@ import com.rpg.cenario.GeradorDeFases;
 import com.rpg.cenario.TipoCenario;
 import com.rpg.combate.AcaoDeCombate;
 import com.rpg.exceptions.NivelInsuficienteException;
+import com.rpg.exceptions.RecursoInsuficienteException;
 import com.rpg.itens.Arma;
 import com.rpg.itens.Item;
 import com.rpg.personagens.Heroi;
@@ -105,7 +106,7 @@ public class Main {
         //     heroi = new Paladino("Paladino", 120, 17, 12, 1, 0, 6, 17, 37);
         // }
         // Para a tarefa, vamos manter um herói fixo como estava no seu código original:
-        heroi = new Paladino("Paladino Capitão Nascimento", 120, 17, 12, 1, 0, 6, 17, 37);
+        heroi = new Paladino("Paladino Capitão Nascimento", 120, 17, 12, 1, 0, 6, 17, 37, 100);
 
 
         System.out.println("\n== Despertar do Herói ==");
@@ -208,23 +209,32 @@ public class Main {
                     System.out.println("Heroi rola 1d20: " + rolagemHeroi);
 
                     if (rolagemHeroi >= monstro.getAgilidade()) {
-                        // É um acerto! Agora vamos verificar se é um crítico.
-                        if (rolagemHeroi == 20) {
-                            // Se for 20, sinalizar ao herói que a ação será um crítico.
-                            System.out.println("UM ATAQUE CRITICO! " + heroi.getNome() + " " +
-                                               "prepara um golpe devastador!");
-                            heroi.setProximoAtaqueCritico(true);
-                        }
-                        // Chama o método escolherAcao, como requisitado pelo enunciado.
-                        // O herói agora sabe qual ação tomar com base no sinal que definimos.
-                        AcaoDeCombate acaoHeroi = heroi.escolherAcao(monstro); 
-                        if (acaoHeroi != null) {
-                            acaoHeroi.executar(heroi, monstro);
-                        }
-                    } else {
-                        System.out.println("O ataque de " + heroi.getNome() + " falha! " +
-                                           "O monstro desvia por pouco.");
+                    // É um acerto! Agora vamos verificar se é um crítico.
+                    if (rolagemHeroi == 20) {
+                        // Se for 20, sinalizar ao herói que a ação será um crítico.
+                        System.out.println("UM ATAQUE CRITICO! " + heroi.getNome() + " " +
+                                        "prepara um golpe devastador!");
+                        heroi.setProximoAtaqueCritico(true);
                     }
+                    // Chama o método escolherAcao, como requisitado pelo enunciado.
+                    // O herói agora sabe qual ação tomar com base no sinal que definimos.
+                    AcaoDeCombate acaoHeroi = heroi.escolherAcao(monstro); 
+                    if (acaoHeroi != null) {
+                        try {
+                            // Tenta executar a ação do herói
+                            acaoHeroi.executar(heroi, monstro);
+
+                        } catch (RecursoInsuficienteException e) {
+                            // Se a exceção for capturada, o herói não tem mana.
+                            // Informamos o jogador e o turno dele é perdido.
+                            System.out.println(heroi.getNome() + " não tem mana suficiente para essa habilidade!");
+                            System.out.println("O ataque falha...");
+                        }
+                    }
+                } else {
+                    System.out.println("O ataque de " + heroi.getNome() + " falha! " +
+                                    "O monstro desvia por pouco.");
+                }
 
                     if (!monstro.estaVivo()) break; // Monstro derrotado, sai do loop de turno
 
@@ -246,8 +256,13 @@ public class Main {
 
                         // 2. Executa a ação
                         if (acaoMonstro != null) {
+                        try {
                             acaoMonstro.executar(monstro, heroi);
+                        } catch (RecursoInsuficienteException e) {
+                            // Isso não deve acontecer com os monstros atuais, mas o código fica seguro.
+                            System.out.println("O ataque de " + monstro.getNome() + " falhou por falta de energia!");
                         }
+                    }
                     } 
                     
                     else {

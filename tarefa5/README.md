@@ -88,8 +88,10 @@ Foram criados testes unitários para validar todas as funcionalidades exigidas n
     *   **Testes**: Para validar a implementação de interfaces como a `Combatente`, foi adotada a estratégia de testar uma classe concreta de cada hierarquia (`Paladino` para Heróis, `Goblin` para Monstros). Devido ao princípio da herança, se uma classe base implementa uma interface, o compilador garante que todas as suas subclasses também a implementem. Além disso, foram criados testes específicos para validar o recebimento de dano, o ataque a um monstro e o ganho de experiência com subida de nível.
 
 -   **Exceções (`HeroiExceptionTest.java`)**
-    *   **Objetivo**: Garantir que a exceção customizada `NivelInsuficienteException` seja lançada corretamente.
-    *   **Testes**: Um teste simula um herói de nível baixo tentando equipar uma arma de nível alto. O teste confirma que a exceção é lançada e que a mensagem de erro é a esperada.
+    *   **Objetivo**: Garantir que as exceções customizadas do jogo sejam lançadas corretamente.
+    *   **Testes**: Foram implementados dois testes de exceção principais:
+        *   **`NivelInsuficienteException`**: Simula um herói de nível baixo tentando equipar uma arma de nível alto, confirmando que a exceção correta é lançada.
+        *   **`RecursoInsuficienteException`**: Simula um herói com mana insuficiente tentando usar uma habilidade especial. O teste valida que a exceção é lançada, impedindo a ação.
 
 ## Créditos
 

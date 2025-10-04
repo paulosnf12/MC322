@@ -1,5 +1,6 @@
 // AtaqueArco.java (NOVO ARQUIVO)
 package com.rpg.combate;
+import com.rpg.exceptions.RecursoInsuficienteException;
 import com.rpg.personagens.herois.Elfo;
 
 /**
@@ -10,7 +11,7 @@ import com.rpg.personagens.herois.Elfo;
 public class AtaqueArco implements AcaoDeCombate {
 
     @Override
-    public void executar(Combatente usuario, Combatente alvo) {
+    public void executar(Combatente usuario, Combatente alvo) throws RecursoInsuficienteException {
         // Verifica se o usuário é um Elfo para acessar seus atributos específicos
         if (usuario instanceof Elfo) {
             Elfo elfo = (Elfo) usuario;

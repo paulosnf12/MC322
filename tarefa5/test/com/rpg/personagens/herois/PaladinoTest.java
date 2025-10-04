@@ -3,6 +3,7 @@ package com.rpg.personagens.herois;
 
 import com.rpg.combate.AcaoDeCombate;
 import com.rpg.combate.Combatente;
+import com.rpg.exceptions.RecursoInsuficienteException;
 import com.rpg.itens.EspadaMadeira;
 import com.rpg.personagens.Monstro;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ public class PaladinoTest {
     @BeforeEach
     void setUp() {
         // Inicializa um Paladino e um Monstro antes de cada teste
-        paladino = new Paladino("Arthur", 100, 10, 5, 1, 0, 5, 10, 15);
+        paladino = new Paladino("Arthur", 100, 10, 5, 1, 0, 5, 10, 15, 100);
         // Cria um monstro simples para ser o alvo, com valores base
         goblin = new Monstro("Goblin de Teste", 50, 5, 3, 10, null) {
             @Override
@@ -59,7 +60,13 @@ public class PaladinoTest {
         AcaoDeCombate acao = paladino.escolherAcao(goblin);
         assertNotNull(acao, "Paladino deve ter uma ação de combate");
 
-        acao.executar(paladino, goblin); // Paladino ataca o goblin
+        try {
+        // Tenta executar o ataque
+        acao.executar(paladino, goblin); 
+            } catch (RecursoInsuficienteException e) {
+                // Se esta exceção for lançada, o teste falha, pois neste cenário o Paladino deve ter mana.
+                fail("O ataque não deveria falhar por falta de mana neste teste. Erro: " + e.getMessage());
+            }
 
         // O dano total do Paladino é Força (10) + Dano da Arma (10) = 20
         int danoEsperado = paladino.getForca() + paladino.getArma().getDano(); // Força 10 + Dano da arma 10 = 20

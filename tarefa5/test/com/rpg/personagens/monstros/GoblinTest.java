@@ -3,6 +3,7 @@ package com.rpg.personagens.monstros;
 
 import com.rpg.combate.AcaoDeCombate;
 import com.rpg.combate.Combatente;
+import com.rpg.exceptions.RecursoInsuficienteException;
 import com.rpg.itens.Arma;
 import com.rpg.itens.EspadaMadeira;
 import com.rpg.itens.Item;
@@ -25,7 +26,7 @@ public class GoblinTest {
     void setUp() {
         ArrayList<Arma> armas = new ArrayList<>(Arrays.asList(new EspadaMadeira(5)));
         goblin = new Goblin("Goblin Teste", 50, 5, 3, 10, "Clava", 5, 0.5, armas);
-        heroi = new Paladino("Teste Heroi", 100, 10, 5, 1, 0, 5, 10, 15);
+        heroi = new Paladino("Teste Heroi", 100, 10, 5, 1, 0, 5, 10, 15, 100);
     }
 
     @Test
@@ -54,7 +55,13 @@ public class GoblinTest {
         AcaoDeCombate acao = goblin.escolherAcao(heroi); // O Goblin tem AtaqueGoblin como ação
         assertNotNull(acao, "Goblin deve ter uma ação de combate");
 
-        acao.executar(goblin, heroi); // Goblin ataca o herói
+        try {
+            // Tenta executar o ataque do Goblin
+            acao.executar(goblin, heroi);
+        } catch (RecursoInsuficienteException e) {
+            // Esta exceção nunca deve acontecer com um Goblin, então se acontecer, o teste falha.
+            fail("O ataque do Goblin não deveria lançar uma RecursoInsuficienteException. Erro: " + e.getMessage());
+        }
 
         // O dano do Goblin é danoArma (5) + forca (5) = 10.
         // Além disso, há uma chance de roubo (roubo 3 de vida)

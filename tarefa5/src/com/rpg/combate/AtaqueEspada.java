@@ -1,5 +1,6 @@
 // AtaqueEspada.java (NOVO ARQUIVO)
 package com.rpg.combate;
+import com.rpg.exceptions.RecursoInsuficienteException;
 import com.rpg.personagens.herois.Paladino;
 
 /**
@@ -10,7 +11,7 @@ import com.rpg.personagens.herois.Paladino;
 public class AtaqueEspada implements AcaoDeCombate {
 
     @Override
-    public void executar(Combatente usuario, Combatente alvo) {
+    public void executar(Combatente usuario, Combatente alvo) throws RecursoInsuficienteException {
         if (usuario instanceof Paladino) {
             Paladino paladino = (Paladino) usuario;
 

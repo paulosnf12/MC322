@@ -1,9 +1,13 @@
 // test/com/rpg/personagens/HeroiTest.java
 package com.rpg.personagens;
 
+import com.rpg.combate.AcaoDeCombate;
 import com.rpg.exceptions.NivelInsuficienteException;
+import com.rpg.exceptions.RecursoInsuficienteException;
 import com.rpg.itens.EspadaDiamante; // Uma arma de alto nível
 import com.rpg.personagens.herois.Paladino; // Exemplo de herói concreto
+import com.rpg.personagens.monstros.Goblin;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,11 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HeroiExceptionTest {
 
     private Paladino paladino;
+    private Goblin monstroAlvo; // Alvo para a habilidade
 
     @BeforeEach
     void setUp() {
-        // Paladino de nível 1, com as configurações de dano padrão
-        paladino = new Paladino("LowLevelPaladin", 100, 10, 5, 1, 0, 5, 10, 15);
+        // Paladino de nível 1, com dano de Madeira=5, Ferro=10, Diamante=15, e 100 de mana inicial
+        paladino = new Paladino("TestPaladin", 100, 10, 5, 1, 0, 5, 10, 15, 100);
+        
+        // Criamos um monstro genérico como alvo
+        monstroAlvo = new Goblin("Dummy", 10, 1, 1, 1, "Adaga", 1, 0.1, null);
     }
 
     @Test
@@ -30,9 +38,37 @@ public class HeroiExceptionTest {
         });
 
         // Opcional: verifica a mensagem da exceção
-        String mensagemEsperada = "o nivel 1 de LowLevelPaladin e insuficiente para equipar a arma Espada Diamante (nivel minimo: 3).";
+        String mensagemEsperada = "o nivel 1 de TestPaladin e insuficiente para equipar a arma Espada Diamante (nivel minimo: 3).";
         assertEquals(mensagemEsperada, thrown.getMessage());
     }
+
+    // --- NOVO TESTE ATIVO ---
+    @Test
+    void testHabilidadeThrowsRecursoInsuficienteException() {
+            // 1. Simular um herói com mana insuficiente (menos que o custo de 15)
+            paladino.setMana(10); 
+
+            // 2. Tentar usar a habilidade (Golpe Sagrado é a segunda ação, índice 1)
+            RecursoInsuficienteException thrown = assertThrows(
+            RecursoInsuficienteException.class,
+            () -> {
+                // --- INÍCIO DA CORREÇÃO ---
+            // 1. Sinaliza ao herói que o próximo ataque deve ser um especial (crítico)
+            paladino.setProximoAtaqueCritico(true); 
+            
+            // 2. Pede para o herói escolher a ação (ele vai escolher a habilidade especial)
+            AcaoDeCombate acaoEscolhida = paladino.escolherAcao(monstroAlvo);
+
+            // 3. Tenta executar a ação. É aqui que a exceção deve ser lançada.
+            acaoEscolhida.executar(paladino, monstroAlvo);
+            },
+            "Deveria lançar RecursoInsuficienteException quando a mana é baixa."
+        );
+
+        // 3. (Opcional) Verificar se a mensagem da exceção está correta
+        assertEquals("Recursos insuficientes para usar a habilidade.", thrown.getMessage());
+    }
+}
 
     // Se implementassemos algo para RecursoInsuficienteException
     /*
@@ -49,4 +85,3 @@ public class HeroiExceptionTest {
         assertEquals("Recursos insuficientes para usar a habilidade.", thrown.getMessage());
     }
     */
-}

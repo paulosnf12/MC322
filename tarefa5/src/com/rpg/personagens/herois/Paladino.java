@@ -31,10 +31,25 @@ public class Paladino extends Heroi {
 
     // construtor
     // O construtor agora recebe os valores de dano para cada tipo de espada diretamente
+
+    /**
+        * Construtor do Paladino.
+        * @param nome Nome do Paladino.
+        * @param pontosDeVida Pontos de vida iniciais do Paladino.
+        * @param forca Força do Paladino, que afeta o dano físico.
+        * @param agilidade Agilidade do Paladino, que pode afetar esquiva e
+        * velocidade.
+        * @param nivel Nível inicial do Paladino.
+        * @param experiencia Experiência inicial do Paladino.
+        * @param danoMadeira Dano base da espada de madeira.
+        * @param danoFerro Dano base da espada de ferro.
+        * @param danoDiamante Dano base da espada de diamante.
+        * @param mana Mana inicial do Paladino.
+     */
     public Paladino(String nome, int pontosDeVida, int forca, int agilidade, int
                     nivel, int experiencia,
-                    int danoMadeira, int danoFerro, int danoDiamante) { // Parâmetro Espada espadaConfig foi removido
-        super(nome, pontosDeVida, forca, agilidade, nivel, experiencia);
+                    int danoMadeira, int danoFerro, int danoDiamante, int mana) { // Parâmetro Espada espadaConfig foi removido
+        super(nome, pontosDeVida, forca, agilidade, nivel, experiencia, mana);
         this.carisma = 26; // Valor inicial de carisma
         // Armazena os danos de configuração para uso no método atualizarEspada()
         this.configDanoMadeira = danoMadeira;

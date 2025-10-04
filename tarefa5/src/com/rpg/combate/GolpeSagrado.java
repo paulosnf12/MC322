@@ -1,7 +1,7 @@
 // GolpeSagrado.java (NOVO ARQUIVO)
 package com.rpg.combate;
-import com.rpg.personagens.herois.Paladino;
-
+import com.rpg.exceptions.RecursoInsuficienteException;
+import com.rpg.personagens.herois.Paladino; // Importe a exceção
 /**
  * Representa a habilidade especial do Paladino, o Golpe Sagrado.
  * Causa dano aumentado com base na Força e no Carisma. A sorte do Paladino
@@ -9,10 +9,28 @@ import com.rpg.personagens.herois.Paladino;
  */
 public class GolpeSagrado implements AcaoDeCombate {
 
+    private static final int CUSTO_MANA = 15; // Custo fixo da habilidade
+
+    /**
+     * Executa o Golpe Sagrado, causando dano ao alvo.
+     * @param usuario O Paladino que está executando a habilidade.
+     * @param alvo O combatente que é o alvo da habilidade.
+     * @throws RecursoInsuficienteException Se o Paladino não tiver mana suficiente.
+     */
+
     @Override
-    public void executar(Combatente usuario, Combatente alvo) {
+    public void executar(Combatente usuario, Combatente alvo) throws RecursoInsuficienteException {
         if (usuario instanceof Paladino) {
             Paladino paladino = (Paladino) usuario;
+
+            // --- LÓGICA NOVA ---
+            // 1. Verifica se tem mana suficiente
+            if (paladino.getMana() < CUSTO_MANA) {
+                throw new RecursoInsuficienteException("Recursos insuficientes para usar a habilidade.");
+            }
+            // 2. Se tiver, gasta a mana
+            paladino.usarMana(CUSTO_MANA);
+            // --- FIM DA LÓGICA NOVA ---
 
             // Lógica do método usarHabilidadeEspecial() original
             int danoEspecial = (paladino.getArma() != null ? paladino.getArma().getDano() : 0) + paladino.getForca() + paladino.getCarisma();
