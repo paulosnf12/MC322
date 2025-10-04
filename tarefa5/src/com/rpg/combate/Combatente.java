@@ -1,6 +1,11 @@
 package com.rpg.combate;
-public interface Combatente {
 
+/**
+ * Representa um combatente em um sistema de combate, seja ele um herói ou um monstro.
+ * Define as ações básicas que qualquer combatente deve ser capaz de realizar.
+ */
+
+public interface Combatente {
 
     String getNome();
     boolean estaVivo();

@@ -1,14 +1,18 @@
 // Arma.java
 package com.rpg.itens;
-import com.rpg.itens.Item;
-import com.rpg.itens.Arma;
 
+/**
+ * Classe abstrata que representa uma arma equipável no jogo.
+ * Define atributos essenciais como dano e nível mínimo para uso.
+ * Implementa a interface {@link Item}.
+ */
 public abstract class Arma implements Item{
     protected int minNivel; // Nível mínimo para equipar a arma
     protected String nomeTipoArma; // Ex: "Arco", "Espada", "Machado"
     protected String nomeSubtipoArma; // Ex: "Beta", "Madeira", "Bronze"
 
     // Construtor para inicializar os atributos básicos de qualquer arma
+    
     public Arma(String nomeTipoArma, String nomeSubtipoArma, int minNivel) {
         this.nomeTipoArma = nomeTipoArma;
         this.nomeSubtipoArma = nomeSubtipoArma;
@@ -16,6 +20,11 @@ public abstract class Arma implements Item{
     }
 
     // Método abstrato que cada arma concreta deverá implementar para retornar seu dano
+    /**
+     * Retorna o valor de dano base da arma.
+     * @return O dano da arma como um inteiro.
+     */
+    
     public abstract int getDano();
 
     // Getter para o nível mínimo

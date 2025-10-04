@@ -10,6 +10,14 @@ import com.rpg.itens.EspadaFerro;
 import com.rpg.itens.EspadaMadeira;
 import com.rpg.personagens.Heroi; // Paladino estende Heroi
 
+
+
+// Agora modificado para implementar o uso de interfaces
+/**
+ * Representa o personagem Paladino, um herói especializado em combate corpo a corpo com espadas.
+ * O Paladino pode utilizar diferentes tipos de espadas conforme seu nível, e possui habilidades
+ * únicas como o Golpe Sagrado. Ele pode equipar armas que implementam a interface Arma (atualmente espadas).
+*/
 public class Paladino extends Heroi {
     // atributos
     // private Espada espadaConfig; // Antigo: Objeto de configuração da espada. Agora os danos são passados diretamente.

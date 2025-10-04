@@ -3,6 +3,12 @@ package com.rpg.util;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Classe utilitária para gerenciar e validar a entrada de dados do usuário via console.
+ * Fornece métodos estáticos para ler inteiros, strings e respostas de sim/não,
+ * garantindo que o programa não quebre com entradas inválidas.
+ */
+
 public class InputManager {
     // Mantivemos o scanner como estático, mas adicionamos uma flag para controlar seu estado
     private static Scanner scanner;
@@ -19,6 +25,16 @@ public class InputManager {
     }
 
     // Métodos do InputManager para usar getScanner()
+
+    /**
+     * Lê um número inteiro do console dentro de um intervalo especificado.
+     * Continua pedindo a entrada até que um valor válido seja fornecido.
+     * @param mensagem A mensagem a ser exibida para o usuário.
+     * @param min O valor mínimo aceitável (inclusivo).
+     * @param max O valor máximo aceitável (inclusivo).
+     * @return O número inteiro validado.
+     */
+
     public static int lerInteiro(String mensagem, int min, int max) {
         Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto
         while (true) {
@@ -91,6 +107,11 @@ public class InputManager {
         }
     }
 
+    /**
+     * Garante que o recurso Scanner seja fechado adequadamente ao final do programa.
+     */
+
+     
     public static void fecharScanner() {
         if (scanner != null) {
             scanner.close();

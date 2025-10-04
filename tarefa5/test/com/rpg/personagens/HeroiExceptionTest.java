@@ -34,7 +34,7 @@ public class HeroiExceptionTest {
         assertEquals(mensagemEsperada, thrown.getMessage());
     }
 
-    // Se você implementasse algo para RecursoInsuficienteException
+    // Se implementassemos algo para RecursoInsuficienteException
     /*
     @Test
     void testHabilidadeThrowsRecursoInsuficienteException() {

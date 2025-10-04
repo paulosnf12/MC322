@@ -3,6 +3,10 @@ package com.rpg.cenario;
 import com.rpg.personagens.Heroi;
 
 
+/**
+ * Evento especial que ocorre na floresta, onde o herói recebe uma bênção que restaura parte de sua vida.
+ * O evento é acionado quando o herói entra na floresta pela primeira vez.
+ */
 public class EventoDeBencao implements Evento {
 
     private boolean jaExecutado = false; // Garante que o evento ocorra apenas uma vez

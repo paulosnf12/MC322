@@ -1,3 +1,5 @@
+// Monstro.java
+
 package com.rpg.personagens; // Declaração do pacote para monstros
 
 import com.rpg.combate.AcaoDeCombate;
@@ -12,9 +14,9 @@ import java.util.Random;
 // Agora implementa Lootavel (e herda Combatente de Personagem)
 
 /**
- * Representa um inimigo no jogo.
- * Monstros são combatentes que, ao serem derrotados, concedem experiência
- * e podem deixar um item (loot).
+ * Classe abstrata para todos os inimigos do jogo.
+ * Estende {@link Personagem} e implementa {@link Lootavel}, adicionando a
+ * capacidade de conceder experiência e dropar itens ao ser derrotado.
  */
 
 public abstract class Monstro extends Personagem implements Lootavel {
@@ -57,7 +59,13 @@ public abstract class Monstro extends Personagem implements Lootavel {
     // 2. Método abstrato que força as subclasses (Goblin, Vampiro e Espírito)
     // definirem suas ações
     protected abstract void inicializarAcoes();
-
+    
+    /**
+     * Seleciona uma ação de combate de forma aleatória da sua lista de ações.
+     * Simula a "IA" do monstro.
+     * @param alvo O combatente alvo da ação (normalmente o herói).
+     * @return A {@link AcaoDeCombate} escolhida para o turno.
+     */
     @Override
     public AcaoDeCombate escolherAcao(Combatente alvo) {
         // 3. IA do monstro: escolhe e executa uma ação aleatória
@@ -74,9 +82,8 @@ public abstract class Monstro extends Personagem implements Lootavel {
 
     /**
      * Gera e retorna um item que o monstro deixa ao ser derrotado.
-     * Pode retornar null se nenhum item for deixado.
-     *
-     * @return Um objeto do tipo {@link Item} ou null.
+     * A escolha do item é aleatória. Pode não retornar nenhum item.
+     * @return Um {@link Item} ou {@code null} se nenhum item for dropado.
      */
     
     @Override

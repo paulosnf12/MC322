@@ -1,89 +1,95 @@
-# RPG Narrativo - Tarefa 4
+# RPG Narrativo - Tarefa 5
 
-Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, como parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). O jogo agora é uma experiência totalmente interativa, onde o jogador controla o fluxo da aventura, escolhe a dificuldade e gerencia a campanha do herói através de menus.
+Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, como parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). Esta quinta tarefa foca em garantir a robustez e a qualidade do código através da implementação de testes unitários com JUnit e da documentação completa com Javadoc.
 
 ## Descrição Geral
 
-A Tarefa 4 transforma a simulação da versão anterior em um jogo completo e robusto. Com base na arquitetura orientada a interfaces da Tarefa 3, esta versão introduz interatividade com o jogador, um sistema de dificuldade, uma arquitetura de pacotes organizada e tratamento de exceções. O resultado é um jogo mais resiliente, dinâmico e com maior manutenibilidade.
+A Tarefa 5 eleva a qualidade do jogo interativo desenvolvido na tarefa anterior, introduzindo duas práticas essenciais no desenvolvimento de software: testes automatizados e documentação formal. O objetivo não é adicionar novas funcionalidades ao jogo, mas sim garantir que as funcionalidades existentes operem como esperado e sejam fáceis de entender e manter.
 
-## Destaque Principal: De Simulação a Jogo Interativo
+Para isso, foi utilizada a biblioteca **JUnit 5** para a criação de um conjunto de testes unitários que validam desde a lógica de combate até o sistema de dificuldade, e a ferramenta **Javadoc** para gerar uma documentação HTML completa a partir de comentários no código-fonte.
 
-A mudança mais significativa foi a transição de uma simulação automática para um jogo controlado pelo jogador. Agora, o fluxo do programa depende das escolhas do usuário, que são capturadas e validadas pelo sistema, garantindo que o jogo não quebre por entradas inválidas.
+## Destaque Principal: Robustez e Documentação
 
-As principais evoluções que permitiram essa transformação são:
-*   **Menus de Interação**: Implementação de um Menu Principal para iniciar ou sair do jogo e um Menu Pós-Combate para gerenciar o personagem após cada batalha.
-*   **Gerenciador de Entradas (`InputManager`)**: Uma classe utilitária centralizada que gerencia toda a interação com o console, validando entradas e tratando erros de forma segura.
-*   **Sistema de Dificuldade**: O jogador pode escolher entre os níveis `FACIL`, `NORMAL` e `DIFICIL`, alterando dinamicamente o poder dos monstros e a chance de obter melhores recompensas.
-*   **Tratamento de Exceções Customizadas**: O jogo agora lança e trata exceções específicas do jogo, como `NivelInsuficienteException`, tornando o controle de fluxo mais claro e objetivo.
+O foco desta tarefa foi solidificar a base do projeto, garantindo que ele seja confiável e de fácil manutenção.
 
-## Novas Funcionalidades e Melhorias
-
-*   **Arquitetura de Pacotes**: O projeto foi completamente refatorado para uma estrutura de pacotes lógica (`com.rpg.game`, `com.rpg.personagens`, `com.rpg.itens`, etc.), melhorando a organização e a manutenibilidade do código.
-*   **Gerenciador de Entradas (`InputManager`)**: Classe estática responsável por toda a leitura de dados do console. Garante que o programa só receba entradas válidas (inteiros em um intervalo, strings, etc.), tratando exceções como `InputMismatchException` internamente.
-*   **Sistema de Dificuldade Dinâmica**:
-    *   Ao iniciar um novo jogo, o jogador escolhe a dificuldade.
-    *   Essa escolha ajusta dinamicamente os atributos dos monstros (vida, força e XP concedido). Em dificuldades maiores, a chance de obter armas melhores (o *loot*) também é ajustada.
-*   **Exceções Customizadas**:
-    *   Foram criadas exceções como `NivelInsuficienteException` para representar erros específicos do jogo.
-    *   Por exemplo, ao tentar equipar uma arma de nível superior, o jogo agora lança essa exceção, que é tratada na `Main`, informando o jogador do erro de forma elegante em vez de apenas impedir a ação.
-*   **Menus e Fluxo de Jogo**:
-    *   **Menu Principal**: Permite iniciar um novo jogo, ver informações sobre heróis/monstros ou sair.
-    *   **Menu Pós-Combate**: Após cada vitória, o jogador pode interagir com o loot, ver o status do personagem, desistir do jogo ou continuar a aventura.
+*   **Testes Unitários com JUnit**: Foi criada uma suíte de testes para validar os principais componentes do jogo de forma isolada. Isso garante que mudanças futuras não quebrem funcionalidades existentes e que a lógica de negócio (regras do jogo) está correta.
+*   **Documentação Profissional com Javadoc**: O código foi enriquecido com comentários Javadoc nos métodos e classes mais importantes, conforme as diretrizes da tarefa. Esses comentários foram usados para gerar uma documentação HTML navegável, tornando o projeto compreensível para outros desenvolvedores.
 
 ## Estrutura do Projeto
 
-O código-fonte foi reorganizado em pacotes, seguindo as convenções do Java para agrupar classes com responsabilidades relacionadas. A nova estrutura de diretórios `src` é a seguinte:
+A estrutura do projeto foi expandida para acomodar os testes, a documentação e as bibliotecas externas, seguindo as melhores práticas de organização:
 
 <p align="center">
-  <img src="estrutura.png" alt="Estrutura do projeto"/>
+  <img src="estrutura.png" alt="Estrutura do projeto da Tarefa 5"/>
 </p>
 
-## Como Executar o Projeto
+*   **`lib/`**: Nova pasta que contém bibliotecas externas (`.jar`). Atualmente, abriga o **JUnit 5 Standalone**, necessário para compilar e executar os testes.
+*   **`test/`**: Nova pasta que contém todo o código de teste. Sua estrutura de pacotes espelha a da pasta `src`, uma convenção que facilita a localização dos testes correspondentes a cada classe do jogo.
+*   **`docs/`**: Pasta que contém a documentação HTML gerada pelo Javadoc. Ela é o resultado da compilação dos comentários Javadoc do seu código-fonte.
+
+## Como Compilar e Executar
 
 ### Pré-requisitos
 
 *   [Java Development Kit (JDK) 21](https://www.oracle.com/java/technologies/downloads/) ou superior.
+*   Um ambiente de terminal que suporte o comando `find` (como Git Bash no Windows, ou qualquer terminal Linux/macOS).
 
 ### Passos para Compilação e Execução
 
 1.  **Clone o Repositório**:
-    Clone o repositório e navegue até o diretório da `tarefa4`.
+    Clone o repositório e navegue até o diretório da `tarefa5`.
     ```bash
     git clone https://github.com/paulosnf12/MC322.git
-    cd MC322
+    cd MC322/tarefa5
     ```
 
-2.  **Compile o Código**:
-    Dentro do diretório raiz do projeto (MC322) no terminal, execute os comandos a seguir. Ele compilará todos os arquivos `.java` da pasta `src` e colocará os `.class` na pasta `bin`, mantendo a estrutura de pacotes.
+2.  **Para Compilar o Projeto (Código-fonte + Testes)**:
+    Execute o comando abaixo. Ele compilará todo o código das pastas `src` e `test`, utilizando a biblioteca JUnit do `classpath` e salvando os arquivos `.class` na pasta `bin`.
     ```bash
-    # Para Linux/macOS
-    cd tarefa4
-    javac -d bin -sourcepath src $(find src -name "*.java")
+    javac -d bin -sourcepath src -classpath lib/junit-standalone-1.13.4.jar $(find src -name "*.java") $(find test -name "*.java")
     ```
-    *Observação: Para Windows, pode ser necessário um comando equivalente para listar todos os arquivos fonte.*
 
-3.  **Execute o Jogo**:
-    Após compilar, execute o jogo com o seguinte comando, que especifica o `classpath` e o nome completo da classe principal.
+3.  **Para Executar os Testes Unitários**:
+    Este comando utiliza o executor do JUnit para escanear a pasta `bin` em busca de classes de teste e executá-las. O resultado (sucesso ou falha) será exibido no console.
+    ```bash
+    java -jar lib/junit-standalone-1.13.4.jar --class-path bin --scan-classpath
+    ```
+
+4.  **Para Executar o Jogo Principal**:
+    Para jogar, use o comando a seguir, que executa a classe `Main` a partir dos arquivos compilados na pasta `bin`.
     ```bash
     java -cp bin com.rpg.game.Main
     ```
-    O menu do jogo será exibido no terminal, e você poderá interagir com ele.
 
-## Requisitos para Implementação da Tarefa 4
+5.  **Para Gerar a Documentação Javadoc**:
+    Este comando lê os comentários Javadoc no seu código-fonte (`src`) e gera um site HTML na pasta `docs`.
+    ```bash
+    javadoc -d docs -sourcepath src -subpackages com.rpg
+    ```
 
-Para a implementação desta tarefa, foram cumpridos os seguintes requisitos conforme o enunciado:
+## Acessando a Documentação
 
-- ** Arquitetura de Pacotes:** O projeto foi inteiramente refatorado, com todas as classes organizadas em pacotes lógicos como `com.rpg.game`, `com.rpg.personagens`, e `com.rpg.itens`, conforme especificado.
+A documentação completa do projeto, gerada pelo Javadoc, está localizada na pasta `docs/`. Para visualizá-la, abra o arquivo **`docs/index.html`** no seu navegador de preferência.
 
-- ** Gerenciador de Entradas (`InputManager`):** A classe `InputManager` foi implementada no pacote `com.rpg.util` com todos os métodos estáticos solicitados (`lerInteiro`, `lerString`, `lerSimNao`, `esperarEnter`, `fecharScanner`), garantindo a robustez das interações.
+## Testes Implementados e Validação dos Requisitos
 
-- ** Sistema de Dificuldade:** Foi criado o `enum Dificuldade` com os níveis `FACIL`, `NORMAL` e `DIFICIL`, e a classe `ConstrutorDeCenarioFixo` utiliza o parâmetro de dificuldade para ajustar os atributos dos monstros.
+Foram criados testes unitários para validar todas as funcionalidades exigidas na tarefa.
 
-- ** Interação com o Jogador:** A classe `Main` foi reestruturada para apresentar um menu principal e um menu pós-combate, utilizando o `InputManager` para todas as interações e controlando o fluxo do jogo com base nas escolhas do usuário.
+-   **Gerenciador de Entradas (`InputManagerTest.java`)**
+    *   **Objetivo**: Garantir que os métodos de leitura de entrada do usuário funcionem corretamente, tanto para casos válidos quanto para inválidos.
+    *   **Testes**: Foram testados os métodos `lerString` e `lerSimNao`, cobrindo entradas corretas, entradas vazias/inválidas (que devem solicitar novamente) e o caso de ausência de entrada, que corretamente lança uma `RuntimeException`.
 
-- ** Tratamento de Exceções Customizadas:** Foram criadas as classes `NivelInsuficienteException` e `RecursoInsuficienteException`. A `NivelInsuficienteException` é lançada pelo método `equiparArma` na classe `Heroi` e tratada com um bloco `try-catch` na `Main`, demonstrando um controle de fluxo de erros robusto.
+-   **Sistema de Dificuldade (`ConstrutorDeCenarioFixoTest.java`)**
+    *   **Objetivo**: Validar que a escolha de dificuldade afeta os atributos dos monstros.
+    *   **Testes**: Um teste foi implementado para gerar monstros nas dificuldades `FACIL` e `DIFICIL` e comparar seus atributos. O teste confirma que monstros em `DIFICIL` têm mais vida e força, e concedem menos XP, como esperado.
 
-- ** Adaptação da Classe `Main`:** O fluxo principal do jogo foi completamente adaptado para iniciar com o menu, solicitar a dificuldade, gerar as fases de acordo e exibir o menu pós-combate, satisfazendo todos os requisitos de reestruturação.
+-   **Combatentes (`PaladinoTest.java`, `GoblinTest.java`)**
+    *   **Objetivo**: Testar as mecânicas fundamentais de combate e as interfaces.
+    *   **Testes**: Para validar a implementação de interfaces como a `Combatente`, foi adotada a estratégia de testar uma classe concreta de cada hierarquia (`Paladino` para Heróis, `Goblin` para Monstros). Devido ao princípio da herança, se uma classe base implementa uma interface, o compilador garante que todas as suas subclasses também a implementem. Além disso, foram criados testes específicos para validar o recebimento de dano, o ataque a um monstro e o ganho de experiência com subida de nível.
+
+-   **Exceções (`HeroiExceptionTest.java`)**
+    *   **Objetivo**: Garantir que a exceção customizada `NivelInsuficienteException` seja lançada corretamente.
+    *   **Testes**: Um teste simula um herói de nível baixo tentando equipar uma arma de nível alto. O teste confirma que a exceção é lançada e que a mensagem de erro é a esperada.
 
 ## Créditos
 
@@ -91,8 +97,4 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
-
     *   Paulo Santos do Nascimento Filho
-
-
-

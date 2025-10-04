@@ -2,6 +2,11 @@
 package com.rpg.combate;
 import com.rpg.personagens.monstros.Goblin;
 
+/**
+ * Representa a ação de ataque do Goblin. Causa dano com base na sua arma e força,
+ * e possui uma chance de roubar vida do alvo. Este ataque também pode ser um
+ * acerto crítico.
+ */
 
 public class AtaqueGoblin implements AcaoDeCombate {
 

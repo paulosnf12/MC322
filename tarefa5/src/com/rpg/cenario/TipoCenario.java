@@ -4,9 +4,9 @@ package com.rpg.cenario;
 import com.rpg.personagens.Heroi;
 
 /**
- * Enum que representa os diferentes ambientes do jogo.
- * Cada constante (FLORESTA, CRIPTA, PICO) é uma instância única
- * com sua própria descrição e implementação do método aplicarEfeitos.
+ * Enum que representa os diferentes ambientes do jogo (Floresta, Cripta e Pico).
+ * Cada tipo de cenário possui uma descrição única e pode aplicar efeitos
+ * específicos (bônus ou penalidades) ao herói no início de uma fase.
  */
  public enum TipoCenario {
 

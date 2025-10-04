@@ -2,7 +2,11 @@
 package com.rpg.combate;
 import com.rpg.personagens.herois.Elfo;
 
-
+/**
+ * Representa a ação de ataque básico com um arco, específica para a classe Elfo.
+ * Causa dano ao alvo e, como efeito passivo, cura o Elfo em uma pequena
+ * porcentagem do dano causado.
+ */
 public class AtaqueArco implements AcaoDeCombate {
 
     @Override

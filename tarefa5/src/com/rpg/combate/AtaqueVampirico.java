@@ -2,6 +2,11 @@
 package com.rpg.combate;
 import com.rpg.personagens.monstros.Vampiro;
 
+/**
+ * Representa o ataque do Vampiro, que utiliza seu brilho sobrenatural para causar dano.
+ * O dano é calculado com base na força e no atributo de Brilho do Vampiro. Este
+ * ataque pode ser um acerto crítico.
+ */
 public class AtaqueVampirico implements AcaoDeCombate {
 
 @Override

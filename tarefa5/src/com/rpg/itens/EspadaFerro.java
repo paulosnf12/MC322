@@ -1,8 +1,10 @@
 // EspadaFerro.java
 package com.rpg.itens;
-import com.rpg.itens.Item;
-import com.rpg.itens.Arma;
 
+/**
+ * Representa a Espada de Ferro, uma arma corpo a corpo que pode ser utilizada por personagens
+ * com nível mínimo 2 (atualmente o Paladino). O dano da espada é determinado pelo valor passado no construtor.
+ */
 public class EspadaFerro extends Arma {
     private int danoBase;
 

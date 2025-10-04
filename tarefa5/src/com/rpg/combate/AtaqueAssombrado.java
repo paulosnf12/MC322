@@ -1,6 +1,11 @@
 package com.rpg.combate;
 import com.rpg.personagens.monstros.Espirito;
 
+/**
+ * Representa a ação de ataque do Espírito, que causa dano baseado na Força
+ * e no seu atributo de Tristeza. Este ataque tem chance de ser crítico.
+ */
+
 public class AtaqueAssombrado implements AcaoDeCombate {
     @Override
     public void executar(Combatente usuario, Combatente alvo) {

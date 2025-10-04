@@ -11,6 +11,11 @@ import com.rpg.itens.Arma;
 import com.rpg.personagens.Heroi; // Elfo estende Heroi
 
 // Agora modificado para implementar o uso de interfaces
+/**
+ * Representa o personagem Elfo, um herói especializado em ataques à distância com arcos.
+ * O Elfo pode utilizar diferentes tipos de arcos conforme seu nível, e possui habilidades
+ * únicas como cura ao atacar. Ele pode equipar armas que implementam a interface Arma (atualmente arcos).
+ */
 public class Elfo extends Heroi {
     // atributos
     // private Arcos arcos; // Antigo: atribui um objeto de configuração de arco ao

@@ -1,11 +1,15 @@
 // Espirito.java
 package com.rpg.personagens.monstros;
-import java.util.ArrayList;
-
 import com.rpg.combate.AtaqueAssombrado;
 import com.rpg.itens.Arma;
 import com.rpg.personagens.Monstro;
+import java.util.ArrayList;
 
+/**
+ * Representa um monstro do tipo Espírito no jogo.
+ * Espíritos possuem um atributo único chamado "tristeza",
+ * que pode influenciar suas ações e interações no jogo.
+ */
 public class Espirito extends Monstro {
     private int tristeza; // atributo único
     public Espirito(String nome, int pontosDeVida, int forca, int agilidade, int xpConcedido, int tristeza, ArrayList<Arma> listaDeArmasParaLargar) {

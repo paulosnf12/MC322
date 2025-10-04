@@ -5,6 +5,13 @@ import com.rpg.personagens.Monstro;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+/**
+ * Representa uma fase de combate no jogo, onde o herói enfrenta monstros em um determinado cenário.
+ * Cada fase possui um nível, um tipo de cenário (como floresta, caverna, etc.), uma lista de monstros
+ * e uma lista de eventos que podem ocorrer durante a fase.
+ */
 public class FaseDeCombate implements Fase {
     private int nivel;
     private TipoCenario tipoDeCenario; // <-- MUDANÇA 1: Atributo agora é do tipo enum

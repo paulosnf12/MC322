@@ -14,9 +14,9 @@ import java.util.Random;
 // Irá agora implementar a inferface Combatente (já implementado por Personagem).
 
 /**
- * Representa um herói controlável pelo jogador.
- * Além das características de um {@link Combatente}, um herói pode ganhar experiência,
- * subir de nível e equipar armas.
+ * Classe abstrata que representa um herói controlável pelo jogador.
+ * Estende {@link Personagem} adicionando mecânicas de nível, experiência, sorte,
+ * e a capacidade de equipar armas e usar ações de combate específicas.
  */
 
 public abstract class Heroi extends Personagem {
@@ -52,15 +52,26 @@ public abstract class Heroi extends Personagem {
 
     // ---- NOVO MÉTODO PARA "SINALIZAR" O CRÍTICO ---
     /**
-     * Define se a próxima ação escolhida pelo herói deve ser um ataque crítico (especial).
-     * Este método será chamado pela Main antes de invocar escolherAcao.
-     */
+         * Define se a próxima ação escolhida pelo herói deve ser um ataque
+         * crítico (especial). Este método será chamado pela classe Main antes de
+         * invocar escolherAcao.
+         * @param isCritico true se o próximo ataque deve ser crítico, false caso contrário.
+         */
     public void setProximoAtaqueCritico(boolean isCritico) {
         this.proximoAtaqueEhCritico = isCritico;
     }
 
     // 4. Implementação do método escolherAcao da interface Combatente
     // ---- MÉTODO escolherAcao MODIFICADO ---
+
+    /**
+     * Seleciona a ação de combate a ser usada no turno.
+     * Se o sinalizador de ataque crítico estiver ativo, retorna a habilidade especial (índice 1).
+     * Caso contrário, retorna o ataque básico (índice 0).
+     * @param alvo O combatente alvo da ação.
+     * @return A {@link AcaoDeCombate} a ser executada.
+     */
+    
     @Override
     public AcaoDeCombate escolherAcao(Combatente alvo) {
         if (acoes == null || acoes.isEmpty()) {

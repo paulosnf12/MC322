@@ -2,6 +2,10 @@
 package com.rpg.combate;
 import com.rpg.personagens.herois.Paladino;
 
+/**
+ * Representa a ação de ataque básico com uma espada, específica para a classe Paladino.
+ * O dano é calculado com base na força do Paladino e no dano da arma equipada.
+ */
 
 public class AtaqueEspada implements AcaoDeCombate {
 

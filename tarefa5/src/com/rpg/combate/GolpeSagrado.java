@@ -1,12 +1,12 @@
 // GolpeSagrado.java (NOVO ARQUIVO)
 package com.rpg.combate;
-import com.rpg.combate.AcaoDeCombate;
-import com.rpg.combate.Combatente;
-import com.rpg.personagens.herois.Elfo;
 import com.rpg.personagens.herois.Paladino;
-import com.rpg.personagens.monstros.Goblin;
 
-
+/**
+ * Representa a habilidade especial do Paladino, o Golpe Sagrado.
+ * Causa dano aumentado com base na Força e no Carisma. A sorte do Paladino
+ * pode potencializar ainda mais o dano desta habilidade.
+ */
 public class GolpeSagrado implements AcaoDeCombate {
 
     @Override

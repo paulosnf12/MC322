@@ -19,9 +19,14 @@ import java.util.List; // Importa o InputManager
 import java.util.Random;
 
 /**
- * Classe principal que inicia e gerencia o fluxo do jogo RPG.
- * Contém o menu principal, a lógica de inicialização de uma nova partida
- * e o loop principal do jogo.
+ * Classe principal que serve como ponto de entrada para a execução do jogo de RPG Narrativo.
+ * Esta classe gerencia o menu principal, a inicialização de uma nova partida e
+ * controla o fluxo geral do jogo, guiando o jogador através para os desafios e combates.
+ *
+ * @author Bárbara Maria Barreto Fonseca de Cerqueira César
+ * @author Paulo Santos do Nascimento Filho
+ * @version 5.0 (Laboratório 5 - MC322)
+ * @since 04-09-2025
  */
 
 public class Main {

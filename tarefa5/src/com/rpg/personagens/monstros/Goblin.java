@@ -5,6 +5,11 @@ import com.rpg.itens.Arma;
 import com.rpg.personagens.Monstro;
 import java.util.ArrayList;
 
+/**
+ * Representa um monstro do tipo Goblin no jogo.
+ * Goblins possuem atributos específicos relacionados ao seu estilo de combate,
+ * como o tipo de arma que utilizam, o dano causado por essa arma e a chance de roubo de vida.
+ */
 public class Goblin extends Monstro {
     // atributos
     protected String tipoDeArma;

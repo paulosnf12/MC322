@@ -1,11 +1,15 @@
 // Vampiro.java
 package com.rpg.personagens.monstros;
-import java.util.ArrayList;
-
 import com.rpg.combate.AtaqueVampirico;
 import com.rpg.itens.Arma;
 import com.rpg.personagens.Monstro;
+import java.util.ArrayList;
 
+/**
+ * Representa um monstro do tipo Vampiro no jogo.
+ * Vampiros possuem um atributo único chamado "brilho",
+ * que pode influenciar suas ações e interações no jogo.
+ */
 public class Vampiro extends Monstro {
     private int brilho; // atributo único
     
