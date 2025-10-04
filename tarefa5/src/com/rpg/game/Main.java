@@ -18,6 +18,12 @@ import com.rpg.util.InputManager;
 import java.util.List; // Importa o InputManager
 import java.util.Random;
 
+/**
+ * Classe principal que inicia e gerencia o fluxo do jogo RPG.
+ * Contém o menu principal, a lógica de inicialização de uma nova partida
+ * e o loop principal do jogo.
+ */
+
 public class Main {
     public static void main(String[] args) {
         // --- SETUP INICIAL (Idêntico ao original, com a criação de objetos atualizada) --

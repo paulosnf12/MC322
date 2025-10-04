@@ -16,8 +16,25 @@ import com.rpg.personagens.monstros.Vampiro;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementação de {@link GeradorDeFases} que cria um cenário com uma sequência predefinida de fases.
+ * Esta classe é responsável por instanciar monstros, armas e eventos para cada fase
+ * de acordo com o nível e a dificuldade selecionada.
+ */
+
 // MUDANÇA 1: A classe agora implementa a interface GeradorDeFases
 public class ConstrutorDeCenarioFixo implements GeradorDeFases {
+    
+    /**
+     * Gera uma lista de fases de combate com monstros e recompensas.
+     * A dificuldade influencia os atributos dos monstros e a qualidade das armas.
+     *
+     * @param nFases O número de fases a serem geradas.
+     * @param dificuldade A dificuldade selecionada para o jogo, que ajusta os atributos dos inimigos.
+     * @return Uma lista de fases prontas para o combate.
+     */
+
+
     // Array de nomes de ambientes temáticos.
     //  O array agora é de TipoCenario
     private static final TipoCenario[] CENARIOS_TEMATICOS = {

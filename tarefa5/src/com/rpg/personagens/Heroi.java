@@ -12,6 +12,13 @@ import java.util.Random;
 
 // A classe Personagem já implementa Combatente, então Heroi herda isso.
 // Irá agora implementar a inferface Combatente (já implementado por Personagem).
+
+/**
+ * Representa um herói controlável pelo jogador.
+ * Além das características de um {@link Combatente}, um herói pode ganhar experiência,
+ * subir de nível e equipar armas.
+ */
+
 public abstract class Heroi extends Personagem {
     protected int nivel;
     protected int experiencia;
@@ -89,6 +96,14 @@ public abstract class Heroi extends Personagem {
     }
 
     // método para ganhar experiência e subir de nível
+
+    /**
+     * Processa o ganho de experiência do herói.
+     * Se a experiência acumulada for suficiente, o método {@link #subirDeNivel()} é invocado.
+     *
+     * @param exp A quantidade de experiência ganha.
+     */
+
     public void ganharExperiencia(int exp) {
         experiencia += exp;
         System.out.println(nome + " ganhou " + exp + " de experiencia. Total: " +
@@ -113,6 +128,7 @@ public abstract class Heroi extends Personagem {
      * @param novaArma A arma a ser equipada. Pode ser null para desequipar.
      * @throws NivelInsuficienteException Se o herói não tiver o nível mínimo para equipar a arma.
      */
+     
     public void equiparArma(Arma novaArma) throws NivelInsuficienteException { // <-- MUDANÇA AQUI: Adicionado 'throws NivelInsuficienteException'
         if (novaArma == null) { // Permite desequipar arma
             this.arma = null;

@@ -10,6 +10,13 @@ import java.util.List;
 import java.util.Random;
 
 // Agora implementa Lootavel (e herda Combatente de Personagem)
+
+/**
+ * Representa um inimigo no jogo.
+ * Monstros são combatentes que, ao serem derrotados, concedem experiência
+ * e podem deixar um item (loot).
+ */
+
 public abstract class Monstro extends Personagem implements Lootavel {
     protected int xpConcedido;
     protected ArrayList<Arma> listaDeArmasParaLargar;
@@ -64,6 +71,14 @@ public abstract class Monstro extends Personagem implements Lootavel {
         }
     }
 
+
+    /**
+     * Gera e retorna um item que o monstro deixa ao ser derrotado.
+     * Pode retornar null se nenhum item for deixado.
+     *
+     * @return Um objeto do tipo {@link Item} ou null.
+     */
+    
     @Override
     public Item droparLoot() { // Antigamente era largarArma()
         if (listaDeArmasParaLargar == null || listaDeArmasParaLargar.isEmpty()) {
@@ -77,6 +92,13 @@ public abstract class Monstro extends Personagem implements Lootavel {
                            armaLargada.getNomeCompleto() + ")"); // Alterado para exibir apenas o nome completo
         return armaLargada; // ...e a retorna como um Item.
     }
+
+
+    /**
+     * Concede a experiência que este monstro vale ao ser derrotado.
+     *
+     * @return A quantidade de pontos de experiência.
+     */
 
     public int getXpConcedido() {
         return xpConcedido;

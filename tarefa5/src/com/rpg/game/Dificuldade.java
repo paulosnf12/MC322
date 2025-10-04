@@ -1,5 +1,12 @@
 package com.rpg.game; // ou com.rpg.cenario
 
+
+/**
+ * Enum que representa os níveis de dificuldade do jogo.
+ * Cada nível de dificuldade define multiplicadores para os atributos dos monstros,
+ * como vida, dano e experiência, além de influenciar a chance de obter melhores recompensas.
+ */
+
 public enum Dificuldade {
     FACIL(0.3, 0.3, 0.7, 0.7),  // Vida x%, Dano x%, XP x% dos monstros, Chance de loot de armas comuns x%
     NORMAL(0.5, 0.5, 0.5, 0.5), // Padrão
@@ -18,10 +25,21 @@ public enum Dificuldade {
         this.chanceLootArmasBoas = chanceLootArmasBoas;
     }
 
+    /**
+     * Retorna o multiplicador de vida para esta dificuldade.
+     * @return O valor double do multiplicador.
+     */
+
     public double getMultiplicadorVidaMonstro() {
         return multiplicadorVidaMonstro;
     }
 
+
+    /**
+     * Retorna o multiplicador de dano para esta dificuldade.
+     * @return O valor double do multiplicador.
+     */
+    
     public double getMultiplicadorDanoMonstro() {
         return multiplicadorDanoMonstro;
     }
