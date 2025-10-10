@@ -1,5 +1,15 @@
 # RPG Narrativo - Tarefa 5
 
+Compilação (Linux):
+javac -d bin -cp "lib/junit-standalone-1.13.4.jar:lib/jakarta.xml.bind-api-4.0.0.jar:lib/jaxb-runtime-4.0.4.jar" -sourcepath src $(find src -name "*.java") $(find test -name "*.java")
+
+Executar:
+java -cp "bin:lib/junit-standalone-1.13.4.jar:lib/jakarta.xml.bind-api-4.0.0.jar:lib/jaxb-runtime-4.0.4.jar" com.rpg.game.Main
+
+Testes:
+java -jar lib/junit-standalone-1.13.4.jar --class-path "bin:lib/jakarta.xml.bind-api-4.0.0.jar:lib/jaxb-runtime-4.0.4.jar" --scan-classpath
+
+
 Este projeto é a implementação de um Jogo Narrativo de RPG desenvolvido em Java, como parte da disciplina MC322 - Programação Orientada a Objetos da Universidade Estadual de Campinas (Unicamp). Esta quinta tarefa foca em garantir a robustez e a qualidade do código através da implementação de testes unitários com JUnit e da documentação completa com Javadoc.
 
 ## Descrição Geral
@@ -99,4 +109,5 @@ Este projeto foi desenvolvido como parte de um trabalho acadêmico.
 
 *   **Desenvolvedores do Projeto**:
     *   Bárbara Maria Barreto Fonseca de Cerqueira César
+
     *   Paulo Santos do Nascimento Filho
