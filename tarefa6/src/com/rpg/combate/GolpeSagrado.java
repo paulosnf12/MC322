@@ -1,7 +1,9 @@
-// GolpeSagrado.java
+// src/com/rpg/combate/GolpeSagrado.java
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
+import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
+
 // O import de 'com.rpg.personagens.herois.Paladino' foi removido,
 // pois a classe não dependerá mais diretamente do tipo concreto Paladino.
 
@@ -13,9 +15,15 @@ import com.rpg.exceptions.RecursoInsuficienteException;
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.
  */
+@XmlRootElement(name = "golpeSagrado") // ADICIONADO: Define o elemento raiz para esta classe em XML
 public class GolpeSagrado implements AcaoDeCombate {
 
     private static final int CUSTO_MANA = 15; // Custo fixo de mana da habilidade
+
+    /**
+     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     */
+    public GolpeSagrado() {} // Construtor padrão
 
     /**
      * Executa o Golpe Sagrado, causando dano ao alvo.
@@ -47,6 +55,7 @@ public class GolpeSagrado implements AcaoDeCombate {
         int danoEspecial = (usuario.getArma() != null ? usuario.getArma().getDano() : 0) + usuario.getForca() + usuario.getCarisma();
 
         // A sorte alta pode aumentar o dano com base no carisma.
+        // JAXB: Math.random() não é serializável, mas o resultado é temporário, então não há problema aqui.
         if (usuario.getSorte() > 0.4) {
             double boostDano = danoEspecial * 1.2; // Aplica um bônus de 20% no dano.
             danoEspecial = (int) Math.round(boostDano); // Arredonda o dano para um número inteiro.

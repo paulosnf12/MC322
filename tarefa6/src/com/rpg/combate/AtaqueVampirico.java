@@ -1,9 +1,8 @@
-// AtaqueVampirico.java
+// src/com/rpg/combate/AtaqueVampirico.java
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
-// O import de 'com.rpg.personagens.monstros.Vampiro' foi removido,
-// pois a classe não dependerá mais diretamente do tipo concreto Vampiro.
+import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
 
 /**
  * Representa o ataque vampírico, que utiliza um atributo de "brilho" para causar dano.
@@ -12,7 +11,13 @@ import com.rpg.exceptions.RecursoInsuficienteException;
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.
  */
+@XmlRootElement(name = "ataqueVampirico") // ADICIONADO: Define o elemento raiz para esta classe em XML
 public class AtaqueVampirico implements AcaoDeCombate {
+
+    /**
+     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     */
+    public AtaqueVampirico() {} // Construtor padrão
 
     /**
      * Executa a ação de ataque vampírico.

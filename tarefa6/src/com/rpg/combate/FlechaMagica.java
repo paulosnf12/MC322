@@ -1,7 +1,9 @@
-// FlechaMagica.java
+// src/com/rpg/combate/FlechaMagica.java
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
+import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
+
 // O import de 'com.rpg.personagens.herois.Elfo' foi removido,
 // pois a classe não dependerá mais diretamente do tipo concreto Elfo.
 
@@ -12,9 +14,15 @@ import com.rpg.exceptions.RecursoInsuficienteException;
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.
  */
+@XmlRootElement(name = "flechaMagica") // ADICIONADO: Define o elemento raiz para esta classe em XML
 public class FlechaMagica implements AcaoDeCombate {
 
     private static final int CUSTO_MANA = 20; // Flecha Mágica custa 20 de mana
+
+    /**
+     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     */
+    public FlechaMagica() {} // Construtor padrão
 
     /**
      * Executa a Flecha Mágica, causando dano ao alvo.
@@ -44,6 +52,7 @@ public class FlechaMagica implements AcaoDeCombate {
         int danoEspecial = (usuario.getArma() != null ? usuario.getArma().getDano() : 0) + usuario.getForca() + 20;
 
         // Adiciona bônus de dano se a sorte do usuário for alta.
+        // JAXB: Math.random() não é serializável, mas o resultado é temporário, então não há problema aqui.
         if (usuario.getSorte() > 0.4) {
             danoEspecial += 15;
             System.out.println("A sorte favorece! Flecha Mágica causa dano extra!");

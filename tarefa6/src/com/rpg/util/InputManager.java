@@ -38,7 +38,7 @@ public class InputManager {
     public static int lerInteiro(String mensagem, int min, int max) {
         Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto
         while (true) {
-            System.out.print(mensagem + " (" + min + " - " + max + "): ");
+            //System.out.print(mensagem + "(" + min + " - " + max + "): ");
             String input = null;
             try {
                 input = currentScanner.nextLine().trim(); // Usar currentScanner

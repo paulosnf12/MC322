@@ -42,7 +42,7 @@ public class HeroiExceptionTest {
         });
 
         // Opcional: verifica a mensagem da exceção
-        String mensagemEsperada = "o nivel 1 de TestPaladin e insuficiente para equipar a arma Espada Diamante (nivel minimo: 3).";
+        String mensagemEsperada = "o nível 1 de TestPaladin é insuficiente para equipar a arma Espada Diamante (nível mínimo: 3).";
         assertEquals(mensagemEsperada, thrown.getMessage());
     }
 

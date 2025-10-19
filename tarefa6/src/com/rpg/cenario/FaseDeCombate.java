@@ -1,27 +1,54 @@
+// src/com/rpg/cenario/FaseDeCombate.java
 package com.rpg.cenario;
 
 import com.rpg.personagens.Heroi;
 import com.rpg.personagens.Monstro;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlRootElement; // JAXB: É uma classe concreta que pode ser root
+import jakarta.xml.bind.annotation.XmlSeeAlso; // JAXB: Para reconhecer subclasses de Evento
+
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 /**
  * Representa uma fase de combate no jogo, onde o herói enfrenta monstros em um determinado cenário.
  * Cada fase possui um nível, um tipo de cenário (como floresta, caverna, etc.), uma lista de monstros
  * e uma lista de eventos que podem ocorrer durante a fase.
  */
+@XmlRootElement(name = "faseDeCombate") // JAXB: Define o elemento raiz para esta classe
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({EventoDeBencao.class}) // JAXB: Para reconhecer subclasses concretas de Evento
 public class FaseDeCombate implements Fase {
+    @XmlElement
     private int nivel;
-    private TipoCenario tipoDeCenario; // <-- MUDANÇA 1: Atributo agora é do tipo enum
+    @XmlElement
+    private TipoCenario tipoDeCenario;
+    @XmlElement(name = "monstro") // JAXB: Cada elemento da lista será um "monstro" no XML
     private ArrayList<Monstro> monstros;
+    //@XmlElement(name = "evento") // JAXB: Cada elemento da lista será um "evento" no XML
+    @XmlElements({
+    @XmlElement(name = "eventoDeBencao", type = EventoDeBencao.class)
+        // Adicionamos outras subclasses de Evento se existirem
+    })
     private List<Evento> eventos;
 
+    /**
+     * JAXB: Construtor sem argumentos exigido pelo JAXB para deserialização.
+     */
+    public FaseDeCombate() {
+        this.monstros = new ArrayList<>();
+        this.eventos = new ArrayList<>();
+    }
+
     // Construtor atualizado para receber o enum
-    public FaseDeCombate(int nivel, TipoCenario tipoDeCenario, ArrayList<Monstro> monstros, List<Evento> eventos) {
+    public FaseDeCombate(int nivel, TipoCenario tipoDeCenario, ArrayList<Monstro>
+            monstros, List<Evento> eventos) {
         this.nivel = nivel;
-        this.tipoDeCenario = tipoDeCenario; // <-- MUDANÇA 2
+        this.tipoDeCenario = tipoDeCenario;
         this.monstros = monstros;
         this.eventos = eventos;
     }
@@ -30,24 +57,22 @@ public class FaseDeCombate implements Fase {
     public void iniciar(Heroi heroi) {
         int numMonstros = this.monstros.size();
         System.out.println("\n========================================");
-        // <-- MUDANÇA 3: Usamos o método getDescricao() do enum para obter o nome do ambiente
-        System.out.println("INICIANDO FASE " + this.nivel + ": " + this.tipoDeCenario.getDescricao().toUpperCase());
+        System.out.println("INICIANDO FASE " + this.nivel + ": " +
+                this.tipoDeCenario.getDescricao().toUpperCase());
         System.out.println("========================================");
         System.out.println();
-        System.out.println(heroi.getNome() + " é transportado para " + this.tipoDeCenario.getDescricao() + " com o intuito de enfrentar " + numMonstros + " criaturas temíveis!");
-
+        System.out.println(heroi.getNome() + " é transportado para " +
+                this.tipoDeCenario.getDescricao() + " com o intuito de enfrentar " + numMonstros +
+                " criaturas temíveis!");
         System.out.println();
-
-        this.tipoDeCenario.aplicarEfeitos(heroi); // agora aplica efeitos do enum direto no iniciar
+        this.tipoDeCenario.aplicarEfeitos(heroi);
     }
 
-    // Método da interface implementado corretamente
     @Override
     public TipoCenario getTipoDeCenario() {
         return this.tipoDeCenario;
     }
 
-    // Getters e outros métodos...
     public List<Evento> getEventos() {
         return this.eventos;
     }
@@ -61,8 +86,12 @@ public class FaseDeCombate implements Fase {
         }
         return true;
     }
-    
+
     public ArrayList<Monstro> getMonstros() {
         return monstros;
+    }
+
+    public void setMonstros(ArrayList<Monstro> monstros) {
+        this.monstros = monstros;
     }
 }

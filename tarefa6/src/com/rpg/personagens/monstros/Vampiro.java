@@ -1,9 +1,13 @@
-// Vampiro.java
+// src/com/rpg/personagens/monstros/Vampiro.java
 package com.rpg.personagens.monstros;
 
 import com.rpg.combate.AtaqueVampirico;
-import com.rpg.itens.ArmaDropSpec; // Importa a nova classe ArmaDropSpec
+import com.rpg.itens.ArmaDropSpec;
 import com.rpg.personagens.Monstro;
+
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement; // JAXB: É uma classe concreta que pode ser root
+
 import java.util.ArrayList;
 
 /**
@@ -12,19 +16,21 @@ import java.util.ArrayList;
  * que pode influenciar suas ações e interações no jogo.
  * Esta classe utiliza agregação compartilhada para sua ação de combate {@link AtaqueVampirico}.
  */
+@XmlRootElement(name = "vampiro") // JAXB: Define o elemento raiz para esta classe
 public class Vampiro extends Monstro {
-    /**
-     * O nível de brilho do Vampiro, um atributo único que afeta seu ataque.
-     */
+    @XmlElement
     private int brilho; // atributo único
+    // JAXB: Como ATAQUE_VAMPIRICO_INSTANCE é estático e final, ele não é serializado
+    private static final AtaqueVampirico ATAQUE_VAMPIRICO_INSTANCE = new AtaqueVampirico();
 
     /**
-     * Instância compartilhada da ação de combate AtaqueVampirico.
-     * Todos os objetos Vampiro utilizarão esta mesma instância para seus ataques,
-     * demonstrando o conceito de agregação compartilhada.
+     * JAXB: Construtor sem argumentos exigido pelo JAXB para deserialização.
      */
-    private static final AtaqueVampirico ATAQUE_VAMPIRICO_INSTANCE = new AtaqueVampirico();
-    
+    public Vampiro() {
+        super();
+        this.brilho = 0; // Valor padrão
+    }
+
     /**
      * Construtor da classe Vampiro.
      *
@@ -34,52 +40,47 @@ public class Vampiro extends Monstro {
      * @param agilidade A agilidade inicial do Vampiro.
      * @param xpConcedido A quantidade de experiência que o Vampiro concede.
      * @param brilho O nível de brilho inicial do Vampiro.
-     * @param listaDeArmasParaLargar Uma {@link ArrayList} de {@link ArmaDropSpec}
-     *                               que o Vampiro pode dropar.
+     * @param listaDeArmasParaLargar Uma {@link ArrayList} de {@link ArmaDropSpec} que o Vampiro pode dropar.
      * @param nivelFase O nível da fase em que o Vampiro está, usado para escalonamento de loot.
      */
-    public Vampiro(String nome, int pontosDeVida, int forca, int agilidade, int xpConcedido,
-                   int brilho, ArrayList<ArmaDropSpec> listaDeArmasParaLargar, int nivelFase) {
-        // Passa a lista de especificações de drop e o nível da fase para o construtor da superclasse Monstro
-        super(nome, pontosDeVida, forca, agilidade, xpConcedido, listaDeArmasParaLargar, nivelFase);
+    public Vampiro(String nome, int pontosDeVida, int forca, int agilidade, int
+            xpConcedido, int brilho, ArrayList<ArmaDropSpec> listaDeArmasParaLargar, int
+            nivelFase) {
+        super(nome, pontosDeVida, forca, agilidade, xpConcedido,
+                listaDeArmasParaLargar, nivelFase);
         this.brilho = brilho;
     }
 
-    /**
-     * Inicializa as ações de combate específicas do Vampiro.
-     * Adiciona a instância compartilhada de {@link AtaqueVampirico} à lista de ações.
-     */
     @Override
     protected void inicializarAcoes() {
         this.acoes.add(ATAQUE_VAMPIRICO_INSTANCE);
     }
-    
+
     /**
-     * Apresenta um diálogo especial se o Vampiro for o "Edward Cullen".
+     * JAXB: Sobrescreve para garantir que as ações de combate sejam repopuladas.
      */
+    @Override
+    public void initializeTransientFields() {
+        super.initializeTransientFields();
+        // Garante que a lista de ações seja populada com a instância estática
+        this.acoes.clear();
+        inicializarAcoes();
+    }
+
     @Override
     public void apresentarDialogoEspecial() {
         if (this.getNome().equals("Edward Cullen")) {
-            System.out.println("Edward Cullen: \"Eu sou um monstro, Bella! Minha pele brilha. Essa é a pele de um assassino!\"");
+            System.out.println("Edward Cullen: \"Eu sou um monstro, Bella! Minha pele " +
+                    "brilha. Essa é a pele de um assassino!\"");
             System.out.println();
         }
     }
 
-    /**
-     * Retorna o nível de brilho do Vampiro.
-     * Esta implementação sobrescreve a padrão de {@link com.rpg.personagens.Personagem}.
-     * @return O nível de brilho.
-     */
     @Override
     public int getBrilho() {
         return brilho;
     }
 
-    /**
-     * Gera uma representação textual do status atual do Vampiro,
-     * incluindo informações da superclasse e seu nível de brilho.
-     * @return Uma String com as informações do status do Vampiro.
-     */
     @Override
     public String exibirStatus() {
         return super.exibirStatus() + ", Brilho = " + brilho;

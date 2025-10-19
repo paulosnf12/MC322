@@ -1,6 +1,8 @@
-//ArmaDropSpec.java
+// src/com/rpg/itens/ArmaDropSpec.java
 package com.rpg.itens;
 
+import jakarta.xml.bind.annotation.XmlElement; // ADICIONADO PARA JAXB
+import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO PARA JAXB
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -13,24 +15,36 @@ import java.lang.reflect.InvocationTargetException;
  *
  * Ao invés de um monstro "possuir" uma {@link Arma}, ele "sabe como criar" uma quando necessário.
  */
+@XmlRootElement(name = "armaDropSpec") // ADICIONADO PARA JAXB: Indica que pode ser a raiz de um fragmento XML, ou um elemento em uma lista
 public class ArmaDropSpec {
     /**
      * O nome completo da classe da Arma a ser instanciada (ex: "com.rpg.itens.EspadaMadeira").
      * Utilizado para carregamento dinâmico da classe via reflexão.
      */
-    private final String className;
+    // REMOVIDO "final" para permitir que o JAXB defina o valor após a desserialização.
+    private String className;
 
     /**
      * Um valor de offset que será adicionado ao nível da fase para calcular o dano base final da arma.
      * Este valor é uma constante para a especificação, enquanto o escalonamento final ocorre com o {@code nivelFase}.
      */
-    private final int baseDamageOffset;
+    // REMOVIDO "final" para permitir que o JAXB defina o valor após a desserialização.
+    private int baseDamageOffset;
 
     /**
      * O nível mínimo de fase a partir do qual esta especificação de drop de arma é considerada válida.
      * Pode ser usado para filtrar dinamicamente as armas que um monstro pode dropar em diferentes fases.
      */
-    private final int minLevel;
+    // REMOVIDO "final" para permitir que o JAXB defina o valor após a desserialização.
+    private int minLevel;
+
+    // ADICIONADO PARA JAXB: Construtor vazio necessário para a desserialização do JAXB.
+    public ArmaDropSpec() {
+        // Inicializações padrão para evitar NPEs caso não estejam no XML ou JAXB não consiga preencher
+        this.className = "";
+        this.baseDamageOffset = 0;
+        this.minLevel = 0;
+    }
 
     /**
      * Construtor para criar uma especificação de drop de arma.
@@ -53,6 +67,7 @@ public class ArmaDropSpec {
      * @param nivelFase O nível da fase atual, usado para escalonar o dano da arma.
      * @return Uma nova instância de {@link Arma} com o dano calculado, ou {@code null} em caso de erro na instanciação.
      */
+    // O método instantiate() não precisa de anotação JAXB, pois é um método de comportamento, não um campo para serialização.
     public Arma instantiate(int nivelFase) {
         try {
             // Tenta carregar a classe da arma usando o nome completo.
@@ -89,15 +104,38 @@ public class ArmaDropSpec {
      * Retorna o nível mínimo da fase para que esta especificação de drop seja válida.
      * @return O nível mínimo de fase da especificação.
      */
+    @XmlElement // ADICIONADO PARA JAXB
     public int getMinLevel() {
         return minLevel;
+    }
+    // ADICIONADO PARA JAXB: Setter para minLevel, necessário para a desserialização do JAXB.
+    public void setMinLevel(int minLevel) {
+        this.minLevel = minLevel;
     }
 
     /**
      * Retorna o nome da classe da arma desta especificação.
      * @return O nome completo da classe da arma.
      */
+    @XmlElement // ADICIONADO PARA JAXB
     public String getClassName() {
         return className;
+    }
+    // ADICIONADO PARA JAXB: Setter para className, necessário para a desserialização do JAXB.
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    /**
+     * Retorna o offset de dano base da especificação.
+     * @return O offset de dano base.
+     */
+    @XmlElement // ADICIONADO PARA JAXB
+    public int getBaseDamageOffset() {
+        return baseDamageOffset;
+    }
+    // ADICIONADO PARA JAXB: Setter para baseDamageOffset, necessário para a desserialização do JAXB.
+    public void setBaseDamageOffset(int baseDamageOffset) {
+        this.baseDamageOffset = baseDamageOffset;
     }
 }

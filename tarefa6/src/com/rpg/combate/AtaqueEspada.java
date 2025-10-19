@@ -1,7 +1,8 @@
-// AtaqueEspada.java
+// src/com/rpg/combate/AtaqueEspada.java
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
+import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
 
 /**
  * Representa a ação de ataque básico com uma espada.
@@ -10,7 +11,13 @@ import com.rpg.exceptions.RecursoInsuficienteException;
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento.
  */
+@XmlRootElement(name = "ataqueEspada") // ADICIONADO: Define o elemento raiz para esta classe em XML
 public class AtaqueEspada implements AcaoDeCombate {
+
+    /**
+     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     */
+    public AtaqueEspada() {} // Construtor padrão
 
     /**
      * Executa a ação de ataque com uma espada.

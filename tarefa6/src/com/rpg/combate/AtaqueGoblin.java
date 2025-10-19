@@ -1,9 +1,8 @@
-// AtaqueGoblin.java
+// src/com/rpg/combate/AtaqueGoblin.java
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
-// O import de 'com.rpg.personagens.monstros.Goblin' foi removido,
-// pois a classe não dependerá mais diretamente do tipo concreto Goblin.
+import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
 
 /**
  * Representa a ação de ataque do Goblin. Esta ação causa dano com base na
@@ -12,7 +11,13 @@ import com.rpg.exceptions.RecursoInsuficienteException;
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.
  */
+@XmlRootElement(name = "ataqueGoblin") // ADICIONADO: Define o elemento raiz para esta classe em XML
 public class AtaqueGoblin implements AcaoDeCombate {
+
+    /**
+     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     */
+    public AtaqueGoblin() {} // Construtor padrão
 
     /**
      * Executa a ação de ataque do Goblin.
@@ -52,6 +57,7 @@ public class AtaqueGoblin implements AcaoDeCombate {
 
         // Implementação do roubo de vida.
         // Utiliza a chance de roubo do combatente, assumindo que Combatente.getChanceDeRoubo() está disponível.
+        // JAXB: Math.random() não é serializável, mas o resultado é temporário, então não há problema aqui.
         if (Math.random() < usuario.getChanceDeRoubo()) {
             int valorRoubo = 3; // Valor fixo de vida roubada.
             alvo.receberDano(valorRoubo); // O alvo perde vida adicional.

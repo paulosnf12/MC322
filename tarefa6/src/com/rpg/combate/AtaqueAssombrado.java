@@ -1,7 +1,8 @@
-//AtaqueAssombrado.java
+// src/com/rpg/combate/AtaqueAssombrado.java
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
+import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
 
 /**
  * Representa a ação de ataque assombrado.
@@ -10,7 +11,13 @@ import com.rpg.exceptions.RecursoInsuficienteException;
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento.
  */
+@XmlRootElement(name = "ataqueAssombrado") // ADICIONADO: Define o elemento raiz para esta classe em XML
 public class AtaqueAssombrado implements AcaoDeCombate {
+
+    /**
+     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     */
+    public AtaqueAssombrado() {} // Construtor padrão
 
     /**
      * Executa a ação de ataque assombrado.

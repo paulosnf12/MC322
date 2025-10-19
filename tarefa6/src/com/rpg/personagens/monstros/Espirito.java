@@ -1,9 +1,13 @@
-// Espirito.java
+// src/com/rpg/personagens/monstros/Espirito.java
 package com.rpg.personagens.monstros;
 
 import com.rpg.combate.AtaqueAssombrado;
-import com.rpg.itens.ArmaDropSpec; // Importar a nova classe ArmaDropSpec
+import com.rpg.itens.ArmaDropSpec;
 import com.rpg.personagens.Monstro;
+
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement; // JAXB: É uma classe concreta que pode ser root
+
 import java.util.ArrayList;
 
 /**
@@ -12,18 +16,20 @@ import java.util.ArrayList;
  * que pode influenciar suas ações e interações no jogo.
  * Esta classe utiliza agregação compartilhada para sua ação de combate {@link AtaqueAssombrado}.
  */
+@XmlRootElement(name = "espirito") // JAXB: Define o elemento raiz para esta classe
 public class Espirito extends Monstro {
-    /**
-     * O nível de tristeza do Espírito, um atributo único que afeta seu ataque.
-     */
+    @XmlElement
     private int tristeza; // atributo único
+    // JAXB: Como ATAQUE_ASSOMBRADO_INSTANCE é estático e final, ele não é serializado
+    private static final AtaqueAssombrado ATAQUE_ASSOMBRADO_INSTANCE = new AtaqueAssombrado();
 
     /**
-     * Instância compartilhada da ação de combate AtaqueAssombrado.
-     * Todos os objetos Espírito utilizarão esta mesma instância para seus ataques,
-     * demonstrando o conceito de agregação compartilhada.
+     * JAXB: Construtor sem argumentos exigido pelo JAXB para deserialização.
      */
-    private static final AtaqueAssombrado ATAQUE_ASSOMBRADO_INSTANCE = new AtaqueAssombrado();
+    public Espirito() {
+        super();
+        this.tristeza = 0; // Valor padrão
+    }
 
     /**
      * Construtor da classe Espirito.
@@ -34,52 +40,49 @@ public class Espirito extends Monstro {
      * @param agilidade A agilidade inicial do Espírito.
      * @param xpConcedido A quantidade de experiência que o Espírito concede.
      * @param tristeza O nível de tristeza inicial do Espírito.
-     * @param listaDeArmasParaLargar Uma {@link ArrayList} de {@link ArmaDropSpec}
-     *                               que o Espírito pode dropar.
+     * @param listaDeArmasParaLargar Uma {@link ArrayList} de {@link ArmaDropSpec} que o Espírito pode dropar.
      * @param nivelFase O nível da fase em que o Espírito está, usado para escalonamento de loot.
      */
-    public Espirito(String nome, int pontosDeVida, int forca, int agilidade, int xpConcedido,
-                    int tristeza, ArrayList<ArmaDropSpec> listaDeArmasParaLargar, int nivelFase) {
-        // Passa a lista de especificações de drop e o nível da fase para o construtor da superclasse Monstro
-        super(nome, pontosDeVida, forca, agilidade, xpConcedido, listaDeArmasParaLargar, nivelFase);
+    public Espirito(String nome, int pontosDeVida, int forca, int agilidade, int
+            xpConcedido, int tristeza, ArrayList<ArmaDropSpec> listaDeArmasParaLargar, int
+            nivelFase) {
+        super(nome, pontosDeVida, forca, agilidade, xpConcedido,
+                listaDeArmasParaLargar, nivelFase);
         this.tristeza = tristeza;
     }
 
-    /**
-     * Inicializa as ações de combate específicas do Espírito.
-     * Adiciona a instância compartilhada de {@link AtaqueAssombrado} à lista de ações.
-     */
     @Override
     protected void inicializarAcoes() {
         this.acoes.add(ATAQUE_ASSOMBRADO_INSTANCE);
     }
 
     /**
-     * Apresenta um diálogo especial se o Espírito for o "Kaonashi".
+     * JAXB: Sobrescreve para garantir que as ações de combate sejam repopuladas.
      */
+    @Override
+    public void initializeTransientFields() {
+        super.initializeTransientFields();
+        // Garante que a lista de ações seja populada com a instância estática
+        this.acoes.clear();
+        inicializarAcoes();
+    }
+
     @Override
     public void apresentarDialogoEspecial() {
         if (this.getNome().equals("Kaonashi")) {
-            System.out.println("Kaonashi: \"Você... quer?\" (A voz que sai dele é um eco distorcido de suas vítimas. Ao mesmo tempo, ele estende uma mão trêmula, oferecendo pepitas de ouro que brilham com uma luz doentia. O gesto é uma armadilha, e sua fome insaciável parece entortar os traços de sua máscara.)");
+            System.out.println("Kaonashi: \"Você... quer?\" (A voz que sai dele é um " +
+                    "eco distorcido de suas vítimas. Ao mesmo tempo, ele estende uma mão trêmula, " +
+                    "oferecendo pepitas de ouro que brilham com uma luz doentia. O gesto é uma armadilha, " +
+                    "e sua fome insaciável parece entortar os traços de sua máscara.)");
             System.out.println();
         }
     }
 
-    /**
-     * Retorna o nível de tristeza do Espírito.
-     * Esta implementação sobrescreve a padrão de {@link com.rpg.personagens.Personagem}.
-     * @return O nível de tristeza.
-     */
     @Override
     public int getTristeza() {
         return tristeza;
-    }   
+    }
 
-    /**
-     * Gera uma representação textual do status atual do Espírito,
-     * incluindo informações da superclasse e seu nível de tristeza.
-     * @return Uma String com as informações do status do Espírito.
-     */
     @Override
     public String exibirStatus() {
         return super.exibirStatus() + ", Tristeza = " + tristeza;
