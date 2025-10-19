@@ -14,6 +14,8 @@ import com.rpg.personagens.herois.Paladino;
 import com.rpg.util.InputManager;
 import com.rpg.util.GerenciadorDePersistencia;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -37,6 +39,7 @@ import java.util.Random;
 @XmlRootElement(name = "batalha")
 // Adicione aqui todas as subclasses concretas de Heroi e Fase que podem ser serializadas
 @XmlSeeAlso({FaseDeCombate.class, EventoDeBencao.class, Paladino.class, Elfo.class})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Batalha implements Serializable {
 
     private static final long serialVersionUID = 1L; // Para a interface Serializable
@@ -83,7 +86,8 @@ public class Batalha implements Serializable {
     // --- Getters e Setters para JAXB ---
     // o return heroi que será o elemento xml dentro do elemento raiz (batalha)
     // vai criar uma tag heroi, na qual o elemento que vai estar dentro será o heroi de fato que está sendo utilizado
-    @XmlElement
+    //@XmlElement
+    @XmlTransient
     public Heroi getHeroi() {
         return heroi;
     }
@@ -92,7 +96,8 @@ public class Batalha implements Serializable {
         this.heroi = heroi;
     }
 
-    @XmlElement(name = "fase") // Nome do elemento XML para itens da lista
+    //@XmlElement(name = "fase") // Nome do elemento XML para itens da lista
+    @XmlTransient
     public List<Fase> getFasesDoJogo() {
         return fasesDoJogo;
     }
@@ -101,7 +106,8 @@ public class Batalha implements Serializable {
         this.fasesDoJogo = fasesDoJogo;
     }
 
-    @XmlElement
+    //@XmlElement
+    @XmlTransient
     public int getFaseAtualIndex() {
         return faseAtualIndex;
     }
@@ -110,7 +116,8 @@ public class Batalha implements Serializable {
         this.faseAtualIndex = faseAtualIndex;
     }
 
-    @XmlElement
+    //@XmlElement
+    @XmlTransient
     public String getNomeJogoSalvo() {
         return nomeJogoSalvo;
     }

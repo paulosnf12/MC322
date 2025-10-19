@@ -29,7 +29,7 @@ public class FaseDeCombate implements Fase {
     private TipoCenario tipoDeCenario;
     @XmlElement(name = "monstro") // JAXB: Cada elemento da lista será um "monstro" no XML
     private ArrayList<Monstro> monstros;
-    @XmlElement(name = "evento") // JAXB: Cada elemento da lista será um "evento" no XML
+    //@XmlElement(name = "evento") // JAXB: Cada elemento da lista será um "evento" no XML
     @XmlElements({
     @XmlElement(name = "eventoDeBencao", type = EventoDeBencao.class)
         // Adicionamos outras subclasses de Evento se existirem
