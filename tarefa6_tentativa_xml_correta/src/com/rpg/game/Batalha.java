@@ -15,6 +15,7 @@ import com.rpg.util.InputManager;
 import com.rpg.util.GerenciadorDePersistencia;
 
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
@@ -41,17 +42,22 @@ public class Batalha implements Serializable {
     private static final long serialVersionUID = 1L; // Para a interface Serializable
 
     private Heroi heroi;
+    @XmlElements({
+    @XmlElement(name = "faseDeCombate", type = FaseDeCombate.class)
+        // Se houver outras implementações de Fase, adicionamos aqui
+        // @XmlElement(name = "faseExploracao", type = FaseExploracao.class)
+    })
     private List<Fase> fasesDoJogo;
     private int faseAtualIndex;
     private String nomeJogoSalvo;
 
     // Marcamos o Random como transient para que JAXB o ignore.
     // Ele será reinicializado após a deserialização.
-    @XmlTransient
+    //@XmlTransient
     private transient Random rand;
 
     /**
-     * Construtor padrão exigido pelo JAXB para deserialização.
+     * Construtor padrão exigido pelo JAXB para deserialização. Sem argumentos
      */
     public Batalha() {
         this.fasesDoJogo = new ArrayList<>();
@@ -75,6 +81,8 @@ public class Batalha implements Serializable {
     }
 
     // --- Getters e Setters para JAXB ---
+    // o return heroi que será o elemento xml dentro do elemento raiz (batalha)
+    // vai criar uma tag heroi, na qual o elemento que vai estar dentro será o heroi de fato que está sendo utilizado
     @XmlElement
     public Heroi getHeroi() {
         return heroi;

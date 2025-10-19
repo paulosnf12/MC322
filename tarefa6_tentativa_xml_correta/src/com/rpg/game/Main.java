@@ -1,26 +1,12 @@
 // src/com/rpg/game/Main.java
 package com.rpg.game;
 
-import com.rpg.cenario.ConstrutorDeCenarioFixo;
-import com.rpg.cenario.Evento;
-import com.rpg.cenario.Fase;
-import com.rpg.cenario.FaseDeCombate;
-import com.rpg.cenario.GeradorDeFases;
-import com.rpg.cenario.TipoCenario;
-import com.rpg.combate.AcaoDeCombate;
-import com.rpg.exceptions.NivelInsuficienteException;
-import com.rpg.exceptions.RecursoInsuficienteException;
-import com.rpg.itens.Arma;
-import com.rpg.itens.Item;
 import com.rpg.personagens.Heroi;
-import com.rpg.personagens.Monstro;
 import com.rpg.personagens.herois.Elfo;
-import com.rpg.personagens.herois.Paladino; // Para o exemplo de herói
+import com.rpg.personagens.herois.Paladino;
+import com.rpg.util.GerenciadorDePersistencia;
 import com.rpg.util.InputManager;
-import com.rpg.util.GerenciadorDePersistencia; // NOVO: Import para o gerenciador de persistência
-
 import java.util.List;
-import java.util.Random;
 
 /**
  * Classe principal que serve como ponto de entrada para a execução do jogo de RPG Narrativo.
@@ -81,7 +67,6 @@ public class Main {
                         rodandoMenuPrincipal = false; // Sai do menu principal após carregar
                     } else {
                         System.out.println("Nenhum jogo salvo disponível. Por favor, escolha outra opção.");
-                        InputManager.esperarEnter("Pressione ENTER para continuar...");
                     }
                     break;
                 case 0:

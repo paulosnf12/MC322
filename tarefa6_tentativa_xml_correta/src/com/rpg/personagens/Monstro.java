@@ -12,6 +12,8 @@ import com.rpg.personagens.monstros.Espirito; // Import adicionado para @XmlSeeA
 import com.rpg.personagens.monstros.Goblin;   // Import adicionado para @XmlSeeAlso
 import com.rpg.personagens.monstros.Vampiro;  // Import adicionado para @XmlSeeAlso
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlSeeAlso; // JAXB: Para reconhecer subclasses
 import jakarta.xml.bind.annotation.XmlTransient; // ADICIONADO: Import para @XmlTransient
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
  */
 // JAXB: Indica que Monstro pode ter subclasses Goblin, Vampiro e Espirito
 @XmlSeeAlso({Goblin.class, Vampiro.class, Espirito.class})
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Monstro extends Personagem implements Lootavel {
     @XmlElement
     protected int xpConcedido;

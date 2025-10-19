@@ -7,6 +7,9 @@ import com.rpg.exceptions.NivelInsuficienteException;
 import com.rpg.itens.Arma;
 import com.rpg.personagens.herois.Elfo;    // Import para a subclasse Elfo
 import com.rpg.personagens.herois.Paladino; // Import para a subclasse Paladino
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlSeeAlso; // JAXB: Para reconhecer subclasses
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -23,7 +26,11 @@ import java.util.Random;
  * de forma mais específica ao herói.
  */
 // JAXB: Indica que Heroi pode ter subclasses Paladino e Elfo
+
+// seeAlso --> indica que tem classes abaixo (paladino e heroi) na qual deve considerar na hora de fazer a serialização
+
 @XmlSeeAlso({Paladino.class, Elfo.class})
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Heroi extends Personagem {
     @XmlElement
     protected int nivel;
@@ -38,6 +45,7 @@ public abstract class Heroi extends Personagem {
     @XmlElement // ADICIONADO: Anotação para serializar o atributo sorte do Heroi
     protected double sorte;
     // JAXB: A lista 'acoes' contém instâncias stateless e é reinicializada após a desserialização.
+    // transient indica que é um dado temporário e não deve ser considerado na serialização xml
     @XmlTransient
     protected List<AcaoDeCombate> acoes;
     // JAXB: proximoAtaqueEhCritico também é um campo específico de Heroi para o JAXB

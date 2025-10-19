@@ -4,7 +4,10 @@ package com.rpg.cenario;
 import com.rpg.personagens.Heroi;
 import com.rpg.personagens.Monstro;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement; // JAXB: É uma classe concreta que pode ser root
 import jakarta.xml.bind.annotation.XmlSeeAlso; // JAXB: Para reconhecer subclasses de Evento
 
@@ -17,6 +20,7 @@ import java.util.List;
  * e uma lista de eventos que podem ocorrer durante a fase.
  */
 @XmlRootElement(name = "faseDeCombate") // JAXB: Define o elemento raiz para esta classe
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({EventoDeBencao.class}) // JAXB: Para reconhecer subclasses concretas de Evento
 public class FaseDeCombate implements Fase {
     @XmlElement
@@ -26,6 +30,10 @@ public class FaseDeCombate implements Fase {
     @XmlElement(name = "monstro") // JAXB: Cada elemento da lista será um "monstro" no XML
     private ArrayList<Monstro> monstros;
     @XmlElement(name = "evento") // JAXB: Cada elemento da lista será um "evento" no XML
+    @XmlElements({
+    @XmlElement(name = "eventoDeBencao", type = EventoDeBencao.class)
+        // Adicionamos outras subclasses de Evento se existirem
+    })
     private List<Evento> eventos;
 
     /**

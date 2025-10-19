@@ -2,6 +2,9 @@
 package com.rpg.cenario;
 
 import com.rpg.personagens.Heroi;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement; // JAXB: É uma classe concreta que pode ser root
 
@@ -10,6 +13,7 @@ import jakarta.xml.bind.annotation.XmlRootElement; // JAXB: É uma classe concre
  * parte de sua vida. O evento é acionado quando o herói entra na floresta pela primeira vez.
  */
 @XmlRootElement(name = "eventoDeBencao") // JAXB: Define o elemento raiz para esta classe
+@XmlAccessorType(XmlAccessType.FIELD)
 public class EventoDeBencao implements Evento {
     @XmlElement
     private boolean jaExecutado = false; // Garante que o evento ocorra apenas uma vez
