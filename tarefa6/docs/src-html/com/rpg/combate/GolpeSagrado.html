@@ -15,7 +15,7 @@
 <span class="source-line-no">002</span><span id="line-2">package com.rpg.combate;</span>
 <span class="source-line-no">003</span><span id="line-3"></span>
 <span class="source-line-no">004</span><span id="line-4">import com.rpg.exceptions.RecursoInsuficienteException;</span>
-<span class="source-line-no">005</span><span id="line-5">import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB</span>
+<span class="source-line-no">005</span><span id="line-5">import jakarta.xml.bind.annotation.XmlRootElement; // Import para a anotação JAXB</span>
 <span class="source-line-no">006</span><span id="line-6"></span>
 <span class="source-line-no">007</span><span id="line-7">// O import de 'com.rpg.personagens.herois.Paladino' foi removido,</span>
 <span class="source-line-no">008</span><span id="line-8">// pois a classe não dependerá mais diretamente do tipo concreto Paladino.</span>
@@ -28,13 +28,13 @@
 <span class="source-line-no">015</span><span id="line-15"> * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},</span>
 <span class="source-line-no">016</span><span id="line-16"> * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.</span>
 <span class="source-line-no">017</span><span id="line-17"> */</span>
-<span class="source-line-no">018</span><span id="line-18">@XmlRootElement(name = "golpeSagrado") // ADICIONADO: Define o elemento raiz para esta classe em XML</span>
+<span class="source-line-no">018</span><span id="line-18">@XmlRootElement(name = "golpeSagrado") // Define o elemento raiz para esta classe em XML</span>
 <span class="source-line-no">019</span><span id="line-19">public class GolpeSagrado implements AcaoDeCombate {</span>
 <span class="source-line-no">020</span><span id="line-20"></span>
 <span class="source-line-no">021</span><span id="line-21">    private static final int CUSTO_MANA = 15; // Custo fixo de mana da habilidade</span>
 <span class="source-line-no">022</span><span id="line-22"></span>
 <span class="source-line-no">023</span><span id="line-23">    /**</span>
-<span class="source-line-no">024</span><span id="line-24">     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.</span>
+<span class="source-line-no">024</span><span id="line-24">     * Construtor sem argumentos exigido pelo JAXB para desserialização.</span>
 <span class="source-line-no">025</span><span id="line-25">     */</span>
 <span class="source-line-no">026</span><span id="line-26">    public GolpeSagrado() {} // Construtor padrão</span>
 <span class="source-line-no">027</span><span id="line-27"></span>

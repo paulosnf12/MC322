@@ -49,7 +49,7 @@
 <span class="source-line-no">036</span><span id="line-36">     */</span>
 <span class="source-line-no">037</span><span id="line-37"></span>
 <span class="source-line-no">038</span><span id="line-38">    public static int lerInteiro(String mensagem, int min, int max) {</span>
-<span class="source-line-no">039</span><span id="line-39">        Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto</span>
+<span class="source-line-no">039</span><span id="line-39">        Scanner currentScanner = getScanner(); // Usa o scanner garantido como aberto</span>
 <span class="source-line-no">040</span><span id="line-40">        while (true) {</span>
 <span class="source-line-no">041</span><span id="line-41">            //System.out.print(mensagem + "(" + min + " - " + max + "): ");</span>
 <span class="source-line-no">042</span><span id="line-42">            String input = null;</span>
@@ -76,7 +76,7 @@
 <span class="source-line-no">063</span><span id="line-63"></span>
 <span class="source-line-no">064</span><span id="line-64">    public static String lerString(String mensagem) {</span>
 <span class="source-line-no">065</span><span id="line-65">        Scanner currentScanner = getScanner();</span>
-<span class="source-line-no">066</span><span id="line-66">        while (true) { // Adicione um loop while(true)</span>
+<span class="source-line-no">066</span><span id="line-66">        while (true) { </span>
 <span class="source-line-no">067</span><span id="line-67">            System.out.print(mensagem + ": ");</span>
 <span class="source-line-no">068</span><span id="line-68">            try {</span>
 <span class="source-line-no">069</span><span id="line-69">                String input = currentScanner.nextLine();</span>
@@ -92,11 +92,11 @@
 <span class="source-line-no">079</span><span id="line-79">    }</span>
 <span class="source-line-no">080</span><span id="line-80"></span>
 <span class="source-line-no">081</span><span id="line-81">    public static boolean lerSimNao(String mensagem) {</span>
-<span class="source-line-no">082</span><span id="line-82">        Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto</span>
+<span class="source-line-no">082</span><span id="line-82">        Scanner currentScanner = getScanner(); </span>
 <span class="source-line-no">083</span><span id="line-83">        while (true) {</span>
 <span class="source-line-no">084</span><span id="line-84">            System.out.print(mensagem + " (s/n): ");</span>
 <span class="source-line-no">085</span><span id="line-85">            try {</span>
-<span class="source-line-no">086</span><span id="line-86">                String input = currentScanner.nextLine().trim().toLowerCase(); // Usar currentScanner</span>
+<span class="source-line-no">086</span><span id="line-86">                String input = currentScanner.nextLine().trim().toLowerCase(); </span>
 <span class="source-line-no">087</span><span id="line-87">                if (input.equals("s")) {</span>
 <span class="source-line-no">088</span><span id="line-88">                    return true;</span>
 <span class="source-line-no">089</span><span id="line-89">                } else if (input.equals("n")) {</span>
@@ -111,10 +111,10 @@
 <span class="source-line-no">098</span><span id="line-98">    }</span>
 <span class="source-line-no">099</span><span id="line-99"></span>
 <span class="source-line-no">100</span><span id="line-100">    public static void esperarEnter(String mensagem) {</span>
-<span class="source-line-no">101</span><span id="line-101">        Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto</span>
+<span class="source-line-no">101</span><span id="line-101">        Scanner currentScanner = getScanner(); </span>
 <span class="source-line-no">102</span><span id="line-102">        System.out.print(mensagem);</span>
 <span class="source-line-no">103</span><span id="line-103">        try {</span>
-<span class="source-line-no">104</span><span id="line-104">            currentScanner.nextLine(); // Usar currentScanner</span>
+<span class="source-line-no">104</span><span id="line-104">            currentScanner.nextLine(); </span>
 <span class="source-line-no">105</span><span id="line-105">        } catch (NoSuchElementException e) {</span>
 <span class="source-line-no">106</span><span id="line-106">            throw new RuntimeException("Erro ao esperar ENTER: Entrada nao disponivel.", e);</span>
 <span class="source-line-no">107</span><span id="line-107">        }</span>

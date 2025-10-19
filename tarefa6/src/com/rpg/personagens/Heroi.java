@@ -38,18 +38,18 @@ public abstract class Heroi extends Personagem {
     protected int experiencia;
     @XmlElement
     protected int expProximoNivel;
-    @XmlElement // ADICIONADO: Anotação para serializar o atributo mana do Heroi
+    @XmlElement // Notação para serializar o atributo mana do Heroi
     protected int mana;
     @XmlElement
     protected int manaMaxima;
-    @XmlElement // ADICIONADO: Anotação para serializar o atributo sorte do Heroi
+    @XmlElement // Notação para serializar o atributo sorte do Heroi
     protected double sorte;
     // JAXB: A lista 'acoes' contém instâncias stateless e é reinicializada após a desserialização.
     // transient indica que é um dado temporário e não deve ser considerado na serialização xml
     @XmlTransient
     protected List<AcaoDeCombate> acoes;
     // JAXB: proximoAtaqueEhCritico também é um campo específico de Heroi para o JAXB
-    @XmlElement // ADICIONADO: Anotação para serializar o atributo proximoAtaqueEhCritico do Heroi
+    @XmlElement // Notação para serializar o atributo proximoAtaqueEhCritico do Heroi
     protected boolean proximoAtaqueEhCritico = false;
 
 
@@ -57,7 +57,7 @@ public abstract class Heroi extends Personagem {
      * JAXB: Construtor sem argumentos exigido pelo JAXB para desserialização.
      * Como Heroi é uma classe abstrata, o construtor é protected.
      */
-    protected Heroi() { // ALTERADO: Visibilidade para protected
+    protected Heroi() { // Visibilidade alterada para protected
         super();
         this.acoes = new ArrayList<>(); // Garante que a lista não seja null
         // Outros campos devem ser inicializados para evitar NPEs ou assumir valores padrão

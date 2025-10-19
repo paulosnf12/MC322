@@ -2,7 +2,7 @@
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
-import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
+import jakarta.xml.bind.annotation.XmlRootElement; // Import para a anotação JAXB
 
 // O import de 'com.rpg.personagens.herois.Paladino' foi removido,
 // pois a classe não dependerá mais diretamente do tipo concreto Paladino.
@@ -15,13 +15,13 @@ import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a 
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.
  */
-@XmlRootElement(name = "golpeSagrado") // ADICIONADO: Define o elemento raiz para esta classe em XML
+@XmlRootElement(name = "golpeSagrado") // Define o elemento raiz para esta classe em XML
 public class GolpeSagrado implements AcaoDeCombate {
 
     private static final int CUSTO_MANA = 15; // Custo fixo de mana da habilidade
 
     /**
-     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     * Construtor sem argumentos exigido pelo JAXB para desserialização.
      */
     public GolpeSagrado() {} // Construtor padrão
 

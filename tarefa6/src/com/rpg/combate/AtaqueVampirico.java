@@ -2,7 +2,7 @@
 package com.rpg.combate;
 
 import com.rpg.exceptions.RecursoInsuficienteException;
-import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB
+import jakarta.xml.bind.annotation.XmlRootElement; // Import para a anotação JAXB
 
 /**
  * Representa o ataque vampírico, que utiliza um atributo de "brilho" para causar dano.
@@ -11,11 +11,11 @@ import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a 
  * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},
  * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.
  */
-@XmlRootElement(name = "ataqueVampirico") // ADICIONADO: Define o elemento raiz para esta classe em XML
+@XmlRootElement(name = "ataqueVampirico") // Define o elemento raiz para esta classe em XML
 public class AtaqueVampirico implements AcaoDeCombate {
 
     /**
-     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.
+     * Construtor sem argumentos exigido pelo JAXB para desserialização.
      */
     public AtaqueVampirico() {} // Construtor padrão
 

@@ -15,7 +15,7 @@
 <span class="source-line-no">002</span><span id="line-2">package com.rpg.combate;</span>
 <span class="source-line-no">003</span><span id="line-3"></span>
 <span class="source-line-no">004</span><span id="line-4">import com.rpg.exceptions.RecursoInsuficienteException;</span>
-<span class="source-line-no">005</span><span id="line-5">import jakarta.xml.bind.annotation.XmlRootElement; // ADICIONADO: Import para a anotação JAXB</span>
+<span class="source-line-no">005</span><span id="line-5">import jakarta.xml.bind.annotation.XmlRootElement; // Import para a anotação JAXB</span>
 <span class="source-line-no">006</span><span id="line-6"></span>
 <span class="source-line-no">007</span><span id="line-7">/**</span>
 <span class="source-line-no">008</span><span id="line-8"> * Representa o ataque vampírico, que utiliza um atributo de "brilho" para causar dano.</span>
@@ -24,11 +24,11 @@
 <span class="source-line-no">011</span><span id="line-11"> * A implementação utiliza apenas os métodos disponíveis na interface {@link Combatente},</span>
 <span class="source-line-no">012</span><span id="line-12"> * promovendo a reutilização e reduzindo o acoplamento, conforme os princípios de agregação.</span>
 <span class="source-line-no">013</span><span id="line-13"> */</span>
-<span class="source-line-no">014</span><span id="line-14">@XmlRootElement(name = "ataqueVampirico") // ADICIONADO: Define o elemento raiz para esta classe em XML</span>
+<span class="source-line-no">014</span><span id="line-14">@XmlRootElement(name = "ataqueVampirico") // Define o elemento raiz para esta classe em XML</span>
 <span class="source-line-no">015</span><span id="line-15">public class AtaqueVampirico implements AcaoDeCombate {</span>
 <span class="source-line-no">016</span><span id="line-16"></span>
 <span class="source-line-no">017</span><span id="line-17">    /**</span>
-<span class="source-line-no">018</span><span id="line-18">     * ADICIONADO: Construtor sem argumentos exigido pelo JAXB para desserialização.</span>
+<span class="source-line-no">018</span><span id="line-18">     * Construtor sem argumentos exigido pelo JAXB para desserialização.</span>
 <span class="source-line-no">019</span><span id="line-19">     */</span>
 <span class="source-line-no">020</span><span id="line-20">    public AtaqueVampirico() {} // Construtor padrão</span>
 <span class="source-line-no">021</span><span id="line-21"></span>

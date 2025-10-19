@@ -37,7 +37,7 @@ import java.util.Random;
  * consolidando o estado da aventura em um único objeto.
  */
 @XmlRootElement(name = "batalha")
-// Adicione aqui todas as subclasses concretas de Heroi e Fase que podem ser serializadas
+// Adicionamos aqui todas as subclasses concretas de Heroi e Fase que podem ser serializadas
 @XmlSeeAlso({FaseDeCombate.class, EventoDeBencao.class, Paladino.class, Elfo.class})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Batalha implements Serializable {
@@ -47,7 +47,7 @@ public class Batalha implements Serializable {
     private Heroi heroi;
     @XmlElements({
     @XmlElement(name = "faseDeCombate", type = FaseDeCombate.class)
-        // Se houver outras implementações de Fase, adicionamos aqui
+        // Se houvessem outras implementações de Fase, adicionariamos aqui
         // @XmlElement(name = "faseExploracao", type = FaseExploracao.class)
     })
     private List<Fase> fasesDoJogo;
@@ -83,10 +83,8 @@ public class Batalha implements Serializable {
         this.rand = new Random();
     }
 
-    // --- Getters e Setters para JAXB ---
-    // o return heroi que será o elemento xml dentro do elemento raiz (batalha)
-    // vai criar uma tag heroi, na qual o elemento que vai estar dentro será o heroi de fato que está sendo utilizado
-    //@XmlElement
+    // --- Getters e Setters 
+
     @XmlTransient
     public Heroi getHeroi() {
         return heroi;
@@ -96,7 +94,6 @@ public class Batalha implements Serializable {
         this.heroi = heroi;
     }
 
-    //@XmlElement(name = "fase") // Nome do elemento XML para itens da lista
     @XmlTransient
     public List<Fase> getFasesDoJogo() {
         return fasesDoJogo;
@@ -106,7 +103,6 @@ public class Batalha implements Serializable {
         this.fasesDoJogo = fasesDoJogo;
     }
 
-    //@XmlElement
     @XmlTransient
     public int getFaseAtualIndex() {
         return faseAtualIndex;
@@ -116,7 +112,6 @@ public class Batalha implements Serializable {
         this.faseAtualIndex = faseAtualIndex;
     }
 
-    //@XmlElement
     @XmlTransient
     public String getNomeJogoSalvo() {
         return nomeJogoSalvo;
@@ -125,7 +120,7 @@ public class Batalha implements Serializable {
     public void setNomeJogoSalvo(String nomeJogoSalvo) {
         this.nomeJogoSalvo = nomeJogoSalvo;
     }
-    // --- Fim Getters e Setters para JAXB ---
+    // --- Final Getters e Setters 
 
     /**
      * Método de callback para ser chamado após a deserialização do objeto JAXB.
@@ -388,11 +383,6 @@ public class Batalha implements Serializable {
                                 System.out.println("\n== Salvar Jogo ==");
                                 System.out.println("Digite um nome para o save do jogo: ");
                                 String saveName = InputManager.lerString("");
-                                /* 
-                                if (saveName.trim().isEmpty()) {
-                                    saveName = "Aventura_" + System.currentTimeMillis(); // Nome único
-                                }
-                                */
                                 this.nomeJogoSalvo = saveName; // Atualiza o nome de save da batalha
                                 GerenciadorDePersistencia.salvarBatalha(this, this.nomeJogoSalvo);
                                 System.out.println("Jogo '" + this.nomeJogoSalvo + "' salvo com sucesso!");

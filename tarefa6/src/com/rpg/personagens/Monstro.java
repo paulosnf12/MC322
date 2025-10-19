@@ -16,7 +16,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlSeeAlso; // JAXB: Para reconhecer subclasses
-import jakarta.xml.bind.annotation.XmlTransient; // ADICIONADO: Import para @XmlTransient
+import jakarta.xml.bind.annotation.XmlTransient; // Import para @XmlTransient
 
 import java.util.ArrayList;
 import java.util.List;

@@ -36,7 +36,7 @@ public class InputManager {
      */
 
     public static int lerInteiro(String mensagem, int min, int max) {
-        Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto
+        Scanner currentScanner = getScanner(); // Usa o scanner garantido como aberto
         while (true) {
             //System.out.print(mensagem + "(" + min + " - " + max + "): ");
             String input = null;
@@ -63,7 +63,7 @@ public class InputManager {
 
     public static String lerString(String mensagem) {
         Scanner currentScanner = getScanner();
-        while (true) { // Adicione um loop while(true)
+        while (true) { 
             System.out.print(mensagem + ": ");
             try {
                 String input = currentScanner.nextLine();
@@ -79,11 +79,11 @@ public class InputManager {
     }
 
     public static boolean lerSimNao(String mensagem) {
-        Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto
+        Scanner currentScanner = getScanner(); 
         while (true) {
             System.out.print(mensagem + " (s/n): ");
             try {
-                String input = currentScanner.nextLine().trim().toLowerCase(); // Usar currentScanner
+                String input = currentScanner.nextLine().trim().toLowerCase(); 
                 if (input.equals("s")) {
                     return true;
                 } else if (input.equals("n")) {
@@ -98,10 +98,10 @@ public class InputManager {
     }
 
     public static void esperarEnter(String mensagem) {
-        Scanner currentScanner = getScanner(); // Usar o scanner garantido como aberto
+        Scanner currentScanner = getScanner(); 
         System.out.print(mensagem);
         try {
-            currentScanner.nextLine(); // Usar currentScanner
+            currentScanner.nextLine(); 
         } catch (NoSuchElementException e) {
             throw new RuntimeException("Erro ao esperar ENTER: Entrada nao disponivel.", e);
         }

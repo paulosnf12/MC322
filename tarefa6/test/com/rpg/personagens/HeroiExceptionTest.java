@@ -69,23 +69,7 @@ public class HeroiExceptionTest {
             "Deveria lançar RecursoInsuficienteException quando a mana é baixa."
         );
 
-        // 3. (Opcional) Verificar se a mensagem da exceção está correta
+        // 3. Verifica se a mensagem da exceção está correta
         assertEquals("Recursos insuficientes para usar a habilidade.", thrown.getMessage());
     }
 }
-
-    // Se implementassemos algo para RecursoInsuficienteException
-    /*
-    @Test
-    void testHabilidadeThrowsRecursoInsuficienteException() {
-        // Simular um herói com 0 de mana tentando usar uma habilidade que custa 10 de mana
-        HeroiComMana heroi = new HeroiComMana("Mago", 100, 10, 5, 1, 0, 0); // mana inicial 0
-        HabilidadeQueCustaMana habilidade = new HabilidadeQueCustaMana(10); // Custo 10
-
-        RecursoInsuficienteException thrown = assertThrows(RecursoInsuficienteException.class, () -> {
-            heroi.usarHabilidade(habilidade);
-        });
-
-        assertEquals("Recursos insuficientes para usar a habilidade.", thrown.getMessage());
-    }
-    */
