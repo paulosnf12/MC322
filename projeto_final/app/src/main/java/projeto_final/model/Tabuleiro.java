@@ -11,6 +11,23 @@ public class Tabuleiro {
         inicializarCelulas();
     }
 
+    /**
+     * Verifica se todas as células do tabuleiro estão desligadas.
+     * @return true se todas estiverem apagadas (vitória), false caso contrário.
+     */
+    public boolean todasDesligadas() {
+        for (int i = 0; i < dimensao; i++) {
+            for (int j = 0; j < dimensao; j++) {
+                // Se encontrar pelo menos uma célula ligada, o jogo não acabou.
+                if (celulas[i][j].isLigada()) {
+                    return false;
+                }
+            }
+        }
+        // Se chegou até aqui, todas estão desligadas.
+        return true;
+    }
+
     private void inicializarCelulas() {
         for (int i = 0; i < dimensao; i++) {
             for (int j = 0; j < dimensao; j++) {
