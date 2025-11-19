@@ -1,39 +1,52 @@
+// Em: src/main/java/projeto_final/App.java
 package projeto_final;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import projeto_final.controller.Game;
+import projeto_final.view.PainelJogo;
 
 public class App extends Application {
 
-    public String getGreeting() {
-        return "Hello World!";
-    }
+    private Game game;
+    private Stage primaryStage;
 
-    @Override  
+    @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("My JavaFX Application");
+        this.primaryStage = primaryStage;
+        this.game = new Game(); // Cria o controlador principal
 
-        Button btn = new Button("Click Me");
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.setTitle("Lights Out");
+        mostrarMenuPrincipal(); // Começamos pelo menu
         primaryStage.show();
     }
 
+    private void mostrarMenuPrincipal() {
+        VBox menuLayout = new VBox(20);
+        menuLayout.setAlignment(Pos.CENTER);
+
+        Button btnNovoJogo = new Button("Iniciar Novo Jogo (Fácil)");
+        btnNovoJogo.setOnAction(event -> {
+            // Quando o botão for clicado, o jogo começa!
+            game.iniciarNovoJogo();
+            mostrarPainelJogo();
+        });
+
+        menuLayout.getChildren().add(btnNovoJogo);
+        primaryStage.setScene(new Scene(menuLayout, 300, 250));
+    }
+
+    private void mostrarPainelJogo() {
+        PainelJogo painel = new PainelJogo(game);
+        // Colocamos o painel do jogo na cena principal
+        primaryStage.setScene(new Scene(painel));
+    }
+
     public static void main(String[] args) {
-        launch(args); // obrigatorio para JavaFX
+        launch(args);
     }
 }
