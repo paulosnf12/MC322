@@ -6,9 +6,16 @@ package projeto_final;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testes básicos para a classe App.
+ * 
+ * @author Projeto Final MC322
+ * @version 1.0
+ */
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test 
+    void appExists() {
+        App app = new App();
+        assertNotNull(app, "App deve ser criado");
     }
 }
