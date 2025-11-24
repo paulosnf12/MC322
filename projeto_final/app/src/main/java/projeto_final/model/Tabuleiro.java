@@ -1,19 +1,66 @@
 // Em: src/main/java/projeto_final/model/Tabuleiro.java
 package projeto_final.model;
 
-public class Tabuleiro {
+import projeto_final.abstracts.ElementoJogo;
+import projeto_final.exceptions.MovimentoInvalidoException;
+import projeto_final.interfaces.Pontuavel;
+
+/**
+ * Classe que representa o tabuleiro do jogo Lights Out.
+ * <p>
+ * O tabuleiro é uma grade quadrada de células que podem estar ligadas ou desligadas.
+ * O objetivo do jogo é desligar todas as células. Quando uma célula é clicada,
+ * ela e suas células adjacentes (cima, baixo, esquerda, direita) têm seus estados
+ * invertidos.
+ * </p>
+ * <p>
+ * Esta classe herda de {@code ElementoJogo} e implementa {@code Pontuavel}
+ * para calcular a pontuação baseada no estado do tabuleiro.
+ * </p>
+ * 
+ * @author Projeto Final MC322
+ * @version 1.0
+ * @see projeto_final.abstracts.ElementoJogo
+ * @see projeto_final.interfaces.Pontuavel
+ * @see projeto_final.model.Celula
+ */
+public class Tabuleiro extends ElementoJogo implements Pontuavel {
+    /** Dimensão do tabuleiro (número de linhas e colunas) */
     private final int dimensao;
+    
+    /** Matriz bidimensional de células que compõem o tabuleiro */
     private final Celula[][] celulas;
 
+    /**
+     * Construtor que cria um novo tabuleiro com a dimensão especificada.
+     * 
+     * @param dimensao Dimensão do tabuleiro (número de linhas/colunas)
+     */
     public Tabuleiro(int dimensao) {
         this.dimensao = dimensao;
         this.celulas = new Celula[dimensao][dimensao];
+        inicializar();
+    }
+    
+    /**
+     * Inicializa o tabuleiro, criando as células e gerando a configuração inicial.
+     * <p>
+     * Implementação do método abstrato da classe pai.
+     * </p>
+     */
+    @Override
+    public void inicializar() {
         inicializarCelulas();
+        gerarConfiguracaoInicial();
     }
 
     /**
      * Verifica se todas as células do tabuleiro estão desligadas.
-     * @return true se todas estiverem apagadas (vitória), false caso contrário.
+     * <p>
+     * Este método é usado para determinar se o jogador venceu o jogo.
+     * </p>
+     * 
+     * @return true se todas as células estiverem desligadas (vitória), false caso contrário
      */
     public boolean todasDesligadas() {
         for (int i = 0; i < dimensao; i++) {
@@ -28,26 +75,81 @@ public class Tabuleiro {
         return true;
     }
 
+    /**
+     * Inicializa todas as células do tabuleiro.
+     * <p>
+     * Cria uma nova instância de {@code Celula} para cada posição
+     * do tabuleiro e inicializa cada uma.
+     * </p>
+     */
     private void inicializarCelulas() {
         for (int i = 0; i < dimensao; i++) {
             for (int j = 0; j < dimensao; j++) {
-                celulas[i][j] = new Celula();
+                celulas[i][j] = new Celula(i, j);
+                celulas[i][j].inicializar();
             }
         }
-        // Futuramente, aqui você chamará o método para gerar um padrão inicial solucionável.
-        // Por enquanto, vamos deixar uma luz acesa para teste.
-        celulas[1][1].alternar();
+    }
+    
+    /**
+     * Gera uma configuração inicial solucionável do tabuleiro.
+     * <p>
+     * Este método cria um padrão inicial de células ligadas que pode
+     * ser resolvido pelo jogador. A estratégia é: começar com todas as
+     * células desligadas, depois fazer uma sequência aleatória de movimentos
+     * válidos para criar um padrão solucionável.
+     * </p>
+     */
+    private void gerarConfiguracaoInicial() {
+        // Estratégia: fazer uma sequência aleatória de movimentos válidos
+        // para garantir que sempre há solução
+        java.util.Random random = new java.util.Random();
+        int numMovimentos = 3 + random.nextInt(5); // Entre 3 e 7 movimentos iniciais
+        
+        for (int i = 0; i < numMovimentos; i++) {
+            int linha = random.nextInt(dimensao);
+            int coluna = random.nextInt(dimensao);
+            // Alterna a célula e suas adjacentes (sem lançar exceção)
+            alternarCelulaInterna(linha, coluna);
+        }
+    }
+    
+    /**
+     * Método auxiliar para alternar célula sem validação (usado na geração inicial).
+     * 
+     * @param linha Linha da célula
+     * @param coluna Coluna da célula
+     */
+    private void alternarCelulaInterna(int linha, int coluna) {
+        // Alterna a própria célula
+        celulas[linha][coluna].alternar();
+        // Alterna a de cima
+        if (linha > 0) celulas[linha - 1][coluna].alternar();
+        // Alterna a de baixo
+        if (linha < dimensao - 1) celulas[linha + 1][coluna].alternar();
+        // Alterna a da esquerda
+        if (coluna > 0) celulas[linha][coluna - 1].alternar();
+        // Alterna a da direita
+        if (coluna < dimensao - 1) celulas[linha][coluna + 1].alternar();
     }
 
     /**
      * Alterna o estado de uma célula e suas vizinhas diretas.
-     * @param linha A linha da célula clicada.
-     * @param coluna A coluna da célula clicada.
+     * <p>
+     * Lança exceção se as coordenadas forem inválidas.
+     * </p>
+     * 
+     * @param linha A linha da célula clicada
+     * @param coluna A coluna da célula clicada
+     * @throws MovimentoInvalidoException Se as coordenadas estiverem fora dos limites do tabuleiro
      */
-    public void alternarCelula(int linha, int coluna) {
+    public void alternarCelula(int linha, int coluna) throws MovimentoInvalidoException {
         // Validação para não clicar fora do tabuleiro
         if (linha < 0 || linha >= dimensao || coluna < 0 || coluna >= dimensao) {
-            return;
+            throw new MovimentoInvalidoException(
+                String.format("Coordenadas inválidas: (%d, %d). Tabuleiro tem dimensão %dx%d", 
+                    linha, coluna, dimensao, dimensao)
+            );
         }
 
         // Alterna a própria célula
@@ -62,12 +164,71 @@ public class Tabuleiro {
         if (coluna < dimensao - 1) celulas[linha][coluna + 1].alternar();
     }
     
-    // Métodos para a View poder "ler" o estado do tabuleiro
+    /**
+     * Retorna a dimensão do tabuleiro.
+     * 
+     * @return Dimensão do tabuleiro (número de linhas/colunas)
+     */
     public int getDimensao() {
         return dimensao;
     }
 
+    /**
+     * Retorna a célula na posição especificada.
+     * 
+     * @param linha Linha da célula (índice baseado em 0)
+     * @param coluna Coluna da célula (índice baseado em 0)
+     * @return A célula na posição especificada
+     */
     public Celula getCelula(int linha, int coluna) {
         return celulas[linha][coluna];
+    }
+    
+    /**
+     * Verifica se o jogador venceu o jogo.
+     * @return true se todas as células estiverem desligadas, false caso contrário
+     */
+    public boolean verificarVitoria() {
+        return todasDesligadas();
+    }
+    
+    /**
+     * Reseta o tabuleiro para o estado inicial.
+     */
+    public void resetar() {
+        for (int i = 0; i < dimensao; i++) {
+            for (int j = 0; j < dimensao; j++) {
+                celulas[i][j].setLigada(false);
+            }
+        }
+        gerarConfiguracaoInicial();
+    }
+    
+    /**
+     * Calcula a pontuação baseada no estado atual do tabuleiro.
+     * <p>
+     * A pontuação é calculada com base na proporção de células desligadas.
+     * Implementação da interface {@code Pontuavel}.
+     * </p>
+     * <p>
+     * Nota: A pontuação final do jogo é calculada no Game usando a fórmula:
+     * (1000 / movimentos) × (300 / tempo_segundos) × multiplicador_dificuldade
+     * </p>
+     * 
+     * @return Pontuação calculada (valor inteiro não negativo)
+     */
+    @Override
+    public int calcularPontos() {
+        // Calcula pontos baseado no número de células desligadas
+        int celulasDesligadas = 0;
+        for (int i = 0; i < dimensao; i++) {
+            for (int j = 0; j < dimensao; j++) {
+                if (!celulas[i][j].isLigada()) {
+                    celulasDesligadas++;
+                }
+            }
+        }
+        // Pontos baseados na proporção de células desligadas
+        return (celulasDesligadas * 10) / (dimensao * dimensao);
     }
 }
