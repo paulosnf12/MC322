@@ -94,6 +94,7 @@ public class Game implements Salvavel, Serializable {
         this.movimentosUltimoTurno = 0;
         this.tempoUltimoTurno = 0;
         this.tempoTotalAcumulado = 0;
+        this.bateuRecorde = false;
     }
 
     /**
@@ -113,6 +114,7 @@ public class Game implements Salvavel, Serializable {
         this.movimentosUltimoTurno = 0;
         this.tempoUltimoTurno = 0;
         this.tempoTotalAcumulado = 0; // Zera o tempo total acumulado
+        this.bateuRecorde = false; // Reseta o flag de recorde
         this.tempoInicio = System.currentTimeMillis();
         this.jogoEmAndamento = true;
         this.vitoria = false;
@@ -207,9 +209,9 @@ public class Game implements Salvavel, Serializable {
             // Verifica se há próximo turno
             boolean avancou = avancarParaProximoTurno();
             
-            // Se completou todos os turnos, salva a pontuação
+            // Se completou todos os turnos, salva a pontuação e verifica recorde
             if (!avancou && completouTodosTurnos()) {
-                salvarPontuacaoFinal();
+                salvarPontuacaoFinal(); // Salva e atualiza bateuRecorde
             }
         }
     }
@@ -486,14 +488,20 @@ public class Game implements Salvavel, Serializable {
         return tempoTotalAcumulado;
     }
     
+    /** Indica se o jogador bateu um recorde na última partida */
+    private boolean bateuRecorde;
+    
     /**
      * Salva a pontuação final quando o jogador completa todos os turnos.
      * <p>
      * Cria um registro de pontuação com nome do jogador, dificuldade,
      * tempo total e pontuação final, e salva no arquivo de pontuações.
+     * Atualiza apenas se houver batido o recorde anterior.
      * </p>
+     * 
+     * @return true se houve recorde (novo ou atualizado), false caso contrário
      */
-    private void salvarPontuacaoFinal() {
+    private boolean salvarPontuacaoFinal() {
         if (jogador != null && dificuldade != null) {
             try {
                 String nomeJogador = jogador.getNome();
@@ -508,12 +516,27 @@ public class Game implements Salvavel, Serializable {
                     pontuacaoFinal
                 );
                 
-                GerenciadorPontuacoes.salvarPontuacao(record);
+                boolean houveRecorde = GerenciadorPontuacoes.salvarOuAtualizarPontuacao(record);
+                this.bateuRecorde = houveRecorde;
+                return houveRecorde;
             } catch (IOException e) {
                 System.err.println("Erro ao salvar pontuação: " + e.getMessage());
                 // Não relança para não quebrar o fluxo do jogo
+                this.bateuRecorde = false;
+                return false;
             }
         }
+        this.bateuRecorde = false;
+        return false;
+    }
+    
+    /**
+     * Retorna se o jogador bateu um recorde na última partida.
+     * 
+     * @return true se bateu recorde, false caso contrário
+     */
+    public boolean bateuRecorde() {
+        return bateuRecorde;
     }
     
     

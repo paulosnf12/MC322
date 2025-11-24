@@ -1,6 +1,9 @@
 package projeto_final.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -68,7 +71,7 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
     
     private void inicializarComponentes() {
         // Título estilizado
-        lblTitulo = new Label("🏆 RANKING DE PONTUAÇÕES 🏆");
+        lblTitulo = new Label("🏆 RECORDES DOS JOGADORES 🏆");
         lblTitulo.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         lblTitulo.setTextFill(Color.web("#2C3E50"));
         lblTitulo.setPadding(new Insets(0, 0, 20, 0));
@@ -123,35 +126,43 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
     }
     
     /**
-     * Carrega e exibe as pontuações do arquivo.
+     * Carrega e exibe as pontuações do arquivo, agrupadas por dificuldade.
      */
     private void carregarPontuacoes() {
         try {
-            List<PontuacaoRecord> pontuacoes = GerenciadorPontuacoes.carregarPontuacoes();
+            List<PontuacaoRecord> todasPontuacoes = GerenciadorPontuacoes.carregarPontuacoes();
             conteudoPontuacoes.getChildren().clear();
             
-            if (pontuacoes.isEmpty()) {
+            if (todasPontuacoes.isEmpty()) {
                 Label lblVazio = new Label("📭 Nenhuma pontuação registrada ainda.\n\nComplete uma partida para aparecer aqui!");
                 lblVazio.setStyle("-fx-font-style: italic; -fx-font-size: 16px; -fx-text-fill: #7F8C8D;");
                 lblVazio.setAlignment(Pos.CENTER);
                 lblVazio.setPadding(new Insets(50, 0, 0, 0));
                 conteudoPontuacoes.getChildren().add(lblVazio);
             } else {
-                // Cabeçalho da tabela usando GridPane
-                GridPane cabecalho = criarCabecalhoTabela();
-                conteudoPontuacoes.getChildren().add(cabecalho);
+                // Agrupa pontuações por dificuldade
+                List<PontuacaoRecord> pontuacoesFacil = filtrarPorDificuldade(todasPontuacoes, "Fácil");
+                List<PontuacaoRecord> pontuacoesMedio = filtrarPorDificuldade(todasPontuacoes, "Médio");
+                List<PontuacaoRecord> pontuacoesDificil = filtrarPorDificuldade(todasPontuacoes, "Difícil");
                 
-                // Exibe cada pontuação
-                int posicao = 1;
-                for (PontuacaoRecord record : pontuacoes) {
-                    GridPane linhaPontuacao = criarLinhaPontuacao(record, posicao);
-                    conteudoPontuacoes.getChildren().add(linhaPontuacao);
-                    posicao++;
+                // Exibe seção de Fácil
+                if (!pontuacoesFacil.isEmpty()) {
+                    exibirSecaoDificuldade("🟢 FÁCIL", pontuacoesFacil, "#27AE60");
+                }
+                
+                // Exibe seção de Médio
+                if (!pontuacoesMedio.isEmpty()) {
+                    exibirSecaoDificuldade("🟡 MÉDIO", pontuacoesMedio, "#F39C12");
+                }
+                
+                // Exibe seção de Difícil
+                if (!pontuacoesDificil.isEmpty()) {
+                    exibirSecaoDificuldade("🔴 DIFÍCIL", pontuacoesDificil, "#E74C3C");
                 }
             }
             
             // Atualiza estatísticas gerais
-            atualizarEstatisticas(pontuacoes);
+            atualizarEstatisticas(todasPontuacoes);
             
         } catch (IOException e) {
             Label lblErro = new Label("❌ Erro ao carregar pontuações: " + e.getMessage());
@@ -159,6 +170,64 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
             lblErro.setPadding(new Insets(20));
             conteudoPontuacoes.getChildren().add(lblErro);
         }
+    }
+    
+    /**
+     * Filtra pontuações por dificuldade.
+     * 
+     * @param pontuacoes Lista completa de pontuações
+     * @param dificuldade Nome da dificuldade a filtrar
+     * @return Lista filtrada e ordenada por pontuação (maior primeiro)
+     */
+    private List<PontuacaoRecord> filtrarPorDificuldade(List<PontuacaoRecord> pontuacoes, String dificuldade) {
+        List<PontuacaoRecord> filtradas = new ArrayList<>();
+        for (PontuacaoRecord record : pontuacoes) {
+            if (record.getDificuldade().equalsIgnoreCase(dificuldade)) {
+                filtradas.add(record);
+            }
+        }
+        // Ordena por pontuação (maior primeiro)
+        Collections.sort(filtradas, new Comparator<PontuacaoRecord>() {
+            @Override
+            public int compare(PontuacaoRecord r1, PontuacaoRecord r2) {
+                return Integer.compare(r2.getPontuacao(), r1.getPontuacao());
+            }
+        });
+        return filtradas;
+    }
+    
+    /**
+     * Exibe uma seção de pontuações para uma dificuldade específica.
+     * 
+     * @param titulo Título da seção
+     * @param pontuacoes Lista de pontuações da dificuldade
+     * @param corCorpo Cor de destaque para a seção
+     */
+    private void exibirSecaoDificuldade(String titulo, List<PontuacaoRecord> pontuacoes, String corCorpo) {
+        // Título da seção
+        Label lblTituloSecao = new Label(titulo);
+        lblTituloSecao.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        lblTituloSecao.setTextFill(Color.web(corCorpo));
+        lblTituloSecao.setPadding(new Insets(20, 0, 10, 0));
+        lblTituloSecao.setStyle("-fx-background-color: " + corCorpo + "20; -fx-background-radius: 5; -fx-padding: 10;");
+        conteudoPontuacoes.getChildren().add(lblTituloSecao);
+        
+        // Cabeçalho da tabela
+        GridPane cabecalho = criarCabecalhoTabela();
+        conteudoPontuacoes.getChildren().add(cabecalho);
+        
+        // Exibe cada pontuação da dificuldade
+        int posicao = 1;
+        for (PontuacaoRecord record : pontuacoes) {
+            GridPane linhaPontuacao = criarLinhaPontuacao(record, posicao);
+            conteudoPontuacoes.getChildren().add(linhaPontuacao);
+            posicao++;
+        }
+        
+        // Espaçamento entre seções
+        Label espacamento = new Label("");
+        espacamento.setPadding(new Insets(15, 0, 0, 0));
+        conteudoPontuacoes.getChildren().add(espacamento);
     }
     
     /**
@@ -177,30 +246,26 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setHgrow(Priority.ALWAYS);
         ColumnConstraints col3 = new ColumnConstraints();
-        col3.setPrefWidth(120);
+        col3.setPrefWidth(100);
         ColumnConstraints col4 = new ColumnConstraints();
-        col4.setPrefWidth(100);
-        ColumnConstraints col5 = new ColumnConstraints();
-        col5.setPrefWidth(120);
+        col4.setPrefWidth(120);
         
-        cabecalho.getColumnConstraints().addAll(col1, col2, col3, col4, col5);
+        cabecalho.getColumnConstraints().addAll(col1, col2, col3, col4);
         
         Label lblPos = new Label("#");
         Label lblJogador = new Label("Jogador");
-        Label lblDificuldade = new Label("Dificuldade");
         Label lblTempo = new Label("Tempo");
         Label lblPontos = new Label("Pontuação");
         
-        for (Label lbl : new Label[]{lblPos, lblJogador, lblDificuldade, lblTempo, lblPontos}) {
+        for (Label lbl : new Label[]{lblPos, lblJogador, lblTempo, lblPontos}) {
             lbl.setFont(Font.font("Arial", FontWeight.BOLD, 14));
             lbl.setTextFill(Color.WHITE);
         }
         
         cabecalho.add(lblPos, 0, 0);
         cabecalho.add(lblJogador, 1, 0);
-        cabecalho.add(lblDificuldade, 2, 0);
-        cabecalho.add(lblTempo, 3, 0);
-        cabecalho.add(lblPontos, 4, 0);
+        cabecalho.add(lblTempo, 2, 0);
+        cabecalho.add(lblPontos, 3, 0);
         
         return cabecalho;
     }
@@ -247,21 +312,18 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setHgrow(Priority.ALWAYS);
         ColumnConstraints col3 = new ColumnConstraints();
-        col3.setPrefWidth(120);
+        col3.setPrefWidth(100);
         ColumnConstraints col4 = new ColumnConstraints();
-        col4.setPrefWidth(100);
-        ColumnConstraints col5 = new ColumnConstraints();
-        col5.setPrefWidth(120);
+        col4.setPrefWidth(120);
         
-        linha.getColumnConstraints().addAll(col1, col2, col3, col4, col5);
+        linha.getColumnConstraints().addAll(col1, col2, col3, col4);
         
         Label lblPos = new Label(emoji + " " + posicao);
         Label lblJogador = new Label(record.getNomeJogador());
-        Label lblDificuldade = new Label(record.getDificuldade());
         Label lblTempo = new Label(formatarTempo(record.getTempoTotal()));
         Label lblPontos = new Label(String.format("%,d", record.getPontuacao()));
         
-        for (Label lbl : new Label[]{lblPos, lblJogador, lblDificuldade, lblTempo, lblPontos}) {
+        for (Label lbl : new Label[]{lblPos, lblJogador, lblTempo, lblPontos}) {
             lbl.setFont(Font.font("Arial", pesoFonte, 13));
             lbl.setTextFill(Color.web(corTexto));
         }
@@ -272,9 +334,8 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
         
         linha.add(lblPos, 0, 0);
         linha.add(lblJogador, 1, 0);
-        linha.add(lblDificuldade, 2, 0);
-        linha.add(lblTempo, 3, 0);
-        linha.add(lblPontos, 4, 0);
+        linha.add(lblTempo, 2, 0);
+        linha.add(lblPontos, 3, 0);
         
         return linha;
     }

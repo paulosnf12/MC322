@@ -26,17 +26,39 @@ public class GerenciadorPontuacoes {
     private static final String ARQUIVO_PONTUACOES = "pontuacoes.dat";
     
     /**
-     * Salva uma nova pontuação no arquivo.
+     * Salva ou atualiza uma pontuação no arquivo.
      * <p>
-     * O arquivo é ordenado por pontuação (maior primeiro) após adicionar o novo registro.
+     * Se o jogador já possui um recorde na mesma dificuldade, atualiza apenas se a nova
+     * pontuação for maior. Caso contrário, adiciona um novo registro.
+     * O arquivo é ordenado por pontuação (maior primeiro) após a operação.
      * </p>
      * 
      * @param record Registro de pontuação a ser salvo
+     * @return true se houve recorde (novo ou atualizado), false caso contrário
      * @throws IOException Se houver erro ao escrever no arquivo
      */
-    public static void salvarPontuacao(PontuacaoRecord record) throws IOException {
+    public static boolean salvarOuAtualizarPontuacao(PontuacaoRecord record) throws IOException {
         List<PontuacaoRecord> pontuacoes = carregarPontuacoes();
-        pontuacoes.add(record);
+        
+        // Busca se já existe um recorde para este jogador nesta dificuldade
+        PontuacaoRecord recordeExistente = buscarRecorde(pontuacoes, record.getNomeJogador(), record.getDificuldade());
+        
+        boolean houveRecorde = false;
+        
+        if (recordeExistente != null) {
+            // Já existe um recorde - atualiza apenas se a nova pontuação for maior
+            if (record.getPontuacao() > recordeExistente.getPontuacao()) {
+                // Remove o recorde antigo
+                pontuacoes.remove(recordeExistente);
+                // Adiciona o novo recorde
+                pontuacoes.add(record);
+                houveRecorde = true;
+            }
+        } else {
+            // Não existe recorde - adiciona novo
+            pontuacoes.add(record);
+            houveRecorde = true; // Primeiro recorde do jogador nesta dificuldade
+        }
         
         // Ordena por pontuação (maior primeiro)
         Collections.sort(pontuacoes, new Comparator<PontuacaoRecord>() {
@@ -48,6 +70,41 @@ public class GerenciadorPontuacoes {
         
         // Salva todas as pontuações no arquivo
         salvarTodasPontuacoes(pontuacoes);
+        
+        return houveRecorde;
+    }
+    
+    /**
+     * Busca um recorde existente para um jogador em uma dificuldade específica.
+     * 
+     * @param pontuacoes Lista de pontuações
+     * @param nomeJogador Nome do jogador
+     * @param dificuldade Nome da dificuldade
+     * @return Registro encontrado, ou null se não existir
+     */
+    private static PontuacaoRecord buscarRecorde(List<PontuacaoRecord> pontuacoes, String nomeJogador, String dificuldade) {
+        for (PontuacaoRecord record : pontuacoes) {
+            if (record.getNomeJogador().equalsIgnoreCase(nomeJogador) && 
+                record.getDificuldade().equalsIgnoreCase(dificuldade)) {
+                return record;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Salva uma nova pontuação no arquivo (método legado para compatibilidade).
+     * <p>
+     * Este método chama {@link #salvarOuAtualizarPontuacao(PontuacaoRecord)}.
+     * </p>
+     * 
+     * @param record Registro de pontuação a ser salvo
+     * @throws IOException Se houver erro ao escrever no arquivo
+     * @deprecated Use {@link #salvarOuAtualizarPontuacao(PontuacaoRecord)} em vez disso
+     */
+    @Deprecated
+    public static void salvarPontuacao(PontuacaoRecord record) throws IOException {
+        salvarOuAtualizarPontuacao(record);
     }
     
     /**

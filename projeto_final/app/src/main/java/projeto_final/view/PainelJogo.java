@@ -328,20 +328,36 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         if (completouTodos) {
             // Mensagem especial para completar todos os turnos
             alert.setTitle("PARABÉNS!");
-            alert.setHeaderText("Você Completou Todos os Turnos!");
             
             // Obtém a pontuação do jogo
             int pontuacao = game.getPontuacao();
             String nomeDificuldade = game.getDificuldade() != null ? game.getDificuldade().getNome() : "";
+            boolean bateuRecorde = game.bateuRecorde();
             
-            String mensagem = String.format(
-                "🎉 INCRÍVEL! 🎉\n\n" +
-                "Você completou todos os 3 turnos na dificuldade %s!\n\n" +
-                "Você é um verdadeiro mestre do Lights Out!\n\n" +
-                "Pontuação Final: %d pontos",
-                nomeDificuldade,
-                pontuacao
-            );
+            String mensagem;
+            if (bateuRecorde) {
+                // Mensagem especial para recorde
+                alert.setHeaderText("🏆 NOVO RECORDE! 🏆");
+                mensagem = String.format(
+                    "🎉 PARABÉNS! 🎉\n\n" +
+                    "Você completou todos os 3 turnos na dificuldade %s!\n\n" +
+                    "🌟 VOCÊ BATEU SEU RECORDE! 🌟\n\n" +
+                    "Pontuação Final: %d pontos\n\n" +
+                    "Você é um verdadeiro mestre do Lights Out!",
+                    nomeDificuldade,
+                    pontuacao
+                );
+            } else {
+                alert.setHeaderText("Você Completou Todos os Turnos!");
+                mensagem = String.format(
+                    "🎉 INCRÍVEL! 🎉\n\n" +
+                    "Você completou todos os 3 turnos na dificuldade %s!\n\n" +
+                    "Você é um verdadeiro mestre do Lights Out!\n\n" +
+                    "Pontuação Final: %d pontos",
+                    nomeDificuldade,
+                    pontuacao
+                );
+            }
             
             alert.setContentText(mensagem);
             alert.showAndWait();
