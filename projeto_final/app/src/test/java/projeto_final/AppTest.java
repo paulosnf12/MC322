@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Testes básicos para a classe App.
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 class AppTest {

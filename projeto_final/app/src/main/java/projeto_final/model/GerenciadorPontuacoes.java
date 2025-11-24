@@ -24,7 +24,7 @@ import projeto_final.interfaces.Salvavel;
  * estáticos para facilitar o uso sem necessidade de instanciação.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.interfaces.Salvavel
  * @see projeto_final.model.PontuacaoRecord

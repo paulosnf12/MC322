@@ -15,7 +15,7 @@ import projeto_final.abstracts.Dificuldade;
  * em estados específicos e conhecidos, facilitando a escrita de testes.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class GameFixture {

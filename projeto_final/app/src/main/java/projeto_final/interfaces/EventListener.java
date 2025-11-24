@@ -19,7 +19,7 @@ package projeto_final.interfaces;
  * {@code PainelJogo}.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.view.MenuPrincipal
  * @see projeto_final.view.PainelJogo

@@ -54,9 +54,9 @@ javadoc {
     options.charSet = 'UTF-8'
     options.author = true
     options.version = true
-    options.windowTitle = 'Lights Out - Documentação da API'
-    options.docTitle = 'Lights Out - Documentação da API'
-    options.bottom = 'Copyright © 2024 Projeto Final MC322'
+    options.windowTitle = 'Lights Out'
+    options.docTitle = 'Lights Out'
+    options.bottom = 'Copyright © 2024 Projeto Final MC322 -- Bárbara, Lucas e Paulo'
     options.links = ['https://docs.oracle.com/javase/21/docs/api/']
     
     // Incluir código-fonte privado e protegido

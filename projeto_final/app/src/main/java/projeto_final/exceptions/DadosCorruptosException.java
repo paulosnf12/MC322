@@ -7,7 +7,7 @@ package projeto_final.exceptions;
  * mas encontra dados corrompidos, formato inválido ou arquivo ilegível.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class DadosCorruptosException extends Exception {

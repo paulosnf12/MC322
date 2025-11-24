@@ -23,7 +23,7 @@ import projeto_final.interfaces.Desenhavel;
  * {@code PainelJogo}, {@code PainelPontuacao}.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.interfaces.Desenhavel
  * @see projeto_final.view.MenuPrincipal

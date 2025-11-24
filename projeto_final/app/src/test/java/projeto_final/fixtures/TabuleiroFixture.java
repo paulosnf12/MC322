@@ -10,7 +10,7 @@ import projeto_final.model.Tabuleiro;
  * específicos e conhecidos, facilitando a escrita de testes determinísticos.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class TabuleiroFixture {

@@ -19,7 +19,7 @@ package projeto_final.interfaces;
  * {@code GerenciadorPontuacoes}.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see java.io.Serializable
  */

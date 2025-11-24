@@ -18,7 +18,7 @@ import projeto_final.interfaces.Salvavel;
  * que o próprio gerenciador possa ser salvo/carregado se necessário.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.interfaces.Salvavel
  */

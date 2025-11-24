@@ -18,7 +18,7 @@ import projeto_final.interfaces.Pontuavel;
  * para calcular a pontuação baseada no estado do tabuleiro.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.abstracts.ElementoJogo
  * @see projeto_final.interfaces.Pontuavel

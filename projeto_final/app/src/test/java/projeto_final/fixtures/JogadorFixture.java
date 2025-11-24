@@ -13,7 +13,7 @@ import projeto_final.model.DificuldadeDificil;
  * em diferentes estados (com pontuação, recordes, etc.).
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class JogadorFixture {

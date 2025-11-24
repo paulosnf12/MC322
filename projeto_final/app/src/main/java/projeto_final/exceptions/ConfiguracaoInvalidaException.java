@@ -8,7 +8,7 @@ package projeto_final.exceptions;
  * de configurações estiver funcionando corretamente.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class ConfiguracaoInvalidaException extends Exception {

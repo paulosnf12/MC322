@@ -35,7 +35,7 @@ import projeto_final.model.Tabuleiro;
  * um cronômetro que atualiza o tempo decorrido a cada segundo.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.interfaces.Desenhavel
  * @see projeto_final.interfaces.EventListener
@@ -59,7 +59,7 @@ import projeto_final.model.Tabuleiro;
  * um cronômetro que atualiza o tempo decorrido a cada segundo.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.interfaces.Desenhavel
  * @see projeto_final.interfaces.EventListener

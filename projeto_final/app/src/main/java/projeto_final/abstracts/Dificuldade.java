@@ -18,7 +18,7 @@ import java.io.Serializable;
  * Implementa {@code Serializable} para permitir persistência do estado do jogo.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.model.DificuldadeFacil
  * @see projeto_final.model.DificuldadeMedio

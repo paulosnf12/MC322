@@ -14,7 +14,7 @@ import projeto_final.abstracts.ElementoJogo;
  * do {@code Tabuleiro}.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.abstracts.ElementoJogo
  * @see projeto_final.model.Tabuleiro

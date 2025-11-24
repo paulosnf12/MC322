@@ -15,7 +15,7 @@ package projeto_final.interfaces;
  * Exemplo de classe que implementa esta interface: {@code Tabuleiro}.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.model.Tabuleiro
  */

@@ -7,7 +7,7 @@ package projeto_final.model;
  * da aplicação e determinar quais ações são permitidas em cada momento.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.controller.Game
  */

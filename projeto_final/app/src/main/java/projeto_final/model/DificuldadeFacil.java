@@ -17,7 +17,7 @@ import projeto_final.abstracts.Dificuldade;
  * estratégia específica de dificuldade para o jogo.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.abstracts.Dificuldade
  */

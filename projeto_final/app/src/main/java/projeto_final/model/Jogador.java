@@ -12,7 +12,7 @@ import projeto_final.abstracts.Dificuldade;
  * pontuação total, número de partidas jogadas e recordes por dificuldade.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class Jogador implements Serializable {

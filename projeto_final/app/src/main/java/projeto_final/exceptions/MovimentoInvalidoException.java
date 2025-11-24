@@ -7,7 +7,7 @@ package projeto_final.exceptions;
  * fora dos limites do tabuleiro ou quando há algum problema com as coordenadas fornecidas.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class MovimentoInvalidoException extends Exception {

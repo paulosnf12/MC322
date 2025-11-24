@@ -23,7 +23,7 @@ import projeto_final.interfaces.EventListener;
  * salvo ou sair da aplicação.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.abstracts.ComponenteGrafico
  * @see projeto_final.interfaces.Desenhavel

@@ -18,7 +18,7 @@ package projeto_final.interfaces;
  * {@code PainelJogo}, {@code PainelPontuacao}.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  * @see projeto_final.abstracts.ComponenteGrafico
  */

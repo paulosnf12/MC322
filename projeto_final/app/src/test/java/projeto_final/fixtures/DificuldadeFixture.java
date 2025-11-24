@@ -12,7 +12,7 @@ import projeto_final.abstracts.Dificuldade;
  * níveis de dificuldade de forma conveniente.
  * </p>
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 public class DificuldadeFixture {

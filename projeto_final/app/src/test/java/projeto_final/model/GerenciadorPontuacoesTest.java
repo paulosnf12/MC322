@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Testes unitários para a classe GerenciadorPontuacoes.
  * 
- * @author Projeto Final MC322
+ * @author Bárbara, Lucas e Paulo
  * @version 1.0
  */
 class GerenciadorPontuacoesTest {
