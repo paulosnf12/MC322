@@ -126,8 +126,8 @@ public class Game implements Salvavel, Serializable {
 
     /**
 
-     * Alterna a célula clicada e suas adjacentes, incrementa o contador
-     * de movimentos e verifica se o jogador venceu.
+     * <p> a célula clicada e suas adjacentes, incrementa o contador
+     * Alterna a célula clicada e suas adjacentes, incrementa o contador e verifica se o jogador venceu.
      * </p>
      * 
      * @param linha Linha da célula clicada
@@ -384,8 +384,7 @@ public class Game implements Salvavel, Serializable {
      * </p>
      * 
      * @param arquivo Caminho do arquivo a ser carregado
-     * @throws DadosCorruptosException Se o arquivo estiver corrompido
-     * @throws RuntimeException Se houver erro ao carregar
+     * @throws RuntimeException Se houver erro ao carregar ou se o arquivo estiver corrompido
      */
     public void carregarJogo(String arquivo) {
         try {

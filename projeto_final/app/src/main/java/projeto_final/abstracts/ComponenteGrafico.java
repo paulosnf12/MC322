@@ -12,12 +12,12 @@ import projeto_final.interfaces.Desenhavel;
  * </p>
  * <p>
  * O fluxo de renderização é:
+ * </p>
  * <ol>
  *   <li>{@link #desenhar()} - método template que orquestra a renderização</li>
  *   <li>{@link #exibir()} - método abstrato para renderização inicial</li>
  *   <li>{@link #atualizar()} - método abstrato para atualização do estado visual</li>
  * </ol>
- * </p>
  * <p>
  * Exemplos de componentes gráficos incluem: {@code MenuPrincipal},
  * {@code PainelJogo}, {@code PainelPontuacao}.

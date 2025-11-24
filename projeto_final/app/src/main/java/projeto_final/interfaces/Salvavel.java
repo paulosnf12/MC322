@@ -8,12 +8,12 @@ package projeto_final.interfaces;
  * </p>
  * <p>
  * Classes que implementam esta interface devem:
+ * </p>
  * <ul>
  *   <li>Garantir que o objeto seja serializável (implementar {@code Serializable})</li>
  *   <li>Implementar {@link #salvar()} para persistir o estado atual</li>
  *   <li>Implementar {@link #carregar(String)} para restaurar o estado de um arquivo</li>
  * </ul>
- * </p>
  * <p>
  * Exemplos de classes que implementam esta interface: {@code Game}, {@code GerenciadorArquivos},
  * {@code GerenciadorPontuacoes}.

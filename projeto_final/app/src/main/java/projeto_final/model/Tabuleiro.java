@@ -50,11 +50,11 @@ public class Tabuleiro extends ElementoJogo implements Pontuavel {
      * <p>
      * Implementação do método abstrato da classe pai {@code ElementoJogo}.
      * Este método é responsável por:
+     * </p>
      * <ol>
      *   <li>Criar e inicializar todas as células do tabuleiro</li>
      *   <li>Gerar uma configuração inicial válida e solucionável</li>
      * </ol>
-     * </p>
      * 
      * @see projeto_final.abstracts.ElementoJogo#inicializar()
      */

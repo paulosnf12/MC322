@@ -7,11 +7,11 @@ import projeto_final.abstracts.Dificuldade;
  * <p>
  * Esta classe estende {@code Dificuldade} e implementa o nível de dificuldade
  * intermediário, caracterizado por:
+ * </p>
  * <ul>
  *   <li>Tabuleiro 5x5 (25 células)</li>
  *   <li>Multiplicador de pontuação: 1.5</li>
  * </ul>
- * </p>
  * <p>
  * Esta é uma implementação concreta do padrão Strategy, fornecendo uma
  * estratégia específica de dificuldade para o jogo.
@@ -26,12 +26,12 @@ public class DificuldadeMedio extends Dificuldade {
      * Construtor que inicializa a dificuldade média.
      * <p>
      * Configura os atributos protegidos da classe pai:
+     * </p>
      * <ul>
      *   <li>{@code nome}: "Médio"</li>
      *   <li>{@code dimensao}: 5 (tabuleiro 5x5)</li>
      *   <li>{@code multiplicador}: 1.5</li>
      * </ul>
-     * </p>
      */
     public DificuldadeMedio() {
         this.nome = "Médio";

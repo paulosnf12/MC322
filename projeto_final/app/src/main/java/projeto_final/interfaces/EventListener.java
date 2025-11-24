@@ -8,12 +8,12 @@ package projeto_final.interfaces;
  * </p>
  * <p>
  * Classes que implementam esta interface devem:
+ * </p>
  * <ul>
  *   <li>Identificar o tipo do evento recebido</li>
  *   <li>Executar a ação apropriada baseada no tipo de evento</li>
  *   <li>Tratar eventos desconhecidos ou inválidos adequadamente</li>
  * </ul>
- * </p>
  * <p>
  * Exemplos de classes que implementam esta interface: {@code MenuPrincipal},
  * {@code PainelJogo}.
