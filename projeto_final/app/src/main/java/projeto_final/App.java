@@ -2,15 +2,20 @@
 package projeto_final;
 
 import java.io.File;
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import projeto_final.controller.Game;
 import projeto_final.exceptions.DadosCorruptosException;
+import projeto_final.model.DificuldadeDificil;
+import projeto_final.model.DificuldadeFacil;
+import projeto_final.model.DificuldadeMedio;
 import projeto_final.model.Jogador;
 import projeto_final.view.MenuPrincipal;
 import projeto_final.view.PainelJogo;
@@ -81,9 +86,10 @@ public class App extends Application {
         // Configura ação do botão Novo Jogo
         menu.getBtnNovoJogo().setOnAction(event -> {
             solicitarNomeJogador(() -> {
-                exibirInstrucoes(() -> {
-                    game.iniciarNovoJogo();
-                    mostrarPainelJogo();
+                solicitarDificuldade(() -> {
+                    exibirInstrucoes(() -> {
+                        mostrarPainelJogo();
+                    });
                 });
             });
         });
@@ -181,6 +187,43 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Solicita a dificuldade do jogo através de um diálogo de escolha.
+     *
+     * @param aoConfirmar Ação a ser executada após a dificuldade ser escolhida
+     */
+    private void solicitarDificuldade(Runnable aoConfirmar) {
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Fácil", "Fácil", "Médio", "Difícil");
+        dialog.setTitle("Escolher Dificuldade");
+        dialog.setHeaderText("Qual dificuldade você deseja jogar?");
+        dialog.setContentText("Dificuldade:");
+        
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresentOrElse(dificuldadeEscolhida -> {
+            projeto_final.abstracts.Dificuldade dificuldade = null;
+            switch (dificuldadeEscolhida) {
+                case "Fácil":
+                    dificuldade = new DificuldadeFacil();
+                    break;
+                case "Médio":
+                    dificuldade = new DificuldadeMedio();
+                    break;
+                case "Difícil":
+                    dificuldade = new DificuldadeDificil();
+                    break;
+            }
+            if (dificuldade != null) {
+                game.iniciarNovoJogo(dificuldade);
+                aoConfirmar.run();
+            }
+        },
+        () -> {
+            // Se cancelar, usa dificuldade padrão (Fácil)
+            game.iniciarNovoJogo(new DificuldadeFacil());
+            aoConfirmar.run();
+        });
+    }
+    
     /**
      * Solicita o nome do jogador através de um diálogo de entrada de texto.
      * <p>

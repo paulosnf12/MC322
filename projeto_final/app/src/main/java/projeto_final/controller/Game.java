@@ -3,14 +3,9 @@ package projeto_final.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import projeto_final.abstracts.Dificuldade;
 import projeto_final.exceptions.MovimentoInvalidoException;
 import projeto_final.interfaces.Salvavel;
-import projeto_final.model.DificuldadeDificil;
-import projeto_final.model.DificuldadeFacil;
-import projeto_final.model.DificuldadeMedio;
 import projeto_final.model.EstadoJogo;
 import projeto_final.model.GerenciadorArquivos;
 import projeto_final.model.Jogador;
@@ -43,11 +38,14 @@ public class Game implements Salvavel, Serializable {
     /** Estado atual do jogo */
     private EstadoJogo estado;
     
-    /** Pontuação atual do jogo (do nível atual) */
+    /** Pontuação do jogo (incrementada a cada turno vencido) */
     private int pontuacao;
     
-    /** Pontuação do último nível completado (para exibição) */
-    private int pontuacaoUltimoNivel;
+    /** Movimentos do último turno completado (para exibição) */
+    private int movimentosUltimoTurno;
+    
+    /** Tempo do último turno completado (para exibição) */
+    private long tempoUltimoTurno;
     
     /** Número de movimentos realizados */
     private int movimentos;
@@ -67,11 +65,11 @@ public class Game implements Salvavel, Serializable {
     /** Dificuldade atual do jogo */
     private Dificuldade dificuldade;
     
-    /** Lista de dificuldades na ordem de progressão */
-    private List<Dificuldade> dificuldades;
+    /** Número do turno atual (1, 2 ou 3) */
+    private int turnoAtual;
     
-    /** Índice da dificuldade atual na progressão */
-    private int indiceDificuldadeAtual;
+    /** Número total de turnos por jogo */
+    private static final int TOTAL_TURNOS = 3;
     
     /** Caminho padrão para salvar o jogo */
     private static final String ARQUIVO_SAVE = "save/jogo.sav";
@@ -87,69 +85,38 @@ public class Game implements Salvavel, Serializable {
         this.jogoEmAndamento = false;
         this.estado = EstadoJogo.MENU;
         this.pontuacao = 0;
-        this.pontuacaoUltimoNivel = 0;
-        this.indiceDificuldadeAtual = 0;
-        inicializarDificuldades();
-    }
-    
-    /**
-     * Inicializa a lista de dificuldades na ordem de progressão.
-     * <p>
-     * A ordem é: Fácil → Médio → Difícil
-     * </p>
-     */
-    private void inicializarDificuldades() {
-        this.dificuldades = new ArrayList<>();
-        this.dificuldades.add(new DificuldadeFacil());
-        this.dificuldades.add(new DificuldadeMedio());
-        this.dificuldades.add(new DificuldadeDificil());
-    }
-    
-    /**
-     * Inicia um novo jogo com a dificuldade especificada.
-     * 
-     * @param dificuldade Dificuldade do jogo a ser iniciado
-     */
-    public void iniciarJogo(Dificuldade dificuldade) {
-        this.dificuldade = dificuldade;
-        this.movimentos = 0;
-        this.pontuacao = 0;
-        this.tempoInicio = System.currentTimeMillis();
-        this.jogoEmAndamento = true;
-        this.vitoria = false;
-        this.estado = EstadoJogo.JOGANDO;
-        this.tabuleiro = new Tabuleiro(dificuldade.getDimensao());
+        this.turnoAtual = 0;
+        this.movimentosUltimoTurno = 0;
+        this.tempoUltimoTurno = 0;
     }
 
     /**
-     * Inicia um novo jogo com sistema de progressão de dificuldade.
+     * Inicia um novo jogo com a dificuldade escolhida.
      * <p>
-     * Inicia na primeira dificuldade (Fácil) e progride automaticamente
-     * para Médio e depois Difícil conforme o jogador vence cada nível.
+     * O jogador joga 3 turnos da mesma dificuldade escolhida.
      * </p>
+     * 
+     * @param dificuldade A dificuldade escolhida pelo jogador
      */
-    public void iniciarNovoJogo() {
-        // Reinicia a progressão
-        this.indiceDificuldadeAtual = 0;
+    public void iniciarNovoJogo(Dificuldade dificuldade) {
+        // Reinicia o jogo
+        this.dificuldade = dificuldade;
+        this.turnoAtual = 1; // Começa no turno 1
         this.movimentos = 0;
-        this.pontuacao = 0;
-        this.pontuacaoUltimoNivel = 0;
+        this.pontuacao = 0; // Pontuação do jogo começa em zero
+        this.movimentosUltimoTurno = 0;
+        this.tempoUltimoTurno = 0;
         this.tempoInicio = System.currentTimeMillis();
         this.jogoEmAndamento = true;
         this.vitoria = false;
         this.estado = EstadoJogo.JOGANDO;
         
-        // Inicia com a primeira dificuldade (Fácil)
-        if (dificuldades == null || dificuldades.isEmpty()) {
-            inicializarDificuldades();
-        }
-        this.dificuldade = dificuldades.get(0);
+        // Cria o primeiro tabuleiro
         this.tabuleiro = new Tabuleiro(dificuldade.getDimensao());
     }
 
     /**
-     * Processa uma jogada do jogador.
-     * <p>
+
      * Alterna a célula clicada e suas adjacentes, incrementa o contador
      * de movimentos e verifica se o jogador venceu.
      * </p>
@@ -161,10 +128,6 @@ public class Game implements Salvavel, Serializable {
     public void processarJogada(int linha, int coluna) throws MovimentoInvalidoException {
         // Só processa se o jogo estiver valendo
         if (tabuleiro != null && jogoEmAndamento) {
-            // Limpa a pontuação do nível anterior quando o jogador começa a jogar o novo nível
-            if (movimentos == 0 && pontuacaoUltimoNivel > 0) {
-                pontuacaoUltimoNivel = 0;
-            }
             tabuleiro.alternarCelula(linha, coluna);
             this.movimentos++;
             verificarVitoria(); // Verifica imediatamente após o movimento
@@ -199,63 +162,72 @@ public class Game implements Salvavel, Serializable {
     public void processarVitoria() {
         if (tabuleiro != null && dificuldade != null && movimentos > 0) {
             long tempoSegundos = getTempoDecorrrido();
-            if (tempoSegundos > 0) {
+            int pontuacaoTurno = 0;
+            
+            // Salva informações do turno antes de avançar (para exibição)
+            this.movimentosUltimoTurno = this.movimentos;
+            this.tempoUltimoTurno = tempoSegundos;
+            
+            // Calcula a pontuação do turno apenas se tempo > 0
+            if (tempoSegundos > 0 && movimentos > 0) {
                 // Fórmula: (1000 / movimentos) × (300 / tempo_segundos) × multiplicador_dificuldade
                 double pontosBase = (1000.0 / movimentos) * (300.0 / tempoSegundos);
-                this.pontuacao = (int) (pontosBase * dificuldade.getMultiplicador());
-            } else {
+                double pontuacaoCalculada = pontosBase * dificuldade.getMultiplicador();
+                pontuacaoTurno = (int) Math.round(pontuacaoCalculada);
+                
+                // Garante que a pontuação não seja negativa
+                if (pontuacaoTurno < 0) {
+                    pontuacaoTurno = 0;
+                }
+            }
+
+            // Incrementa a pontuação do jogo com a pontuação obtida neste turno
+            this.pontuacao += pontuacaoTurno;
+            
+            // Garante que a pontuação total não seja negativa
+            if (this.pontuacao < 0) {
                 this.pontuacao = 0;
             }
             
-            // Salva a pontuação do nível antes de avançar
-            this.pontuacaoUltimoNivel = this.pontuacao;
-            
             if (jogador != null) {
-                jogador.adicionarPontuacao(pontuacao);
-                jogador.atualizarRecorde(dificuldade, pontuacao);
+                jogador.adicionarPontuacao(pontuacaoTurno);
+                jogador.atualizarRecorde(dificuldade, pontuacaoTurno);
             }
             
-            // Verifica se há próxima dificuldade
-            avancarParaProximaDificuldade();
+            // Verifica se há próximo turno
+            avancarParaProximoTurno();
         }
     }
     
     /**
-     * Avança para a próxima dificuldade na progressão.
+     * Avança para o próximo turno.
      * <p>
-     * Se houver próxima dificuldade, inicia um novo tabuleiro com ela.
-     * Se completou todas as dificuldades, marca o jogo como completamente vencido.
+     * Se houver próximo turno (até 3 turnos), inicia um novo tabuleiro com a mesma dificuldade.
+     * Se completou todos os 3 turnos, marca o jogo como completamente vencido.
      * </p>
      * 
-     * @return true se avançou para próxima dificuldade, false se completou todas
+     * @return true se avançou para próximo turno, false se completou todos os turnos
      */
-    public boolean avancarParaProximaDificuldade() {
-        if (dificuldades == null || dificuldades.isEmpty()) {
-            inicializarDificuldades();
-        }
+    public boolean avancarParaProximoTurno() {
+        turnoAtual++;
         
-        indiceDificuldadeAtual++;
-        
-        if (indiceDificuldadeAtual < dificuldades.size()) {
-            // Ainda há dificuldades para completar
-            Dificuldade proximaDificuldade = dificuldades.get(indiceDificuldadeAtual);
-            this.dificuldade = proximaDificuldade;
+        if (turnoAtual <= TOTAL_TURNOS) {
+            // Ainda há turnos para completar
+            // Mantém a mesma dificuldade
             
-            // Reseta contadores para o novo nível
+            // Reseta contadores para o novo turno (mas mantém a pontuação do jogo)
             this.movimentos = 0;
-            this.pontuacao = 0; // Pontuação do novo nível começa em 0
-            // NÃO limpa pontuacaoUltimoNivel aqui - será limpa quando o jogador fizer o primeiro movimento
             this.tempoInicio = System.currentTimeMillis();
             this.vitoria = false;
             this.jogoEmAndamento = true;
             this.estado = EstadoJogo.JOGANDO;
             
-            // Cria novo tabuleiro com a próxima dificuldade
+            // Cria novo tabuleiro com a mesma dificuldade
             this.tabuleiro = new Tabuleiro(dificuldade.getDimensao());
             
             return true;
         } else {
-            // Completou todas as dificuldades!
+            // Completou todos os 3 turnos!
             this.jogoEmAndamento = false;
             this.estado = EstadoJogo.VITORIA;
             return false;
@@ -263,36 +235,30 @@ public class Game implements Salvavel, Serializable {
     }
     
     /**
-     * Verifica se o jogador completou todas as dificuldades.
+     * Verifica se o jogador completou todos os turnos.
      * 
-     * @return true se completou todas as dificuldades, false caso contrário
+     * @return true se completou todos os 3 turnos, false caso contrário
      */
-    public boolean completouTodasDificuldades() {
-        if (dificuldades == null || dificuldades.isEmpty()) {
-            return false;
-        }
-        return indiceDificuldadeAtual >= dificuldades.size();
+    public boolean completouTodosTurnos() {
+        return turnoAtual > TOTAL_TURNOS;
     }
     
     /**
-     * Retorna o número da dificuldade atual na progressão (1, 2 ou 3).
+     * Retorna o número do turno atual (1, 2 ou 3).
      * 
-     * @return Número da dificuldade atual (1 = Fácil, 2 = Médio, 3 = Difícil)
+     * @return Número do turno atual
      */
-    public int getNumeroDificuldadeAtual() {
-        return indiceDificuldadeAtual + 1;
+    public int getTurnoAtual() {
+        return turnoAtual;
     }
     
     /**
-     * Retorna o total de dificuldades na progressão.
+     * Retorna o total de turnos por jogo.
      * 
-     * @return Total de dificuldades (sempre 3)
+     * @return Total de turnos (sempre 3)
      */
-    public int getTotalDificuldades() {
-        if (dificuldades == null || dificuldades.isEmpty()) {
-            return 3; // Padrão
-        }
-        return dificuldades.size();
+    public int getTotalTurnos() {
+        return TOTAL_TURNOS;
     }
     
     /**
@@ -303,8 +269,7 @@ public class Game implements Salvavel, Serializable {
             tabuleiro.resetar();
         }
         this.movimentos = 0;
-        this.pontuacao = 0;
-        this.pontuacaoUltimoNivel = 0;
+        // Não reseta a pontuação do jogo ao reiniciar o turno - mantém a pontuação acumulada
         this.tempoInicio = System.currentTimeMillis();
         this.jogoEmAndamento = true;
         this.vitoria = false;
@@ -354,6 +319,7 @@ public class Game implements Salvavel, Serializable {
                 this.vitoria = jogoSalvo.vitoria;
                 this.jogador = jogoSalvo.jogador;
                 this.dificuldade = jogoSalvo.dificuldade;
+                this.turnoAtual = jogoSalvo.turnoAtual;
             } else {
                 throw new projeto_final.exceptions.DadosCorruptosException(
                     "Arquivo não contém um jogo válido: " + arquivo
@@ -445,7 +411,6 @@ public class Game implements Salvavel, Serializable {
      * @return Tempo decorrido em segundos, ou 0 se o jogo não estiver em andamento
      */
     public long getTempoDecorrrido() {
-        if (!jogoEmAndamento) return 0;
         return (System.currentTimeMillis() - tempoInicio) / 1000; // Retorna em segundos
     }
     
@@ -468,31 +433,35 @@ public class Game implements Salvavel, Serializable {
     }
     
     /**
-     * Retorna a pontuação atual do jogo (do nível atual).
+     * Retorna a pontuação do jogo.
      * <p>
-     * Se o jogador acabou de vencer um nível, retorna a pontuação desse nível.
-     * Caso contrário, retorna a pontuação acumulada do nível atual (geralmente 0 até vencer).
+     * A pontuação é incrementada a cada turno vencido e mantida durante todo o jogo.
      * </p>
      * 
-     * @return Pontuação atual do nível
+     * @return Pontuação atual do jogo
      */
     public int getPontuacao() {
-        // Se há pontuação do último nível e ainda não começou a jogar o novo nível (movimentos == 0)
-        // ou se acabou de vencer, retorna a pontuação do nível vencido
-        if (pontuacaoUltimoNivel > 0 && (movimentos == 0 || vitoria)) {
-            return pontuacaoUltimoNivel;
-        }
         return pontuacao;
     }
     
     /**
-     * Retorna a pontuação do último nível completado.
+     * Retorna os movimentos do último turno completado.
      * 
-     * @return Pontuação do último nível vencido
+     * @return Movimentos do último turno vencido
      */
-    public int getPontuacaoUltimoNivel() {
-        return pontuacaoUltimoNivel;
+    public int getMovimentosUltimoTurno() {
+        return movimentosUltimoTurno;
     }
+    
+    /**
+     * Retorna o tempo do último turno completado (em segundos).
+     * 
+     * @return Tempo do último turno vencido em segundos
+     */
+    public long getTempoUltimoTurno() {
+        return tempoUltimoTurno;
+    }
+    
     
     /**
      * Retorna o jogador atual.
