@@ -6,10 +6,12 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import projeto_final.controller.Game;
 import projeto_final.exceptions.DadosCorruptosException;
+import projeto_final.model.Jogador;
 import projeto_final.view.MenuPrincipal;
 import projeto_final.view.PainelJogo;
 
@@ -68,9 +70,11 @@ public class App extends Application {
         
         // Configura ação do botão Novo Jogo
         menu.getBtnNovoJogo().setOnAction(event -> {
-            exibirInstrucoes(() -> {
-                game.iniciarNovoJogo();
-                mostrarPainelJogo();
+            solicitarNomeJogador(() -> {
+                exibirInstrucoes(() -> {
+                    game.iniciarNovoJogo();
+                    mostrarPainelJogo();
+                });
             });
         });
         
@@ -129,7 +133,11 @@ public class App extends Application {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Jogo Carregado");
                 alert.setHeaderText("Sucesso!");
-                alert.setContentText("O jogo foi carregado com sucesso.");
+                String mensagem = "O jogo foi carregado com sucesso.";
+                if (game.getJogador() != null) {
+                    mensagem += "\n\nJogador: " + game.getJogador().getNome();
+                }
+                alert.setContentText(mensagem);
                 alert.showAndWait();
                 
                 mostrarPainelJogo();
@@ -162,6 +170,45 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Solicita o nome do jogador através de um diálogo de entrada de texto.
+     * <p>
+     * Cria um novo jogador com o nome fornecido e o associa ao jogo.
+     * Se o usuário cancelar ou não fornecer um nome, usa "Jogador" como padrão.
+     * </p>
+     * 
+     * @param aoConfirmar Ação a ser executada após confirmar o nome
+     */
+    private void solicitarNomeJogador(Runnable aoConfirmar) {
+        TextInputDialog dialog = new TextInputDialog("Jogador");
+        dialog.setTitle("Nome do Jogador");
+        dialog.setHeaderText("Digite seu nome");
+        dialog.setContentText("Nome:");
+        
+        dialog.showAndWait().ifPresentOrElse(
+            nome -> {
+                // Remove espaços em branco e valida
+                nome = nome.trim();
+                if (nome.isEmpty()) {
+                    nome = "Jogador";
+                }
+                
+                // Cria e associa o jogador ao jogo
+                Jogador jogador = new Jogador(nome);
+                game.setJogador(jogador);
+                
+                // Executa a ação de confirmação
+                aoConfirmar.run();
+            },
+            () -> {
+                // Se cancelar, usa nome padrão
+                Jogador jogador = new Jogador("Jogador");
+                game.setJogador(jogador);
+                aoConfirmar.run();
+            }
+        );
+    }
+    
     /**
      * Exibe um diálogo com as instruções do jogo.
      * <p>
