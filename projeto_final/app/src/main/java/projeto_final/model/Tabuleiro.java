@@ -30,6 +30,9 @@ public class Tabuleiro extends ElementoJogo implements Pontuavel {
     
     /** Matriz bidimensional de células que compõem o tabuleiro */
     private final Celula[][] celulas;
+    
+    /** Estado inicial do tabuleiro (para restaurar ao reiniciar) */
+    private boolean[][] estadoInicial;
 
     /**
      * Construtor que cria um novo tabuleiro com a dimensão especificada.
@@ -99,6 +102,10 @@ public class Tabuleiro extends ElementoJogo implements Pontuavel {
      * células desligadas, depois fazer uma sequência aleatória de movimentos
      * válidos para criar um padrão solucionável.
      * </p>
+     * <p>
+     * Após gerar a configuração, salva o estado inicial para poder
+     * restaurá-lo posteriormente.
+     * </p>
      */
     private void gerarConfiguracaoInicial() {
         // Estratégia: fazer uma sequência aleatória de movimentos válidos
@@ -111,6 +118,41 @@ public class Tabuleiro extends ElementoJogo implements Pontuavel {
             int coluna = random.nextInt(dimensao);
             // Alterna a célula e suas adjacentes (sem lançar exceção)
             alternarCelulaInterna(linha, coluna);
+        }
+        
+        // Salva o estado inicial após gerar a configuração
+        salvarEstadoInicial();
+    }
+    
+    /**
+     * Salva o estado atual do tabuleiro como estado inicial.
+     * <p>
+     * Este método é chamado após gerar a configuração inicial para
+     * permitir restaurar o tabuleiro ao estado original ao reiniciar.
+     * </p>
+     */
+    private void salvarEstadoInicial() {
+        estadoInicial = new boolean[dimensao][dimensao];
+        for (int i = 0; i < dimensao; i++) {
+            for (int j = 0; j < dimensao; j++) {
+                estadoInicial[i][j] = celulas[i][j].isLigada();
+            }
+        }
+    }
+    
+    /**
+     * Restaura o tabuleiro para o estado inicial salvo.
+     * <p>
+     * Restaura cada célula para o estado que tinha quando o jogo foi iniciado.
+     * </p>
+     */
+    private void restaurarEstadoInicial() {
+        if (estadoInicial != null) {
+            for (int i = 0; i < dimensao; i++) {
+                for (int j = 0; j < dimensao; j++) {
+                    celulas[i][j].setLigada(estadoInicial[i][j]);
+                }
+            }
         }
     }
     
@@ -194,14 +236,25 @@ public class Tabuleiro extends ElementoJogo implements Pontuavel {
     
     /**
      * Reseta o tabuleiro para o estado inicial.
+     * <p>
+     * Restaura o tabuleiro para o estado exato que tinha quando o jogo
+     * foi iniciado, não gera um novo padrão aleatório.
+     * </p>
      */
     public void resetar() {
-        for (int i = 0; i < dimensao; i++) {
-            for (int j = 0; j < dimensao; j++) {
-                celulas[i][j].setLigada(false);
+        if (estadoInicial != null) {
+            // Restaura o estado inicial salvo
+            restaurarEstadoInicial();
+        } else {
+            // Se não houver estado inicial salvo (não deveria acontecer),
+            // gera um novo padrão e salva
+            for (int i = 0; i < dimensao; i++) {
+                for (int j = 0; j < dimensao; j++) {
+                    celulas[i][j].setLigada(false);
+                }
             }
+            gerarConfiguracaoInicial();
         }
-        gerarConfiguracaoInicial();
     }
     
     /**

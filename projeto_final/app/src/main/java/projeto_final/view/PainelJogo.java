@@ -53,6 +53,7 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
     private GridPane gridTabuleiro;
     private Timeline timeline; // Atributo de classe para controle do tempo
     private Button btnSalvar;
+    private Button btnReiniciar;
     private Button btnVoltarMenu;
     private Runnable callbackVoltarMenu; // Callback para voltar ao menu
 
@@ -114,10 +115,13 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         btnSalvar = new Button("Salvar Jogo");
         btnSalvar.setOnAction(event -> salvarJogo());
         
+        btnReiniciar = new Button("Reiniciar Tabuleiro");
+        btnReiniciar.setOnAction(event -> reiniciarTabuleiro());
+        
         btnVoltarMenu = new Button("Voltar ao Menu");
         btnVoltarMenu.setOnAction(event -> voltarAoMenu());
         
-        barraBotoes.getChildren().addAll(btnSalvar, btnVoltarMenu);
+        barraBotoes.getChildren().addAll(btnSalvar, btnReiniciar, btnVoltarMenu);
         this.setBottom(barraBotoes); // Adiciona ao rodapé do BorderPane
     }
     
@@ -140,6 +144,42 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
                                "Detalhes: " + e.getMessage());
             alert.showAndWait();
         }
+    }
+    
+    /**
+     * Reinicia o tabuleiro atual para o estado inicial.
+     * <p>
+     * Reseta o tabuleiro, movimentos e tempo, mas mantém o mesmo padrão inicial.
+     * </p>
+     */
+    private void reiniciarTabuleiro() {
+        // Pede confirmação ao usuário
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Reiniciar Tabuleiro");
+        alert.setHeaderText("Deseja realmente reiniciar o tabuleiro?");
+        alert.setContentText("O tabuleiro será resetado para o estado inicial.\n" +
+                           "Movimentos e tempo serão zerados.");
+        
+        alert.showAndWait().ifPresent(response -> {
+            if (response == javafx.scene.control.ButtonType.OK) {
+                // Reinicia o jogo
+                game.reiniciar();
+                
+                // Reinicia o cronômetro
+                pararCronometro();
+                iniciarCronometro();
+                
+                // Atualiza a visualização
+                atualizar();
+                
+                // Mensagem de confirmação
+                Alert confirmacao = new Alert(AlertType.INFORMATION);
+                confirmacao.setTitle("Tabuleiro Reiniciado");
+                confirmacao.setHeaderText("Sucesso!");
+                confirmacao.setContentText("O tabuleiro foi reiniciado com sucesso.");
+                confirmacao.showAndWait();
+            }
+        });
     }
     
     /**
