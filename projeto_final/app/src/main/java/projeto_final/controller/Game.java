@@ -8,7 +8,9 @@ import projeto_final.exceptions.MovimentoInvalidoException;
 import projeto_final.interfaces.Salvavel;
 import projeto_final.model.EstadoJogo;
 import projeto_final.model.GerenciadorArquivos;
+import projeto_final.model.GerenciadorPontuacoes;
 import projeto_final.model.Jogador;
+import projeto_final.model.PontuacaoRecord;
 import projeto_final.model.Tabuleiro;
 
 /**
@@ -53,6 +55,9 @@ public class Game implements Salvavel, Serializable {
     /** Tempo de início do jogo em milissegundos */
     private long tempoInicio;
     
+    /** Tempo total acumulado dos turnos anteriores (em segundos) */
+    private long tempoTotalAcumulado;
+    
     /** Indica se o jogo está em andamento */
     private boolean jogoEmAndamento;
     
@@ -88,6 +93,7 @@ public class Game implements Salvavel, Serializable {
         this.turnoAtual = 0;
         this.movimentosUltimoTurno = 0;
         this.tempoUltimoTurno = 0;
+        this.tempoTotalAcumulado = 0;
     }
 
     /**
@@ -106,6 +112,7 @@ public class Game implements Salvavel, Serializable {
         this.pontuacao = 0; // Pontuação do jogo começa em zero
         this.movimentosUltimoTurno = 0;
         this.tempoUltimoTurno = 0;
+        this.tempoTotalAcumulado = 0; // Zera o tempo total acumulado
         this.tempoInicio = System.currentTimeMillis();
         this.jogoEmAndamento = true;
         this.vitoria = false;
@@ -168,6 +175,9 @@ public class Game implements Salvavel, Serializable {
             this.movimentosUltimoTurno = this.movimentos;
             this.tempoUltimoTurno = tempoSegundos;
             
+            // Acumula o tempo deste turno ao tempo total
+            this.tempoTotalAcumulado += tempoSegundos;
+            
             // Calcula a pontuação do turno apenas se tempo > 0
             if (tempoSegundos > 0 && movimentos > 0) {
                 // Fórmula: (1000 / movimentos) × (300 / tempo_segundos) × multiplicador_dificuldade
@@ -195,7 +205,12 @@ public class Game implements Salvavel, Serializable {
             }
             
             // Verifica se há próximo turno
-            avancarParaProximoTurno();
+            boolean avancou = avancarParaProximoTurno();
+            
+            // Se completou todos os turnos, salva a pontuação
+            if (!avancou && completouTodosTurnos()) {
+                salvarPontuacaoFinal();
+            }
         }
     }
     
@@ -215,9 +230,9 @@ public class Game implements Salvavel, Serializable {
             // Ainda há turnos para completar
             // Mantém a mesma dificuldade
             
-            // Reseta contadores para o novo turno (mas mantém a pontuação do jogo)
+            // Reseta contadores para o novo turno (mas mantém a pontuação do jogo e tempo total)
             this.movimentos = 0;
-            this.tempoInicio = System.currentTimeMillis();
+            this.tempoInicio = System.currentTimeMillis(); // Novo tempo de início para o próximo turno
             this.vitoria = false;
             this.jogoEmAndamento = true;
             this.estado = EstadoJogo.JOGANDO;
@@ -460,6 +475,45 @@ public class Game implements Salvavel, Serializable {
      */
     public long getTempoUltimoTurno() {
         return tempoUltimoTurno;
+    }
+    
+    /**
+     * Retorna o tempo total acumulado de todos os turnos (em segundos).
+     * 
+     * @return Tempo total acumulado em segundos
+     */
+    public long getTempoTotalAcumulado() {
+        return tempoTotalAcumulado;
+    }
+    
+    /**
+     * Salva a pontuação final quando o jogador completa todos os turnos.
+     * <p>
+     * Cria um registro de pontuação com nome do jogador, dificuldade,
+     * tempo total e pontuação final, e salva no arquivo de pontuações.
+     * </p>
+     */
+    private void salvarPontuacaoFinal() {
+        if (jogador != null && dificuldade != null) {
+            try {
+                String nomeJogador = jogador.getNome();
+                String nomeDificuldade = dificuldade.getNome();
+                long tempoTotal = tempoTotalAcumulado;
+                int pontuacaoFinal = pontuacao;
+                
+                PontuacaoRecord record = new PontuacaoRecord(
+                    nomeJogador,
+                    nomeDificuldade,
+                    tempoTotal,
+                    pontuacaoFinal
+                );
+                
+                GerenciadorPontuacoes.salvarPontuacao(record);
+            } catch (IOException e) {
+                System.err.println("Erro ao salvar pontuação: " + e.getMessage());
+                // Não relança para não quebrar o fluxo do jogo
+            }
+        }
     }
     
     

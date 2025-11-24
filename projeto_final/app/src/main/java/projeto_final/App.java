@@ -19,6 +19,7 @@ import projeto_final.model.DificuldadeMedio;
 import projeto_final.model.Jogador;
 import projeto_final.view.MenuPrincipal;
 import projeto_final.view.PainelJogo;
+import projeto_final.view.PainelPontuacao;
 
 /**
  * Classe principal da aplicação Lights Out.
@@ -99,6 +100,11 @@ public class App extends Application {
             carregarJogo();
         });
         
+        // Configura ação do botão Ver Pontuações
+        menu.getBtnVerPontuacoes().setOnAction(event -> {
+            mostrarPainelPontuacao();
+        });
+        
         // Configura ação do botão Sair
         menu.getBtnSair().setOnAction(event -> {
             primaryStage.close();
@@ -107,8 +113,24 @@ public class App extends Application {
         // Botão de carregar jogo sempre está ativo
         // O usuário pode tentar carregar mesmo se não houver arquivo salvo
         
-        primaryStage.setScene(new Scene(menu.getLayout(), 300, 300));
+        primaryStage.setScene(new Scene(menu.getLayout(), 800, 600));
         primaryStage.centerOnScreen(); // Centraliza a janela
+    }
+    
+    /**
+     * Exibe o painel de pontuações.
+     * <p>
+     * Carrega e exibe todas as pontuações salvas em arquivo de texto,
+     * ordenadas por pontuação (maior primeiro).
+     * </p>
+     */
+    private void mostrarPainelPontuacao() {
+        PainelPontuacao painel = new PainelPontuacao(null, () -> {
+            mostrarMenuPrincipal();
+        });
+        
+        primaryStage.setScene(new Scene(painel.getLayout(), 600, 600));
+        primaryStage.centerOnScreen();
     }
     
     /**
