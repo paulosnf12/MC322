@@ -43,8 +43,11 @@ public class Game implements Salvavel, Serializable {
     /** Estado atual do jogo */
     private EstadoJogo estado;
     
-    /** Pontuação atual do jogo */
+    /** Pontuação atual do jogo (do nível atual) */
     private int pontuacao;
+    
+    /** Pontuação do último nível completado (para exibição) */
+    private int pontuacaoUltimoNivel;
     
     /** Número de movimentos realizados */
     private int movimentos;
@@ -84,6 +87,7 @@ public class Game implements Salvavel, Serializable {
         this.jogoEmAndamento = false;
         this.estado = EstadoJogo.MENU;
         this.pontuacao = 0;
+        this.pontuacaoUltimoNivel = 0;
         this.indiceDificuldadeAtual = 0;
         inicializarDificuldades();
     }
@@ -129,6 +133,7 @@ public class Game implements Salvavel, Serializable {
         this.indiceDificuldadeAtual = 0;
         this.movimentos = 0;
         this.pontuacao = 0;
+        this.pontuacaoUltimoNivel = 0;
         this.tempoInicio = System.currentTimeMillis();
         this.jogoEmAndamento = true;
         this.vitoria = false;
@@ -156,6 +161,10 @@ public class Game implements Salvavel, Serializable {
     public void processarJogada(int linha, int coluna) throws MovimentoInvalidoException {
         // Só processa se o jogo estiver valendo
         if (tabuleiro != null && jogoEmAndamento) {
+            // Limpa a pontuação do nível anterior quando o jogador começa a jogar o novo nível
+            if (movimentos == 0 && pontuacaoUltimoNivel > 0) {
+                pontuacaoUltimoNivel = 0;
+            }
             tabuleiro.alternarCelula(linha, coluna);
             this.movimentos++;
             verificarVitoria(); // Verifica imediatamente após o movimento
@@ -198,6 +207,9 @@ public class Game implements Salvavel, Serializable {
                 this.pontuacao = 0;
             }
             
+            // Salva a pontuação do nível antes de avançar
+            this.pontuacaoUltimoNivel = this.pontuacao;
+            
             if (jogador != null) {
                 jogador.adicionarPontuacao(pontuacao);
                 jogador.atualizarRecorde(dificuldade, pontuacao);
@@ -231,7 +243,8 @@ public class Game implements Salvavel, Serializable {
             
             // Reseta contadores para o novo nível
             this.movimentos = 0;
-            this.pontuacao = 0;
+            this.pontuacao = 0; // Pontuação do novo nível começa em 0
+            // NÃO limpa pontuacaoUltimoNivel aqui - será limpa quando o jogador fizer o primeiro movimento
             this.tempoInicio = System.currentTimeMillis();
             this.vitoria = false;
             this.jogoEmAndamento = true;
@@ -291,6 +304,7 @@ public class Game implements Salvavel, Serializable {
         }
         this.movimentos = 0;
         this.pontuacao = 0;
+        this.pontuacaoUltimoNivel = 0;
         this.tempoInicio = System.currentTimeMillis();
         this.jogoEmAndamento = true;
         this.vitoria = false;
@@ -454,12 +468,30 @@ public class Game implements Salvavel, Serializable {
     }
     
     /**
-     * Retorna a pontuação atual do jogo.
+     * Retorna a pontuação atual do jogo (do nível atual).
+     * <p>
+     * Se o jogador acabou de vencer um nível, retorna a pontuação desse nível.
+     * Caso contrário, retorna a pontuação acumulada do nível atual (geralmente 0 até vencer).
+     * </p>
      * 
-     * @return Pontuação atual
+     * @return Pontuação atual do nível
      */
     public int getPontuacao() {
+        // Se há pontuação do último nível e ainda não começou a jogar o novo nível (movimentos == 0)
+        // ou se acabou de vencer, retorna a pontuação do nível vencido
+        if (pontuacaoUltimoNivel > 0 && (movimentos == 0 || vitoria)) {
+            return pontuacaoUltimoNivel;
+        }
         return pontuacao;
+    }
+    
+    /**
+     * Retorna a pontuação do último nível completado.
+     * 
+     * @return Pontuação do último nível vencido
+     */
+    public int getPontuacaoUltimoNivel() {
+        return pontuacaoUltimoNivel;
     }
     
     /**

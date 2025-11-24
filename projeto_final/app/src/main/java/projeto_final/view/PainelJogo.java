@@ -49,6 +49,7 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
     private Rectangle[][] celulasVisuais;
     private Label lblTempo;
     private Label lblMovimentos;
+    private Label lblPontuacao;
     private Label lblJogador;
     private Label lblDificuldade;
     private GridPane gridTabuleiro;
@@ -95,6 +96,7 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         lblDificuldade = new Label(infoDificuldade);
         lblMovimentos = new Label("Movimentos: 0");
         lblTempo = new Label("Tempo: 0s");
+        lblPontuacao = new Label("Pontos: 0");
         
         // Estilização básica
         Font fonteInfo = new Font("Arial", 16);
@@ -104,8 +106,10 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         lblDificuldade.setStyle("-fx-font-weight: bold; -fx-text-fill: #0066CC;");
         lblMovimentos.setFont(fonteInfo);
         lblTempo.setFont(fonteInfo);
+        lblPontuacao.setFont(fonteInfo);
+        lblPontuacao.setStyle("-fx-font-weight: bold; -fx-text-fill: #009900;");
 
-        barraInfo.getChildren().addAll(lblJogador, lblDificuldade, lblMovimentos, lblTempo);
+        barraInfo.getChildren().addAll(lblJogador, lblDificuldade, lblMovimentos, lblTempo, lblPontuacao);
         this.setTop(barraInfo); // Adiciona ao topo do BorderPane
 
         // --- Grid do Tabuleiro ---
@@ -422,6 +426,14 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         }
         // Atualiza Movimentos
         lblMovimentos.setText("Movimentos: " + game.getMovimentos());
+        
+        // Atualiza Pontuação
+        int pontuacaoAtual = game.getPontuacao();
+        int pontuacaoTotal = 0;
+        if (game.getJogador() != null) {
+            pontuacaoTotal = game.getJogador().getPontuacaoTotal();
+        }
+        lblPontuacao.setText(String.format("Pontos: %d (Total: %d)", pontuacaoAtual, pontuacaoTotal));
         
         // Atualiza informação de dificuldade
         if (game.getDificuldade() != null) {
