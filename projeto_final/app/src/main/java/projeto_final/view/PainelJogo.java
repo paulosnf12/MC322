@@ -49,6 +49,7 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
     private final Rectangle[][] celulasVisuais;
     private Label lblTempo;
     private Label lblMovimentos;
+    private Label lblJogador;
     private GridPane gridTabuleiro;
     private Timeline timeline; // Atributo de classe para controle do tempo
     private Button btnSalvar;
@@ -77,15 +78,24 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         barraInfo.setPadding(new Insets(10));
         barraInfo.setStyle("-fx-background-color: #DDDDDD;");
 
+        // Obtém o nome do jogador ou usa padrão
+        String nomeJogador = "Jogador";
+        if (game.getJogador() != null && game.getJogador().getNome() != null) {
+            nomeJogador = game.getJogador().getNome();
+        }
+        
+        lblJogador = new Label("Jogador: " + nomeJogador);
         lblMovimentos = new Label("Movimentos: 0");
         lblTempo = new Label("Tempo: 0s");
         
         // Estilização básica
         Font fonteInfo = new Font("Arial", 16);
+        lblJogador.setFont(fonteInfo);
+        lblJogador.setStyle("-fx-font-weight: bold;");
         lblMovimentos.setFont(fonteInfo);
         lblTempo.setFont(fonteInfo);
 
-        barraInfo.getChildren().addAll(lblMovimentos, lblTempo);
+        barraInfo.getChildren().addAll(lblJogador, lblMovimentos, lblTempo);
         this.setTop(barraInfo); // Adiciona ao topo do BorderPane
 
         // --- Grid do Tabuleiro ---
