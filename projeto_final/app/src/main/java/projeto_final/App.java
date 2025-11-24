@@ -54,8 +54,18 @@ public class App extends Application {
         this.primaryStage = primaryStage;
         this.game = new Game();
         primaryStage.setTitle("Lights Out");
+        
+        // Centraliza a janela quando ela é redimensionada
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            primaryStage.centerOnScreen();
+        });
+        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            primaryStage.centerOnScreen();
+        });
+        
         mostrarMenuPrincipal();
         primaryStage.show();
+        primaryStage.centerOnScreen(); // Centraliza na primeira exibição
     }
 
     /**
@@ -92,6 +102,7 @@ public class App extends Application {
         // O usuário pode tentar carregar mesmo se não houver arquivo salvo
         
         primaryStage.setScene(new Scene(menu.getLayout(), 300, 300));
+        primaryStage.centerOnScreen(); // Centraliza a janela
     }
     
     /**
@@ -250,7 +261,9 @@ public class App extends Application {
         });
         
         // Ajustei o tamanho da janela para caber o novo painel
-        primaryStage.setScene(new Scene(painel, 400, 500)); 
+        // Tamanho aumentado para melhor visualização: largura 700, altura 800
+        primaryStage.setScene(new Scene(painel, 700, 800));
+        primaryStage.centerOnScreen(); // Centraliza a janela após redimensionamento
     }
 
     /**

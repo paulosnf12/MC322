@@ -3,9 +3,14 @@ package projeto_final.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import projeto_final.abstracts.Dificuldade;
 import projeto_final.exceptions.MovimentoInvalidoException;
 import projeto_final.interfaces.Salvavel;
+import projeto_final.model.DificuldadeDificil;
+import projeto_final.model.DificuldadeFacil;
+import projeto_final.model.DificuldadeMedio;
 import projeto_final.model.EstadoJogo;
 import projeto_final.model.GerenciadorArquivos;
 import projeto_final.model.Jogador;
@@ -59,6 +64,12 @@ public class Game implements Salvavel, Serializable {
     /** Dificuldade atual do jogo */
     private Dificuldade dificuldade;
     
+    /** Lista de dificuldades na ordem de progressão */
+    private List<Dificuldade> dificuldades;
+    
+    /** Índice da dificuldade atual na progressão */
+    private int indiceDificuldadeAtual;
+    
     /** Caminho padrão para salvar o jogo */
     private static final String ARQUIVO_SAVE = "save/jogo.sav";
 
@@ -73,6 +84,21 @@ public class Game implements Salvavel, Serializable {
         this.jogoEmAndamento = false;
         this.estado = EstadoJogo.MENU;
         this.pontuacao = 0;
+        this.indiceDificuldadeAtual = 0;
+        inicializarDificuldades();
+    }
+    
+    /**
+     * Inicializa a lista de dificuldades na ordem de progressão.
+     * <p>
+     * A ordem é: Fácil → Médio → Difícil
+     * </p>
+     */
+    private void inicializarDificuldades() {
+        this.dificuldades = new ArrayList<>();
+        this.dificuldades.add(new DificuldadeFacil());
+        this.dificuldades.add(new DificuldadeMedio());
+        this.dificuldades.add(new DificuldadeDificil());
     }
     
     /**
@@ -92,20 +118,28 @@ public class Game implements Salvavel, Serializable {
     }
 
     /**
-     * Inicia um novo jogo com dificuldade padrão (3x3).
+     * Inicia um novo jogo com sistema de progressão de dificuldade.
      * <p>
-     * Mantido para compatibilidade com código existente.
+     * Inicia na primeira dificuldade (Fácil) e progride automaticamente
+     * para Médio e depois Difícil conforme o jogador vence cada nível.
      * </p>
      */
     public void iniciarNovoJogo() {
-        // Mantido para compatibilidade com código existente
+        // Reinicia a progressão
+        this.indiceDificuldadeAtual = 0;
         this.movimentos = 0;
         this.pontuacao = 0;
         this.tempoInicio = System.currentTimeMillis();
         this.jogoEmAndamento = true;
         this.vitoria = false;
         this.estado = EstadoJogo.JOGANDO;
-        this.tabuleiro = new Tabuleiro(3); 
+        
+        // Inicia com a primeira dificuldade (Fácil)
+        if (dificuldades == null || dificuldades.isEmpty()) {
+            inicializarDificuldades();
+        }
+        this.dificuldade = dificuldades.get(0);
+        this.tabuleiro = new Tabuleiro(dificuldade.getDimensao());
     }
 
     /**
@@ -149,6 +183,9 @@ public class Game implements Salvavel, Serializable {
      * <p>
      * A fórmula de pontuação é: (1000 / movimentos) × (300 / tempo_segundos) × multiplicador_dificuldade
      * </p>
+     * <p>
+     * Após processar a vitória, verifica se há próxima dificuldade e avança automaticamente.
+     * </p>
      */
     public void processarVitoria() {
         if (tabuleiro != null && dificuldade != null && movimentos > 0) {
@@ -165,7 +202,84 @@ public class Game implements Salvavel, Serializable {
                 jogador.adicionarPontuacao(pontuacao);
                 jogador.atualizarRecorde(dificuldade, pontuacao);
             }
+            
+            // Verifica se há próxima dificuldade
+            avancarParaProximaDificuldade();
         }
+    }
+    
+    /**
+     * Avança para a próxima dificuldade na progressão.
+     * <p>
+     * Se houver próxima dificuldade, inicia um novo tabuleiro com ela.
+     * Se completou todas as dificuldades, marca o jogo como completamente vencido.
+     * </p>
+     * 
+     * @return true se avançou para próxima dificuldade, false se completou todas
+     */
+    public boolean avancarParaProximaDificuldade() {
+        if (dificuldades == null || dificuldades.isEmpty()) {
+            inicializarDificuldades();
+        }
+        
+        indiceDificuldadeAtual++;
+        
+        if (indiceDificuldadeAtual < dificuldades.size()) {
+            // Ainda há dificuldades para completar
+            Dificuldade proximaDificuldade = dificuldades.get(indiceDificuldadeAtual);
+            this.dificuldade = proximaDificuldade;
+            
+            // Reseta contadores para o novo nível
+            this.movimentos = 0;
+            this.pontuacao = 0;
+            this.tempoInicio = System.currentTimeMillis();
+            this.vitoria = false;
+            this.jogoEmAndamento = true;
+            this.estado = EstadoJogo.JOGANDO;
+            
+            // Cria novo tabuleiro com a próxima dificuldade
+            this.tabuleiro = new Tabuleiro(dificuldade.getDimensao());
+            
+            return true;
+        } else {
+            // Completou todas as dificuldades!
+            this.jogoEmAndamento = false;
+            this.estado = EstadoJogo.VITORIA;
+            return false;
+        }
+    }
+    
+    /**
+     * Verifica se o jogador completou todas as dificuldades.
+     * 
+     * @return true se completou todas as dificuldades, false caso contrário
+     */
+    public boolean completouTodasDificuldades() {
+        if (dificuldades == null || dificuldades.isEmpty()) {
+            return false;
+        }
+        return indiceDificuldadeAtual >= dificuldades.size();
+    }
+    
+    /**
+     * Retorna o número da dificuldade atual na progressão (1, 2 ou 3).
+     * 
+     * @return Número da dificuldade atual (1 = Fácil, 2 = Médio, 3 = Difícil)
+     */
+    public int getNumeroDificuldadeAtual() {
+        return indiceDificuldadeAtual + 1;
+    }
+    
+    /**
+     * Retorna o total de dificuldades na progressão.
+     * 
+     * @return Total de dificuldades (sempre 3)
+     */
+    public int getTotalDificuldades() {
+        if (dificuldades == null || dificuldades.isEmpty()) {
+            return 3; // Padrão
+        }
+        return dificuldades.size();
     }
     
     /**
@@ -272,12 +386,25 @@ public class Game implements Salvavel, Serializable {
     }
 
     /**
-     * Verifica se o jogador venceu o jogo.
+     * Verifica se o jogador venceu o nível atual.
+     * <p>
+     * Retorna true se o jogador venceu o nível atual, mas ainda não avançou
+     * para a próxima dificuldade ou completou todas as dificuldades.
+     * </p>
      * 
-     * @return true se o jogador venceu, false caso contrário
+     * @return true se o jogador venceu o nível atual, false caso contrário
      */
     public boolean isVitoria() {
-        return vitoria;
+        return vitoria && !jogoEmAndamento;
+    }
+    
+    /**
+     * Verifica se o jogo está em andamento.
+     * 
+     * @return true se o jogo está em andamento, false caso contrário
+     */
+    public boolean getJogoEmAndamento() {
+        return jogoEmAndamento;
     }
 
     /**

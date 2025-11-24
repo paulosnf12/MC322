@@ -46,10 +46,11 @@ import projeto_final.model.Tabuleiro;
 // Implementa Desenhavel e EventListener conforme o diagrama
 public class PainelJogo extends BorderPane implements Desenhavel, EventListener { 
     private final Game game;
-    private final Rectangle[][] celulasVisuais;
+    private Rectangle[][] celulasVisuais;
     private Label lblTempo;
     private Label lblMovimentos;
     private Label lblJogador;
+    private Label lblDificuldade;
     private GridPane gridTabuleiro;
     private Timeline timeline; // Atributo de classe para controle do tempo
     private Button btnSalvar;
@@ -64,11 +65,8 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
      */
     public PainelJogo(Game game) {
         this.game = game;
-        int dimensao = game.getTabuleiro().getDimensao();
-        this.celulasVisuais = new Rectangle[dimensao][dimensao];
-
         inicializarLayout();
-        inicializarTabuleiro(dimensao);
+        inicializarTabuleiro();
         iniciarCronometro(); // Inicia a atualização da tela
     }
 
@@ -85,7 +83,16 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
             nomeJogador = game.getJogador().getNome();
         }
         
+        // Obtém informação da dificuldade atual
+        String infoDificuldade = "Nível: -";
+        if (game.getDificuldade() != null) {
+            int numAtual = game.getNumeroDificuldadeAtual();
+            int total = game.getTotalDificuldades();
+            infoDificuldade = String.format("Nível %d/%d: %s", numAtual, total, game.getDificuldade().getNome());
+        }
+        
         lblJogador = new Label("Jogador: " + nomeJogador);
+        lblDificuldade = new Label(infoDificuldade);
         lblMovimentos = new Label("Movimentos: 0");
         lblTempo = new Label("Tempo: 0s");
         
@@ -93,10 +100,12 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         Font fonteInfo = new Font("Arial", 16);
         lblJogador.setFont(fonteInfo);
         lblJogador.setStyle("-fx-font-weight: bold;");
+        lblDificuldade.setFont(fonteInfo);
+        lblDificuldade.setStyle("-fx-font-weight: bold; -fx-text-fill: #0066CC;");
         lblMovimentos.setFont(fonteInfo);
         lblTempo.setFont(fonteInfo);
 
-        barraInfo.getChildren().addAll(lblJogador, lblMovimentos, lblTempo);
+        barraInfo.getChildren().addAll(lblJogador, lblDificuldade, lblMovimentos, lblTempo);
         this.setTop(barraInfo); // Adiciona ao topo do BorderPane
 
         // --- Grid do Tabuleiro ---
@@ -217,10 +226,31 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         });
     }
 
-    private void inicializarTabuleiro(int dimensao) {
+    private void inicializarTabuleiro() {
+        criarTabuleiroVisual();
+        atualizar(); // Desenha o estado inicial
+    }
+    
+    /**
+     * Cria ou recria o tabuleiro visual baseado na dimensão atual.
+     */
+    private void criarTabuleiroVisual() {
+        // Limpa o grid atual
+        gridTabuleiro.getChildren().clear();
+        
+        // Obtém a dimensão atual do tabuleiro
+        int dimensao = game.getTabuleiro().getDimensao();
+        
+        // Cria novo array de células visuais
+        celulasVisuais = new Rectangle[dimensao][dimensao];
+        
+        // Calcula tamanho das células baseado na dimensão (ajusta para caber melhor)
+        // Aumentado para melhor visualização: células maiores em tabuleiros maiores
+        double tamanhoCelula = Math.min(100, 600.0 / dimensao);
+        
         for (int i = 0; i < dimensao; i++) {
             for (int j = 0; j < dimensao; j++) {
-                Rectangle rect = new Rectangle(80, 80);
+                Rectangle rect = new Rectangle(tamanhoCelula, tamanhoCelula);
                 rect.setStroke(Color.BLACK);
                 
                 final int linha = i;
@@ -253,7 +283,6 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
                 gridTabuleiro.add(rect, j, i);
             }
         }
-        atualizar(); // Desenha o estado inicial
     }
 
     // Método chamado periodicamente para atualizar o cronômetro
@@ -276,34 +305,130 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
 
     // Novo método para exibir o pop-up de vitória
     private void exibirMensagemVitoria() {
+        // Verifica se completou todas as dificuldades
+        boolean completouTodas = game.completouTodasDificuldades();
+        
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Parabéns!");
-        alert.setHeaderText("Você Venceu!");
         
-        String estatisticas = String.format(
-            "Você apagou todas as luzes!\n\nMovimentos: %d\nTempo: %d segundos", 
-            game.getMovimentos(), 
-            game.getTempoDecorrrido()
-        );
+        if (completouTodas) {
+            // Mensagem especial para completar todas as dificuldades
+            alert.setTitle("PARABÉNS!");
+            alert.setHeaderText("Você Completou Todos os Níveis!");
+            
+            String mensagem = String.format(
+                "🎉 INCRÍVEL! 🎉\n\n" +
+                "Você completou todos os três níveis:\n" +
+                "✓ Fácil (3x3)\n" +
+                "✓ Médio (5x5)\n" +
+                "✓ Difícil (7x7)\n\n" +
+                "Você é um verdadeiro mestre do Lights Out!\n\n" +
+                "Pontuação Total: %d pontos",
+                game.getJogador() != null ? game.getJogador().getPontuacaoTotal() : 0
+            );
+            
+            alert.setContentText(mensagem);
+            alert.showAndWait();
+            
+            // Volta ao menu após completar tudo
+            if (callbackVoltarMenu != null) {
+                callbackVoltarMenu.run();
+            }
+        } else {
+            // Mensagem normal de vitória com progressão
+            alert.setTitle("Parabéns!");
+            
+            int numAtual = game.getNumeroDificuldadeAtual();
+            int total = game.getTotalDificuldades();
+            String nomeDificuldade = game.getDificuldade() != null ? game.getDificuldade().getNome() : "";
+            
+            if (numAtual < total) {
+                // Ainda há mais níveis
+                alert.setHeaderText("Nível " + nomeDificuldade + " Completado!");
+                
+                String estatisticas = String.format(
+                    "Você completou o nível %s!\n\n" +
+                    "Movimentos: %d\n" +
+                    "Tempo: %d segundos\n" +
+                    "Pontuação: %d pontos\n\n" +
+                    "Avançando para o próximo nível...",
+                    nomeDificuldade,
+                    game.getMovimentos(), 
+                    game.getTempoDecorrrido(),
+                    game.getPontuacao()
+                );
+                
+                alert.setContentText(estatisticas);
+                alert.showAndWait();
+                
+                // Atualiza o tabuleiro para a próxima dificuldade
+                atualizarTabuleiroParaProximaDificuldade();
+                
+                // Reinicia o cronômetro para o novo nível
+                iniciarCronometro();
+            } else {
+                // Último nível (não deveria chegar aqui, mas por segurança)
+                alert.setHeaderText("Você Venceu!");
+                
+                String estatisticas = String.format(
+                    "Você apagou todas as luzes!\n\nMovimentos: %d\nTempo: %d segundos", 
+                    game.getMovimentos(), 
+                    game.getTempoDecorrrido()
+                );
+                
+                alert.setContentText(estatisticas);
+                alert.showAndWait();
+            }
+        }
+    }
+    
+    /**
+     * Atualiza o tabuleiro visual quando avança para próxima dificuldade.
+     */
+    private void atualizarTabuleiroParaProximaDificuldade() {
+        // Recria o tabuleiro visual com a nova dimensão
+        criarTabuleiroVisual();
         
-        alert.setContentText(estatisticas);
-        alert.showAndWait();
+        // Reinicia o cronômetro
+        pararCronometro();
+        iniciarCronometro();
+        
+        // Atualiza a informação de dificuldade
+        if (game.getDificuldade() != null) {
+            int numAtual = game.getNumeroDificuldadeAtual();
+            int total = game.getTotalDificuldades();
+            lblDificuldade.setText(String.format("Nível %d/%d: %s", numAtual, total, game.getDificuldade().getNome()));
+        }
+        
+        // Atualiza a visualização
+        atualizar();
     }
 
     public void atualizar() {
         // Atualiza Tabuleiro
         Tabuleiro tabuleiro = game.getTabuleiro();
-        for (int i = 0; i < tabuleiro.getDimensao(); i++) {
-            for (int j = 0; j < tabuleiro.getDimensao(); j++) {
-                if (tabuleiro.getCelula(i, j).isLigada()) {
-                    celulasVisuais[i][j].setFill(Color.YELLOW);
-                } else {
-                    celulasVisuais[i][j].setFill(Color.DARKSLATEGRAY);
+        if (tabuleiro != null && celulasVisuais != null) {
+            int dimensao = tabuleiro.getDimensao();
+            for (int i = 0; i < dimensao && i < celulasVisuais.length; i++) {
+                for (int j = 0; j < dimensao && j < celulasVisuais[i].length; j++) {
+                    if (celulasVisuais[i][j] != null) {
+                        if (tabuleiro.getCelula(i, j).isLigada()) {
+                            celulasVisuais[i][j].setFill(Color.YELLOW);
+                        } else {
+                            celulasVisuais[i][j].setFill(Color.DARKSLATEGRAY);
+                        }
+                    }
                 }
             }
         }
         // Atualiza Movimentos
         lblMovimentos.setText("Movimentos: " + game.getMovimentos());
+        
+        // Atualiza informação de dificuldade
+        if (game.getDificuldade() != null) {
+            int numAtual = game.getNumeroDificuldadeAtual();
+            int total = game.getTotalDificuldades();
+            lblDificuldade.setText(String.format("Nível %d/%d: %s", numAtual, total, game.getDificuldade().getNome()));
+        }
     }
     
     // Implementação da interface Desenhavel
