@@ -10,20 +10,59 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import projeto_final.interfaces.Salvavel;
 
 /**
  * Classe responsável por gerenciar a persistência de pontuações usando serialização de objetos.
  * <p>
- * As pontuações são salvas como objetos serializados em um arquivo binário.
- * O arquivo é ordenado por pontuação (maior primeiro).
+ * Esta classe implementa a interface {@code Salvavel} para gerenciar a persistência
+ * da lista de pontuações. As pontuações são salvas como objetos serializados em um
+ * arquivo binário e ordenadas por pontuação (maior primeiro).
+ * </p>
+ * <p>
+ * A classe utiliza o padrão Singleton para garantir uma única instância e métodos
+ * estáticos para facilitar o uso sem necessidade de instanciação.
  * </p>
  * 
  * @author Projeto Final MC322
  * @version 1.0
+ * @see projeto_final.interfaces.Salvavel
+ * @see projeto_final.model.PontuacaoRecord
  */
-public class GerenciadorPontuacoes {
+public class GerenciadorPontuacoes implements Salvavel {
+    /** Instância única do gerenciador (Singleton) */
+    private static GerenciadorPontuacoes instancia;
+    
     /** Nome do arquivo de pontuações */
     private static final String ARQUIVO_PONTUACOES = "pontuacoes.dat";
+    
+    /** Lista de pontuações em memória */
+    private List<PontuacaoRecord> pontuacoes;
+    
+    /**
+     * Construtor privado para garantir o padrão Singleton.
+     */
+    private GerenciadorPontuacoes() {
+        this.pontuacoes = new ArrayList<>();
+        try {
+            this.pontuacoes = carregarPontuacoes();
+        } catch (IOException e) {
+            // Se houver erro ao carregar, inicia com lista vazia
+            this.pontuacoes = new ArrayList<>();
+        }
+    }
+    
+    /**
+     * Retorna a instância única do GerenciadorPontuacoes (Singleton).
+     * 
+     * @return A instância do GerenciadorPontuacoes
+     */
+    public static GerenciadorPontuacoes getInstancia() {
+        if (instancia == null) {
+            instancia = new GerenciadorPontuacoes();
+        }
+        return instancia;
+    }
     
     /**
      * Salva ou atualiza uma pontuação no arquivo.
@@ -38,10 +77,22 @@ public class GerenciadorPontuacoes {
      * @throws IOException Se houver erro ao escrever no arquivo
      */
     public static boolean salvarOuAtualizarPontuacao(PontuacaoRecord record) throws IOException {
-        List<PontuacaoRecord> pontuacoes = carregarPontuacoes();
+        return getInstancia().salvarOuAtualizarPontuacaoInstancia(record);
+    }
+    
+    /**
+     * Método de instância para salvar ou atualizar uma pontuação.
+     * 
+     * @param record Registro de pontuação a ser salvo
+     * @return true se houve recorde (novo ou atualizado), false caso contrário
+     * @throws IOException Se houver erro ao escrever no arquivo
+     */
+    private boolean salvarOuAtualizarPontuacaoInstancia(PontuacaoRecord record) throws IOException {
+        // Garante que a lista está atualizada
+        this.pontuacoes = carregarPontuacoes();
         
         // Busca se já existe um recorde para este jogador nesta dificuldade
-        PontuacaoRecord recordeExistente = buscarRecorde(pontuacoes, record.getNomeJogador(), record.getDificuldade());
+        PontuacaoRecord recordeExistente = buscarRecorde(this.pontuacoes, record.getNomeJogador(), record.getDificuldade());
         
         boolean houveRecorde = false;
         
@@ -49,19 +100,19 @@ public class GerenciadorPontuacoes {
             // Já existe um recorde - atualiza apenas se a nova pontuação for maior
             if (record.getPontuacao() > recordeExistente.getPontuacao()) {
                 // Remove o recorde antigo
-                pontuacoes.remove(recordeExistente);
+                this.pontuacoes.remove(recordeExistente);
                 // Adiciona o novo recorde
-                pontuacoes.add(record);
+                this.pontuacoes.add(record);
                 houveRecorde = true;
             }
         } else {
             // Não existe recorde - adiciona novo
-            pontuacoes.add(record);
+            this.pontuacoes.add(record);
             houveRecorde = true; // Primeiro recorde do jogador nesta dificuldade
         }
         
         // Ordena por pontuação (maior primeiro)
-        Collections.sort(pontuacoes, new Comparator<PontuacaoRecord>() {
+        Collections.sort(this.pontuacoes, new Comparator<PontuacaoRecord>() {
             @Override
             public int compare(PontuacaoRecord r1, PontuacaoRecord r2) {
                 return Integer.compare(r2.getPontuacao(), r1.getPontuacao());
@@ -69,7 +120,7 @@ public class GerenciadorPontuacoes {
         });
         
         // Salva todas as pontuações no arquivo
-        salvarTodasPontuacoes(pontuacoes);
+        salvar();
         
         return houveRecorde;
     }
@@ -90,21 +141,6 @@ public class GerenciadorPontuacoes {
             }
         }
         return null;
-    }
-    
-    /**
-     * Salva uma nova pontuação no arquivo (método legado para compatibilidade).
-     * <p>
-     * Este método chama {@link #salvarOuAtualizarPontuacao(PontuacaoRecord)}.
-     * </p>
-     * 
-     * @param record Registro de pontuação a ser salvo
-     * @throws IOException Se houver erro ao escrever no arquivo
-     * @deprecated Use {@link #salvarOuAtualizarPontuacao(PontuacaoRecord)} em vez disso
-     */
-    @Deprecated
-    public static void salvarPontuacao(PontuacaoRecord record) throws IOException {
-        salvarOuAtualizarPontuacao(record);
     }
     
     /**
@@ -146,22 +182,54 @@ public class GerenciadorPontuacoes {
     }
     
     /**
-     * Salva todas as pontuações no arquivo usando serialização de objetos.
+     * Salva o estado atual do gerenciador (lista de pontuações) em um arquivo.
+     * <p>
+     * Implementação da interface {@code Salvavel}. Salva a lista de pontuações
+     * em memória no arquivo usando serialização de objetos.
+     * </p>
      * 
-     * @param pontuacoes Lista de registros de pontuação a serem salvos
-     * @throws IOException Se houver erro ao escrever no arquivo
+     * @see projeto_final.interfaces.Salvavel#salvar()
      */
-    private static void salvarTodasPontuacoes(List<PontuacaoRecord> pontuacoes) throws IOException {
-        File arquivo = new File(ARQUIVO_PONTUACOES);
-        
-        // Cria o diretório pai se não existir
-        File parentDir = arquivo.getParentFile();
-        if (parentDir != null && !parentDir.exists()) {
-            parentDir.mkdirs();
+    @Override
+    public void salvar() {
+        try {
+            File arquivo = new File(ARQUIVO_PONTUACOES);
+            
+            // Cria o diretório pai se não existir
+            File parentDir = arquivo.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+            
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
+                oos.writeObject(this.pontuacoes);
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar pontuações: " + e.getMessage());
+            // Não relança para não quebrar o fluxo do jogo
         }
-        
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-            oos.writeObject(pontuacoes);
+    }
+    
+    /**
+     * Carrega o estado do gerenciador (lista de pontuações) a partir de um arquivo.
+     * <p>
+     * Implementação da interface {@code Salvavel}. Carrega a lista de pontuações
+     * do arquivo e atualiza o estado interno do gerenciador.
+     * </p>
+     * 
+     * @param arquivo Caminho do arquivo a ser carregado (ignorado, usa ARQUIVO_PONTUACOES)
+     * @see projeto_final.interfaces.Salvavel#carregar(String)
+     */
+    @Override
+    public void carregar(String arquivo) {
+        try {
+            this.pontuacoes = carregarPontuacoes();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar pontuações: " + e.getMessage());
+            // Se houver erro, mantém a lista atual ou inicia com lista vazia
+            if (this.pontuacoes == null) {
+                this.pontuacoes = new ArrayList<>();
+            }
         }
     }
     

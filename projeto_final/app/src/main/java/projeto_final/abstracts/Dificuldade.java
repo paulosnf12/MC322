@@ -11,7 +11,11 @@ import java.io.Serializable;
  * </p>
  * <p>
  * Classes filhas devem definir os valores de {@code nome}, {@code dimensao} e
- * {@code multiplicador} no construtor.
+ * {@code multiplicador} no construtor. Estes campos são protegidos para permitir
+ * acesso direto pelas classes filhas, mas não devem ser modificados após a inicialização.
+ * </p>
+ * <p>
+ * Implementa {@code Serializable} para permitir persistência do estado do jogo.
  * </p>
  * 
  * @author Projeto Final MC322
@@ -21,6 +25,8 @@ import java.io.Serializable;
  * @see projeto_final.model.DificuldadeDificil
  */
 public abstract class Dificuldade implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     /** Nome da dificuldade (ex: "Fácil", "Médio", "Difícil") */
     protected String nome;
     

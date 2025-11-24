@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import projeto_final.abstracts.ComponenteGrafico;
-import projeto_final.interfaces.Desenhavel;
 import projeto_final.model.GerenciadorPontuacoes;
 import projeto_final.model.Jogador;
 import projeto_final.model.PontuacaoRecord;
@@ -39,7 +38,7 @@ import projeto_final.model.PontuacaoRecord;
  * @see projeto_final.interfaces.Desenhavel
  * @see projeto_final.model.Jogador
  */
-public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
+public class PainelPontuacao extends ComponenteGrafico {
     private VBox layout;
     private VBox conteudoPontuacoes;
     private ScrollPane scrollPane;
@@ -121,8 +120,9 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
     
     @Override
     public void exibir() {
-        // Exibe o painel de pontuação
-        atualizar();
+        // O layout já está configurado e inicializado no construtor
+        // Este método é chamado quando o componente precisa ser exibido
+        // As pontuações são carregadas na inicialização
     }
     
     /**
@@ -403,13 +403,8 @@ public class PainelPontuacao extends ComponenteGrafico implements Desenhavel {
     
     @Override
     public void atualizar() {
+        // Atualiza as pontuações recarregando do arquivo
         carregarPontuacoes();
-    }
-    
-    @Override
-    public void desenhar() {
-        // Desenha o painel de pontuação na interface
-        exibir();
     }
     
     /**

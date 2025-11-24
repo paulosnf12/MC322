@@ -3,13 +3,18 @@ package projeto_final.model;
 import projeto_final.abstracts.Dificuldade;
 
 /**
- * Classe que representa a dificuldade fácil do jogo.
+ * Classe concreta que representa a dificuldade fácil do jogo.
  * <p>
- * Esta classe implementa o nível de dificuldade mais fácil, caracterizado por:
+ * Esta classe estende {@code Dificuldade} e implementa o nível de dificuldade
+ * mais fácil, caracterizado por:
  * <ul>
  *   <li>Tabuleiro 3x3 (9 células)</li>
  *   <li>Multiplicador de pontuação: 1.0</li>
  * </ul>
+ * </p>
+ * <p>
+ * Esta é uma implementação concreta do padrão Strategy, fornecendo uma
+ * estratégia específica de dificuldade para o jogo.
  * </p>
  * 
  * @author Projeto Final MC322
@@ -20,8 +25,12 @@ public class DificuldadeFacil extends Dificuldade {
     /**
      * Construtor que inicializa a dificuldade fácil.
      * <p>
-     * Configura o nome como "Fácil", dimensão do tabuleiro como 3x3
-     * e multiplicador de pontuação como 1.0.
+     * Configura os atributos protegidos da classe pai:
+     * <ul>
+     *   <li>{@code nome}: "Fácil"</li>
+     *   <li>{@code dimensao}: 3 (tabuleiro 3x3)</li>
+     *   <li>{@code multiplicador}: 1.0</li>
+     * </ul>
      * </p>
      */
     public DificuldadeFacil() {

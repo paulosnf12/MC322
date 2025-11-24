@@ -5,12 +5,21 @@ import java.io.Serializable;
 /**
  * Classe que representa um registro de pontuação de uma partida completa.
  * <p>
- * Armazena informações sobre uma partida vencida: nome do jogador, dificuldade,
- * tempo total (soma dos 3 turnos) e pontuação final.
+ * Esta classe é um DTO (Data Transfer Object) que armazena informações sobre
+ * uma partida vencida: nome do jogador, dificuldade, tempo total (soma dos 3 turnos)
+ * e pontuação final.
+ * </p>
+ * <p>
+ * <strong>Nota:</strong> Esta classe não implementa {@code Salvavel} porque é apenas
+ * um container de dados. A persistência é gerenciada pela classe {@code GerenciadorPontuacoes},
+ * que implementa {@code Salvavel} e é responsável por salvar/carregar listas de
+ * {@code PontuacaoRecord}.
  * </p>
  * 
  * @author Projeto Final MC322
  * @version 1.0
+ * @see projeto_final.model.GerenciadorPontuacoes
+ * @see java.io.Serializable
  */
 public class PontuacaoRecord implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -296,10 +296,17 @@ public class Game implements Salvavel, Serializable {
     /**
      * Salva o estado atual do jogo em um arquivo.
      * <p>
-     * Implementação da interface {@code Salvavel}.
+     * Implementação da interface {@code Salvavel}. Persiste o estado completo
+     * do jogo (tabuleiro, jogador, pontuação, turno atual, etc.) em um arquivo
+     * binário usando serialização de objetos.
+     * </p>
+     * <p>
+     * O arquivo é salvo no caminho definido por {@code ARQUIVO_SAVE}. Se houver
+     * erro durante o processo de salvamento, o erro é registrado em log mas não
+     * é relançado para não interromper o fluxo do jogo.
      * </p>
      * 
-     * @throws IOException Se houver erro de I/O ao salvar
+     * @see projeto_final.interfaces.Salvavel#salvar()
      */
     @Override
     public void salvar() {
@@ -314,12 +321,19 @@ public class Game implements Salvavel, Serializable {
     /**
      * Carrega o estado do jogo a partir de um arquivo.
      * <p>
-     * Implementação da interface {@code Salvavel}.
+     * Implementação da interface {@code Salvavel}. Restaura o estado completo
+     * do jogo (tabuleiro, jogador, pontuação, turno atual, etc.) a partir de um
+     * arquivo binário previamente salvo.
+     * </p>
+     * <p>
+     * O método valida a integridade do arquivo antes de tentar carregá-lo e
+     * trata adequadamente casos de arquivo corrompido ou inexistente, lançando
+     * {@code RuntimeException} com mensagem apropriada.
      * </p>
      * 
      * @param arquivo Caminho do arquivo a ser carregado
-     * @throws projeto_final.exceptions.DadosCorruptosException Se o arquivo estiver corrompido
-     * @throws IOException Se houver erro de I/O
+     * @throws RuntimeException Se houver erro ao carregar o arquivo ou se os dados estiverem corrompidos
+     * @see projeto_final.interfaces.Salvavel#carregar(String)
      */
     @Override
     public void carregar(String arquivo) {

@@ -48,8 +48,15 @@ public class Tabuleiro extends ElementoJogo implements Pontuavel {
     /**
      * Inicializa o tabuleiro, criando as células e gerando a configuração inicial.
      * <p>
-     * Implementação do método abstrato da classe pai.
+     * Implementação do método abstrato da classe pai {@code ElementoJogo}.
+     * Este método é responsável por:
+     * <ol>
+     *   <li>Criar e inicializar todas as células do tabuleiro</li>
+     *   <li>Gerar uma configuração inicial válida e solucionável</li>
+     * </ol>
      * </p>
+     * 
+     * @see projeto_final.abstracts.ElementoJogo#inicializar()
      */
     @Override
     public void inicializar() {
@@ -260,15 +267,18 @@ public class Tabuleiro extends ElementoJogo implements Pontuavel {
     /**
      * Calcula a pontuação baseada no estado atual do tabuleiro.
      * <p>
-     * A pontuação é calculada com base na proporção de células desligadas.
-     * Implementação da interface {@code Pontuavel}.
+     * Implementação da interface {@code Pontuavel}. A pontuação é calculada
+     * com base na proporção de células desligadas no tabuleiro.
      * </p>
      * <p>
-     * Nota: A pontuação final do jogo é calculada no Game usando a fórmula:
-     * (1000 / movimentos) × (300 / tempo_segundos) × multiplicador_dificuldade
+     * <strong>Nota:</strong> A pontuação final do jogo é calculada no {@code Game}
+     * usando a fórmula: (1000 / movimentos) × (300 / tempo_segundos) × multiplicador_dificuldade.
+     * Este método fornece uma pontuação base que pode ser usada para outros propósitos.
      * </p>
      * 
-     * @return Pontuação calculada (valor inteiro não negativo)
+     * @return Pontuação calculada (valor inteiro não negativo) baseada na proporção
+     *         de células desligadas
+     * @see projeto_final.interfaces.Pontuavel#calcularPontos()
      */
     @Override
     public int calcularPontos() {

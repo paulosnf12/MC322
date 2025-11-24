@@ -42,8 +42,30 @@ import projeto_final.model.Tabuleiro;
  * @see projeto_final.controller.Game
  * @see projeto_final.model.Tabuleiro
  */
-// Mudamos de GridPane para BorderPane para acomodar a barra de info
-// Implementa Desenhavel e EventListener conforme o diagrama
+/**
+ * Classe que representa o painel principal do jogo Lights Out.
+ * <p>
+ * Esta classe estende {@code BorderPane} do JavaFX e implementa a interface
+ * {@code EventListener} para processar eventos do jogo. Embora não estenda
+ * {@code ComponenteGrafico} diretamente (devido à necessidade de herdar de
+ * BorderPane), ela segue o mesmo padrão de implementação de {@code Desenhavel}.
+ * </p>
+ * <p>
+ * O painel renderiza o tabuleiro do jogo, exibe informações como tempo decorrido
+ * e número de movimentos, e processa os cliques do jogador nas células.
+ * </p>
+ * <p>
+ * O painel atualiza automaticamente a visualização do tabuleiro e mantém
+ * um cronômetro que atualiza o tempo decorrido a cada segundo.
+ * </p>
+ * 
+ * @author Projeto Final MC322
+ * @version 1.0
+ * @see projeto_final.interfaces.Desenhavel
+ * @see projeto_final.interfaces.EventListener
+ * @see projeto_final.controller.Game
+ * @see projeto_final.model.Tabuleiro
+ */
 public class PainelJogo extends BorderPane implements Desenhavel, EventListener { 
     private final Game game;
     private Rectangle[][] celulasVisuais;
@@ -498,13 +520,30 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
         }
     }
     
-    // Implementação da interface Desenhavel
+    /**
+     * Desenha o painel na interface gráfica.
+     * <p>
+     * Implementação da interface {@code Desenhavel}. Atualiza a visualização
+     * do tabuleiro e das informações do jogo.
+     * </p>
+     * 
+     * @see projeto_final.interfaces.Desenhavel#desenhar()
+     */
     @Override
     public void desenhar() {
         atualizar();
     }
     
-    // Implementação da interface EventListener
+    /**
+     * Processa eventos recebidos do sistema.
+     * <p>
+     * Implementação da interface {@code EventListener}. Processa diferentes
+     * tipos de eventos do jogo, como atualizações de estado e vitórias.
+     * </p>
+     * 
+     * @param evento O evento a ser processado
+     * @see projeto_final.interfaces.EventListener#processarEvento(Object)
+     */
     @Override
     public void processarEvento(Object evento) {
         if (evento instanceof String) {
@@ -522,10 +561,5 @@ public class PainelJogo extends BorderPane implements Desenhavel, EventListener 
                     break;
             }
         }
-    }
-    
-    // Método exibir() para compatibilidade com ComponenteGrafico
-    public void exibir() {
-        desenhar();
     }
 }

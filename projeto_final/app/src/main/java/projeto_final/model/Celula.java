@@ -54,8 +54,12 @@ public class Celula extends ElementoJogo {
     /**
      * Inicializa a célula, desligando-a.
      * <p>
-     * Implementação do método abstrato da classe pai.
+     * Implementação do método abstrato da classe pai {@code ElementoJogo}.
+     * Este método garante que a célula esteja em um estado inicial válido
+     * (desligada) quando for inicializada ou resetada.
      * </p>
+     * 
+     * @see projeto_final.abstracts.ElementoJogo#inicializar()
      */
     @Override
     public void inicializar() {

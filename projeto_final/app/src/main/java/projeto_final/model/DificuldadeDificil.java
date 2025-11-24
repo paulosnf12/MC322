@@ -3,13 +3,18 @@ package projeto_final.model;
 import projeto_final.abstracts.Dificuldade;
 
 /**
- * Classe que representa a dificuldade difícil do jogo.
+ * Classe concreta que representa a dificuldade difícil do jogo.
  * <p>
- * Esta classe implementa o nível de dificuldade mais desafiador, caracterizado por:
+ * Esta classe estende {@code Dificuldade} e implementa o nível de dificuldade
+ * mais desafiador, caracterizado por:
  * <ul>
  *   <li>Tabuleiro 7x7 (49 células)</li>
  *   <li>Multiplicador de pontuação: 2.0</li>
  * </ul>
+ * </p>
+ * <p>
+ * Esta é uma implementação concreta do padrão Strategy, fornecendo uma
+ * estratégia específica de dificuldade para o jogo.
  * </p>
  * 
  * @author Projeto Final MC322
@@ -20,8 +25,12 @@ public class DificuldadeDificil extends Dificuldade {
     /**
      * Construtor que inicializa a dificuldade difícil.
      * <p>
-     * Configura o nome como "Difícil", dimensão do tabuleiro como 7x7
-     * e multiplicador de pontuação como 2.0.
+     * Configura os atributos protegidos da classe pai:
+     * <ul>
+     *   <li>{@code nome}: "Difícil"</li>
+     *   <li>{@code dimensao}: 7 (tabuleiro 7x7)</li>
+     *   <li>{@code multiplicador}: 2.0</li>
+     * </ul>
      * </p>
      */
     public DificuldadeDificil() {

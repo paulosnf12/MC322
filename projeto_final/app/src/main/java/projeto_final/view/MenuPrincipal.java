@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import projeto_final.abstracts.ComponenteGrafico;
-import projeto_final.interfaces.Desenhavel;
 import projeto_final.interfaces.EventListener;
 
 /**
@@ -30,7 +29,7 @@ import projeto_final.interfaces.EventListener;
  * @see projeto_final.interfaces.Desenhavel
  * @see projeto_final.interfaces.EventListener
  */
-public class MenuPrincipal extends ComponenteGrafico implements Desenhavel, EventListener {
+public class MenuPrincipal extends ComponenteGrafico implements EventListener {
     /** Layout principal do menu */
     private VBox layout;
     
@@ -187,18 +186,15 @@ public class MenuPrincipal extends ComponenteGrafico implements Desenhavel, Even
     
     @Override
     public void exibir() {
-        // O layout já está configurado, este método pode ser usado para mostrar na tela
+        // O layout já está configurado e inicializado no construtor
+        // Este método é chamado quando o componente precisa ser exibido
+        // Como o layout é estático, não há necessidade de renderização adicional
     }
     
     @Override
     public void atualizar() {
-        // Atualiza o estado visual do menu se necessário
-    }
-    
-    @Override
-    public void desenhar() {
-        // Desenha o menu na interface
-        exibir();
+        // O menu principal é estático e não requer atualização dinâmica
+        // Este método está presente para cumprir o contrato da classe abstrata
     }
     
     @Override
